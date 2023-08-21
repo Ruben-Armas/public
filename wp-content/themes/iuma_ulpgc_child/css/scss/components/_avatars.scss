@@ -1,0 +1,70 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Avatars styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+.ulpgcds-avatar{
+    display:inline-block;
+    width: 2.5rem;
+    height:2.5rem;
+    line-height:$line-height-l;
+    font-size:$font-size-l;
+    text-align:center;
+    font-family: $font-1;
+    font-weight:$bold;
+    text-transform:uppercase;
+    margin:$layout-xs $layout-xs $layout-xs 0;        
+    img{
+       @include border-radius(50%);        
+    }    
+    &__letter{        
+        background:$color-orange;
+        color:$color-blue;
+        line-height:$line-height-xl;        
+        font-size:$font-size-l;
+        @include border-radius(50%);         
+        &--blue{
+             background:$color-blue;
+             color:$white;
+        }
+    }
+    &--big{
+        width:3rem;
+        height:3rem;
+        
+        .ulpgcds-avatar__letter{
+            line-height:$line-height-xxl;   
+            font-size:$font-size-xl;
+        }
+    }
+    &--large{
+        width:5rem;
+        height:5rem;
+        
+        .ulpgcds-avatar__letter{
+            line-height:5rem;   
+            font-size:$font-size-xxxl; 
+        }
+    }
+    &--small{
+        width:2rem;
+        height:2rem;
+        line-height:$line-height-s;
+        font-size:$font-size-xs;
+        margin:$layout-xxs $layout-xxs $layout-xxs 0; 
+        .ulpgcds-avatar__letter{
+            line-height:$line-height-l;   
+            font-size:$font-size-avatar-small;
+        }
+    }
+    &__fullname{
+        color:$color-blue;
+        font-size:$font-size-m;
+        display: inline;
+        font-weight: $medium;
+        text-transform: capitalize;
+        font-family: $font-1;
+    }
+}

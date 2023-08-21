@@ -1,0 +1,91 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Alerts styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+.ulpgcds-messages{    
+    //background: no-repeat 10px 17px;
+    border: 1px solid;    
+    padding: $spacing-xs $spacing-m $spacing-xs $spacing-xxl; 
+    margin: 0 0 $layout-l 0;
+    @include border-radius($radius);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height:$line-height-xs;
+    font-family:$font-1;
+    font-size:$font-size-xs;
+    font-weight:$medium;
+    /* @include flexContainer(); */
+    a{
+        line-height:$line-height-xs;
+    }
+    &:before{
+        @extend .ulpgcds-icon;    
+        color:$white;
+        position:relative;  
+        left:-24px;
+        z-index:2;
+        /* @include flexContainer();
+        @include justify-content(center);
+        @include align-items(center);*/
+        position:absolute;
+        left:8px;
+        top:8px;
+    }
+    &:after{
+        content: "";
+        position:absolute;
+        top:0;
+        left:0;
+        @include border-radii(3px, 0, 0, 3px);      
+        width:32px;
+        height:100%;
+    }
+    &--error, &.state--3 {
+        background-color: $color-red-10;
+        color: $color-red; 
+        position:relative;
+        &:before{            
+            content: $icon-alert;            
+        }
+        &:after{            
+            background:$color-red;            
+        }
+    }
+    &--status, &.state--5{
+        background-color: $color-green-10;
+        color: $color-green; 
+        position:relative;
+        &:before{            
+            content: $icon-check;            
+        }
+        &:after{            
+            background:$color-green;            
+        }
+    }
+    &--warning, &.state--4{
+        background-color: $color-orange-10;
+        color: $color-orange-dark; 
+        position:relative;
+        &:before{            
+            content: $icon-info;            
+        }
+        &:after{            
+            background:$color-orange-dark;            
+        }
+    }   
+}   
+
+.ulpgcds-highlighted-text{
+    padding:$spacing-l;
+    background: $color-blue-10;
+    @include clearfix;
+    &--orange{
+        background: $color-orange-10;
+    }
+    &--gray{
+        background: $color-gray-5; 
+    }
+}

@@ -1,0 +1,25 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ * @file
+ * Helpers with class and placeholders for #{$theme-name}
+ * ------------------------------- ateigh.com -------------------------------
+ */
+%rayita{
+    content:"";
+    display:block;
+    width:$spacing-l;
+    height:2px;
+    background:$color-blue;
+    top:8px;
+    left:-32px;
+    position:absolute;
+}
+%help-text{
+    font-size: $font-small;
+    color: $color-gray;
+    margin-top: $spacing-xxs; 
+    line-height:$line-height-xs;
+    &:invalid {
+      color: $color-red;
+    }
+}
+

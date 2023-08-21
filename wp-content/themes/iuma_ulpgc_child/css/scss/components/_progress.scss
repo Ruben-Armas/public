@@ -1,0 +1,186 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Progress bar styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+.ulpgcds-progressbar {
+    @include transition($animation-time $animation-type);
+  /* Eliminamos la apariencia nativa, para poder asignar estilos */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Copiado de normalize.css */ 
+  vertical-align: baseline;
+}
+
+/* AÑADIMOS NUESTROS ESTILOS PERSONALIZADOS */
+
+$grosor: 10px;
+$longitud: 10em;
+$color-fondo: $color-blue;
+$color-relleno: $color-orange;
+
+.bg-bar {
+  /* Tamaño unificado */
+  height: $grosor;
+  width: $longitud;
+}
+
+@mixin bg-bar() {
+  background-color: $color-fondo;
+  border-radius: $grosor/2;
+}
+
+@mixin fill-bar() {
+  background-color: $color-relleno;
+  border-radius: $grosor/2;
+}
+.bg-bar::-webkit-progress-bar {
+  @include bg-bar();
+}
+.bg-bar {
+  @include bg-bar();
+  border: none;
+}
+
+.ulpgcds-progressbar--reverse{
+    &.bg-bar{
+        &::-webkit-progress-bar{
+            background-color:$color-white;
+        }
+    }
+}
+
+/* Relleno de la barra en Chrome, Safari, Opera… */
+.bg-bar::-webkit-progress-value {
+  @include fill-bar();
+}
+
+/* Relleno de la barra en Firefox, Waterfox, Tor Browser… */
+.bg-bar::-moz-progress-bar {
+  @include fill-bar();
+}
+
+/* Relleno de la barra en IE y Egde */
+.bg-bar::-ms-fill {
+  @include fill-bar();
+  border: none; /* ¡Explorer añade un borde al relleno! */
+}
+
+/* ESTILOS PERSONALIZADOS PARA EL PROGRESS-POLYFILL (IE8-9) */
+.ulpgcds-progress[role] {
+  @include bg-bar();
+}
+
+.ulpgcds-progress[role]:before {
+  @include bg-bar();
+}
+
+
+.ulpgcds-radial-progress {
+    @include transition($animation-time $animation-type);
+	$circle-size: 120px;
+	$circle-background: $color-blue;
+	$circle-color: $color-orange;
+	$inset-size: 100px;
+	$inset-color: #fbfbfb;
+	$transition-length: 1s;
+	$shadow: none;
+	$percentage-color: $color-blue;
+	$percentage-font-size: 22px;
+	$percentage-text-width: 57px;
+
+        
+        
+	margin: 50px;
+	width:  $circle-size;
+	height: $circle-size;
+
+	background-color: $circle-background;
+	border-radius: 50%;
+	.circle {
+		.mask, .fill, .shadow {
+			width:    $circle-size;
+			height:   $circle-size;
+			position: absolute;
+			border-radius: 50%;
+		}
+		.shadow {
+			box-shadow: $shadow inset;
+		}
+		.mask, .fill {
+			-webkit-backface-visibility: hidden;
+			/* transition: -webkit-transform $transition-length;
+			transition: -ms-transform $transition-length;
+			transition: transform $transition-length; */
+			border-radius: 50%;
+		}
+		.mask {
+			clip: rect(0px, $circle-size, $circle-size, $circle-size/2);
+			.fill {
+				clip: rect(0px, $circle-size/2, $circle-size, 0px);
+				background-color: $circle-color;
+			}
+		}
+	}
+	.inset {
+		width:       $inset-size;
+		height:      $inset-size;
+		position:    absolute;
+		margin-left: ($circle-size - $inset-size)/2;
+		margin-top:  ($circle-size - $inset-size)/2;
+
+		background-color: $inset-color;
+		border-radius: 50%;
+		box-shadow: $shadow;
+		.percentage {
+			width:       $percentage-text-width;
+			position:    absolute;
+			top:         ($inset-size - $percentage-font-size) / 2;
+			left:        ($inset-size - $percentage-text-width) / 2;
+
+			line-height: 1;
+			text-align:  center;		
+			color:       $percentage-color;
+			font-weight: 800;
+			font-size:   $percentage-font-size;
+		}
+                
+	}
+        
+	$i: 0;
+	$increment: 180deg / 100;
+	@while ($i <= 100){
+		&[data-progress="#{$i}"] {
+			.circle {
+				.mask.full, .fill {
+					-webkit-transform: rotate($increment * $i);
+					-ms-transform: rotate($increment * $i);
+					transform: rotate($increment * $i);
+				}	
+				.fill.fix {
+					-webkit-transform: rotate($increment * $i * 2);
+					-ms-transform: rotate($increment * $i * 2);
+					transform: rotate($increment * $i * 2);
+				}
+			}
+			.inset .percentage:before {
+				content: "#{$i}%";
+			}
+		}
+		$i: $i + 1; 
+	}	
+}
+
+.ulpgcds-radial-progress--reverse{
+    background-color:$color-white;
+    .inset{
+        background-color: $color-blue;    
+        .percentage{
+            color:$color-white;
+        }
+    }
+    
+}

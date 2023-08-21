@@ -1,0 +1,70 @@
+/**
+* @author Ateigh Diseño Web SL
+* @file 
+*
+*/
+@import "base/_normalize.scss";
+//UTILS
+@import "utils/_variables.scss";
+@import "utils/_functions.scss";
+@import "utils/_mixins.scss";
+@import "utils/_helpers.scss";
+
+//VENDORS
+//@import "vendors/example.scss";
+
+//BASE 
+@import "base/_base.scss";
+@import "base/_typography.scss";
+@import "base/_colors.scss";
+
+//COMPONENTS
+@import "components/_accordions.scss";
+@import "components/_alerts.scss";
+@import "components/_animations.scss";
+@import "components/_article.scss";
+@import "components/_avatars.scss";
+@import "components/_breadcrumbs.scss";
+@import "components/_buttons.scss";
+@import "components/_datepickers.scss";
+@import "components/_dividers.scss";
+@import "components/_dropdowns.scss";
+@import "components/_inputs.scss";
+@import "components/_textareas.scss";
+@import "components/_labels.scss";
+@import "components/_links.scss";
+@import "components/_lists.scss";
+@import "components/_logo.scss";
+@import "components/_loadings.scss";
+@import "components/_progress.scss";
+@import "components/_pagers.scss";
+@import "components/_sliders.scss";
+@import "components/_tables.scss";
+@import "components/_tabs.scss";
+@import "components/_tags.scss";
+@import "components/_tooltips.scss";
+@import "components/_iframe.scss";
+@import "components/_videos.scss";
+
+
+
+//LAYOUTS
+@import "layout/_blocks.scss";
+@import "layout/_content.scss";
+@import "layout/_cookies.scss";
+@import "layout/_footer.scss";
+@import "layout/_forms.scss";
+@import "layout/_grid.scss";
+@import "layout/_header.scss";
+@import "layout/_paragraphs.scss";
+@import "layout/_sidebars.scss";
+@import "layout/_views.scss";
+
+//PAGES
+@import "pages/_home.scss";
+
+//THEMES
+@import "themes/_intranet.scss";
+
+
+

@@ -1,0 +1,715 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Header styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+.ulpgcds-header{
+    position:fixed;
+    top:0;
+    z-index:100;
+    width:100%;      
+    height:auto;//$header-height;      
+    padding:0; 
+    background:$color-white;
+    z-index:99;         
+    @include mq-device{
+        height:50px;
+        border-bottom: 2px solid $color-blue;
+    }
+    &__top{
+        max-width:$grid-max-width; 
+        width:$width-wrapper;                  
+        z-index:99;
+        padding-right: 0 ;
+        margin: 0 auto;   
+        padding-top:$spacing-l;
+        padding-bottom:$spacing-l;
+        @include clearfix;
+        @include mq('m-screen',min){
+            padding-left:$grid-gutter/2;
+            padding-right:$grid-gutter/2;
+        }
+        //@include mq('l-screen',max){
+        @include mq-device{
+            height:50px;
+            width:100% ;
+            padding-top:0 ; 
+            padding-left:12px; // ajuste para movil
+            padding-right:0;
+        }
+        &__logo{            
+            float:left;
+            @include background("logo_ulpgcds.svg", 0 center);
+            background-size:236px;
+            width:236px;        
+            height:40px;
+            margin: 0;        
+            display:block;
+            @include mq-device{
+                @include background("logo_ulpgcds.svg", 0 center);                        
+                background-size:208px;                
+                margin-top:$layout-xxs;     
+                height:32px;                
+            }
+            
+            a{
+                display:inline-block;
+                width:152px;
+                height:40px;
+                span{
+                    @include visually-hidden;
+                }
+                + a{
+                    width: 62px;
+                    margin-left: 16px;
+                }
+            }                        
+        }
+        &__links{
+            float:right;                         
+            align-self:center;
+            text-align:right;
+            width:auto;
+            position:relative;
+            
+            @include mq-device{
+                padding-top:0;
+            }
+            ul{
+                li{
+                    display:inline-block;
+                    float:none;
+                    height:inherit;
+                    padding:0;
+                    margin:0;
+                    text-align:right;                             
+                    .ulpgcds-btn--text{
+                        padding:$spacing-xs 0;
+                        .ulpgcds-btn__icon:before{
+                            color:$color-orange;                                                                
+                        }   
+                    }
+                    a,button{
+                        height:inherit;
+                        font-size:$font-size-buttons;
+                        min-width:auto;
+                        color:$color-blue;
+                        margin:0;
+                        margin-right:$layout-m; 
+                        text-decoration:none;
+                        cursor:pointer;
+                        @include mq('xl-screen'){
+                            //margin-right:$layout-xs; 
+                        }
+                        &.ulpgcds-btn--primary{
+                            color:$color-white;
+                            margin-right:0;
+                            &:before{
+                                color:$color-white;                                        
+                            }
+                            &:hover{
+                                color:$color-white;                                        
+                                &:before{
+                                    color:$color-white;                                        
+                                }
+                            }
+                        }
+                        &.ulpgcds-btn--secondary{
+                            color:$color-blue;
+                            &:before{
+                                color:$color-blue;                                        
+                            }
+                            &:hover{
+                                color:$color-orange;
+                                &:before{
+                                    color:$color-blue;                                        
+                                }
+                            }
+                        }
+                        &.ulpgcds-btn--text{
+                            &:hover{
+                                color:$color-orange;
+                            }
+                        }
+                        &.hidden-desktop{
+                            display:none;
+                        }
+                    }                    
+                    @include mq-device{
+                        height:48px;
+                        width:48px;
+                        &.hidden-mobile{
+                            display:none;
+                        }                        
+                        a{
+                            @include flexContainer;
+                            @include justify-content(center);
+                            align-items: center;                                    
+                        }
+                    }
+                }                
+            }             
+                .info_usuario{
+                    display: block;
+                    float: right;
+                    position:relative;
+                    height:44px;
+                    cursor:pointer;
+                    .ulpgcds-avatar{
+                        margin-top:4px;
+                    }
+                    .ulpgcds-avatar__fullname{
+                        max-width: 180px;
+                        min-width:150px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: block;
+                        float: right;
+                        line-height:2.5rem;
+                        text-align:left;
+                        padding-right:$spacing-xs;
+                        //@include mq('l-screen',max){
+                        @include mq-device{
+                            display:none;
+                        }
+                    }
+                    &:before{
+                        @include pseudo;
+                        @extend .ulpgcds-icon;
+                        content:$icon-caret-down;
+                        top:12px;
+                        right:-4px;
+                        color:$color-blue;
+
+                    }
+                    @include mq-device{    
+                        display:inline-block;
+                        float:none;
+                        height: 48px;
+                        margin-top: 0;
+                        top: -1px;
+                        &:before{
+                            display:none;
+                        }
+                    }
+                }
+                .submenu{
+                    display:none;
+                    position: absolute;
+                    z-index:999;
+                    width: 260px;
+                    top: 44px;
+                    left:auto;
+                    right: 0;
+                    border-top:4px solid $color-orange;
+                            box-shadow: 0 1px 2px 0 $color-gray-dark;
+                    @include transition(0.5s ease-in-out);
+                    @include border-radius($radius);
+
+                    li{
+                        font-family: $font-1;
+                        font-weight: $medium;
+                        font-size:$font-size-s;
+                        line-height:$line-height-m;
+                        color:$color-gray;
+                        margin:0;
+                        list-style-type:none;
+                        width:100%;  
+                        text-align:left;
+                        display:block;
+                        white-space: initial;
+
+                        a{
+                            padding:$spacing-s $spacing-m $spacing-s $spacing-m;  
+                            background:$color-gray-5;
+                            line-height:$line-height-m;
+                            font-weight:$medium;
+                            font-family:$font-1;
+                            font-size:auto;
+                            color:$color-blue;
+                            display:block;
+                            margin-right:0;
+                            @include border-radius(0);
+                            &:hover{
+                                background:$color-orange-10;
+                                color:$color-blue;
+                            }
+
+                        }
+                        &:last-child{
+                            a{
+                                @include border-radii(0, 0, $radius, $radius); 
+                            }
+                        }
+                    }
+                }                
+                @include mq-device{
+                    display:block;
+                    #btn-search{
+                        line-height:initial;//bug button
+                        width:48px;
+                    }
+                    .ulpgcds-btn--text{
+                        display:none;
+                    }
+                    &:before{
+                        color:$color-blue;
+                        &:hover{
+                            color:$color-orange;    
+                        }
+                    }
+                    .ulpgcds-btn--primary, .ulpgcds-btn--secondary{
+                        padding:$spacing-xxs $spacing-xs; 
+                        margin:0;
+                        background:none;
+                        font-size:0; 
+                        border:0;                            
+                        @include border-radius(0); 
+                        &.hidden-desktop{
+                            @include flexContainer;
+                        }
+                        .ulpgcds-btn__icon{
+                            margin-right:0;
+                            font-size:$font-size-l; 
+                            width:24px;
+                            height:24px;
+                            &:before{
+                                color:$color-blue;
+                            }
+
+                        }
+                        &.open{
+                            background:$color-blue;
+                            border:0;
+                            .ulpgcds-btn__icon{
+                                &:before{
+                                    color:$color-white;
+                                }
+                            }
+                            .nav-toggle{
+                                &:before{
+                                    content:$icon-close;
+                                }
+                            }
+                        }
+                    }
+                    .submenu{
+                        @include transition(none);
+                        border:0;
+                        box-shadow: none;
+                        width:320px;
+                        background:$color-blue;
+                        @include border-radius(0);
+                        li{
+                            a{
+                                background:none;
+                                color:$color-white;
+                                :hover{
+                                    color:$color-orange;
+                                }
+                            }
+                        }
+
+                    }
+                    .info_usuario{
+                        &.open{
+                            background:$color-blue;
+                            :before{
+                                color:$color-white;
+                            }
+                            .ulpgcds-avatar__letter{
+                                background:$color-white;
+                                color:$color-blue;
+                            }
+                            .submenu{
+                                width:320px;
+                                display:block;
+                                top:$header-height-mobile;
+                                right: 0;
+                                left: auto;
+                                position: fixed;
+                                height: 100%;
+                                @include mq('s-screen',max){      
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }            
+            #fila_buscador{                    
+                clear:both;
+                padding:0;
+                .block-search{
+                    display:none; 
+                    &.open{
+                        display:block;
+                        position: fixed;
+                        top: 124px;
+                        height: 100%;
+                        background: $color-blue;
+                        width: 100%;                            
+                        left: 0;
+                        padding-top:80px;    
+                        z-index: 999;
+                        label{
+                            display:block;
+                            height:auto;
+                            clip:initial;
+                            position:relative ;
+
+                        }
+                    }
+
+                }
+
+                li{
+                    list-style-type:none;
+                    display:inline-block;
+                }
+                //@include mq('l-screen',max){                                                
+                @include mq-device{
+                    margin-top:0;
+
+                    .block-search{
+
+                        &.open{
+                            top:50px;
+                        }
+                    }
+                    .idiomas{
+                        display:none ;
+                        text-align:center;
+                        li{
+                            display:inline-block ;
+                            a{
+                                color:$color-white;
+                            }
+                        }
+                    }
+                }
+            }            
+        }
+    }
+    
+    &__bottom{
+        background:$color-blue;
+        max-width: none;
+        height:40px; 
+        position:relative;
+        z-index:99;
+        clear:both;
+        &__menu{
+            @include wrapper;  
+            margin-top:0;
+            margin-bottom:0;
+            font-family:$font-1;
+            font-weight:$medium;                       
+            list-style:none;
+            @include flexContainer();              
+            li{
+                margin: 0;                
+                padding: 0;                
+                list-style: none;
+                width: 100%;                
+                position: relative;                               
+                z-index:999;                                           
+                top:0px;
+                min-height:40px; 
+                text-align:center;
+                @include transition(all 1s $animation-type);
+                span{ 
+                    display:none;                                        
+                    &:before{
+                        @include pseudo;
+                        @extend .ulpgcds-icon;
+                    }
+                }
+                a{
+                    margin: 0;
+                    list-style-type: none;
+                    display: block;
+                    width: 100%;
+                    color:$color-white;
+                    border:0;
+                    font-family:$font-1;
+                    font-size:$font-size-m;
+                    font-weight:$regular;
+                    line-height:$line-height-l;
+                    text-decoration:none;
+                    @include transition(all $animation-time $animation-type);
+                    &:hover{
+                        background:$color-orange;
+                    }
+                }
+                > a{
+                    line-height:$line-height-xl;
+                }
+                ul{
+                    border:0;  
+                    top:40px;
+                    @include transition(all $animation-time $animation-type);
+                    display:none;
+                    position:absolute;
+                    left:0;
+                    width:100%;
+                    li{
+                        display:block;
+                        float:none;
+                        border:0;
+                        padding-bottom:0;  
+                        text-align:left;
+                        width:100%;
+                        a{
+                            padding:$spacing-xs $spacing-m $spacing-xs $spacing-m;  
+                            background:$color-gray-5;
+                            line-height:$line-height-m;
+                            color:$color-gray;
+                            font-family:$font-1;
+                            font-weight:$medium;  
+                            font-size:$font-size-s;
+                            width:100%;
+                            border:0;
+                            @include transition(all $animation-time $animation-type);
+                            &:hover{
+                                background-color:$color-orange-10;
+                                color:$color-blue;
+                                padding:$spacing-xs $spacing-xs $spacing-xs $spacing-l ;
+                            }
+                        }
+                        &.active{
+                            a{
+                                border:0;
+                                color:$color-blue;
+                                border-left:2px solid $color-orange;
+                            }
+                        }
+
+                    }
+                }
+                &:hover{
+                    background:$color-orange;
+                    ul{
+                        display:block;
+                    }
+                }   
+                .open{
+                    display:none;
+                }
+            }
+        }
+        //@include mq('l-screen',max){
+        @include mq-device{
+                display:none;
+                width: 320px;
+                right: 0;
+                position: fixed;
+                min-height: 400px;
+                background:$color-blue ;
+                padding-right:$spacing-m;
+                padding-left:$spacing-m;
+                margin:0;
+                height:auto;
+                height: 100%;
+                overflow: auto;
+                z-index: 999999;
+                .ulpgcds-header__bottom__menu{                        
+                        padding-top:$spacing-xs;
+                        display:block;                                                
+                        overflow: auto;
+                        z-index: 999999;
+                        position:relative;
+                        li{                            
+                            width:100%;
+                            display:block;
+                            clear:both;
+                            padding-top:$spacing-xxs;
+                            border-bottom:1px solid $color-gray-5;                            
+                            &:last-child{                    
+                                border-bottom:1px solid $color-white;
+                            }
+                            a{
+                                border:0;
+                                width:100%;
+                                text-align:left;
+                                color:$color-white;
+                                font-size:$font-size-s;
+                                padding-left:$spacing-xxs;
+                                display:block;
+                                clear:both;
+                                margin:0;
+                                span{
+                                    color:$color-orange;
+                                }
+                                &:hover{
+                                    border:0;
+                                    background:none;                                
+                                    padding-left:$spacing-xxs;
+                                }
+                            }                            
+                        }
+                    }
+                    
+                            &.open{
+                                position:relative;
+                                background:none;
+                                border:0;
+                                top:0;
+                                display:block;
+                                li{
+                                    border-color:$color-orange;
+                                }
+                            }
+                            li{
+                                display:block;
+                                float:none;
+                                width:auto;
+                                border-bottom:1px solid $color-gray-5;
+                                height:auto;
+                                top:0;
+                                margin:0;
+                                padding:0;
+                                @include transition(none);
+                                span{ 
+                                    display:block;
+                                    width:40px;
+                                    height:40px;
+                                    position:absolute;
+                                    right:0;
+                                    top:0;    
+                                    z-index:99;
+                                    color:$color-white;
+                                    font-weight:$medium;
+                                    &:before{
+                                        @include pseudo;
+                                        content: $icon-caret-down;                                                
+                                        width: 24px;
+                                        height: 24px;                                                
+                                        background: none;
+                                        position: absolute;
+                                        right: 0;
+                                        top: 12px;
+                                        z-index: 99;
+                                        color:$color-white;
+                                        font-size:$font-size-m;
+                                        &.open{   
+                                            @include rotate(45);
+                                        }
+                                    }
+                                    &.open{   
+                                        display:block;
+                                        &:before{
+                                            content: $icon-caret-up;
+                                        }
+
+                                    }
+
+                                }
+                                &:hover{
+                                    background:none;
+                                    color:$color-blue;
+                                    border-color:$color-orange;
+                                    ul{
+                                        display:none;
+                                    }
+                                    span{
+                                        background:none;
+                                        cursor:pointer;
+                                        &:before{                                                
+                                            color:$color-white;
+                                        }
+                                    }
+                                    ul{
+                                        display:none;
+                                    }
+                                }
+                                &.click-mobile{
+                                    &:after{
+                                        @include rotate(90deg);
+                                    }
+                                }
+                                ul{   
+                                    top:0; 
+                                    position:relative;  
+                                    padding:0;
+                                    margin:0;
+                                    li{
+                                        background:none;
+                                        color:$color-white;
+                                        border:0;  
+                                        padding-left:$spacing-xs;
+                                        a{
+                                            background: none ;
+                                            color:$color-white;
+                                            padding: $spacing-xs 0 0 $spacing-s;
+                                            &.active{
+                                                border:0 ;
+                                                color:$color-orange;
+                                            } 
+                                            &:hover,&:focus{
+                                                color:$color-orange;
+                                                background:none;
+                                                padding: $spacing-xs 0 0 $spacing-s;
+                                            }
+                                        }
+                                        span{
+                                            display:none;
+                                        }
+                                        &:last-child{
+                                            a{
+                                                padding-bottom:$spacing-s;
+                                            }
+                                        }
+                                    }                                
+                                }
+                                a{
+                                    border:0;
+                                    text-align:left;
+                                    background:none;
+                                    float:none;        
+                                    color:$color-white;
+                                    font-weight:$medium;
+                                    font-size:$font-size-s;
+                                    padding-left:$spacing-xs;
+                                    &:hover,&:focus{
+                                        color:$color-orange;
+                                        background:none ;
+                                    }                                
+                                }
+                                &.active-trail {
+                                    border-bottom:2px solid $color-orange;
+                                    > a{
+                                        color:$color-orange;
+                                        border-color:$color-orange;
+                                    }
+                                    ul{                                    
+                                        border-top:2px solid $color-orange;
+                                    }
+                                    span{
+                                        &:before{
+                                            color:$color-orange;
+                                        }
+                                    }
+                                    li{
+                                        border:0;
+                                        &:last-child{                    
+                                            border-color:$color-orange;
+                                        }
+                                    }
+                                }
+                            }       
+                
+        }  
+
+        @include mq('s-screen',max){       
+            width: 100%;
+        }         
+
+    }    
+}
+    
+.menu-open{
+    overflow:hidden;
+}

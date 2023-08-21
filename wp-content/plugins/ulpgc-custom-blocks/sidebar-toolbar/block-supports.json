@@ -1,0 +1,11 @@
+{
+    "supports": {
+        "align": true,
+        "color": {
+            "text": true,
+            "background": true,
+            "link": true
+        }
+    }
+}
+  

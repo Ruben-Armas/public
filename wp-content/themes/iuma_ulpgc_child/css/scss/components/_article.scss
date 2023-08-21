@@ -1,0 +1,124 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Accordions styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+.ulpgcds-article {
+    margin: 0;
+    padding: 0;
+    max-width:420px;  
+    min-height:240px;
+    figure{
+        margin:0;
+    }
+    h3,h2,&__title {
+        font-weight:$bold;
+        color:$color-blue;
+        font-size:$font-size-l;    
+        line-height:$line-height-l;
+        padding-bottom:$spacing-s;
+        padding-top:$spacing-s; 
+        @include transition(all $animation-time $animation-type);
+        & + p{
+            padding-top:0;
+        }
+    }
+    a{
+        font-family: $font-1;
+        text-decoration:none;
+        color:$color-blue;        
+        img{
+            display:block;
+            border:1px solid $color-gray-20;
+        }
+        .ulpgcds-article__date{
+            font-weight:$medium;
+            font-family:$font-1;            
+            @include transition(all $animation-time $animation-type);
+            pointer-events: none;
+        }
+        &:hover{
+            h3,h2, .ulpgcds-article__title{
+                color:$color-orange;
+            }
+            .ulpgcds-article__date{
+                text-decoration:none; 
+                color:$color-gray;
+            }
+            img{
+                border-color:$color-orange;
+            }
+        }
+                
+    }
+    .ulpgcds-article__date{
+        font-weight:$medium;
+        font-family:$font-1;            
+        @include transition(all $animation-time $animation-type);
+        pointer-events: none;
+        color:$color-gray;
+    }
+    p{        
+        margin-top:0;         
+    }
+    &__date{
+        font-size:$font-size-xs;
+        line-height:$line-height-xs;
+        font-family:$font-1;
+        padding-top:$spacing-xs;
+        padding-bottom:$spacing-xs;        
+        text-transform:uppercase;
+        &+ h3, &+ h2, &+&--title{
+            padding-top:0;
+        }
+        &:hover{
+            color:$color-blue;
+        }
+    }
+    @include mq('s-screen',max){
+        &--short{
+            border-bottom:1px solid $color-orange;
+            padding-bottom:$spacing-m;
+            margin-bottom:$layout-xs;
+            min-height:80px;
+            max-width:100%;
+            figure{
+                width:96px; /*container-width*/
+                overflow: hidden; /*hide bounds of image */
+                margin:0; /*reset margin of figure tag*/
+                float:left;
+            }
+            figure img{
+                display:block; /*remove inline-block spaces*/  
+                margin:0 -38.885%;
+                width:177.777%;
+            }
+
+            h3,h2,.ulpgcds-article__title {
+               font-size:$font-size-s;             
+               line-height:$line-height-s;
+               left: -16px;
+               position: relative;
+               top: 0;
+               padding-bottom:0;
+               margin-left:96px;
+            }
+            .ulpgcds-article__date{
+               font-size:$font-size-xxs;
+               line-height:$line-height-xxs;            
+               left: -16px;
+               position: relative;
+               top: 0;
+               padding-top:0;
+               margin-left:96px;
+            }
+             
+            p{
+                display:none;
+            }
+        }
+    }
+}
+

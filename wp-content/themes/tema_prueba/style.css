@@ -1,0 +1,34 @@
+/* 
+Theme Name: Tema de prueba 
+Template Theme URI: https://prueba.com/
+Author: Rubén
+Description: Tema de prueba para añadir plantillas --> "Como crear una plantilla de Wordpress desde cero".
+Version: 1.0
+*/
+
+body {
+    margin: 0;
+    font-family: Montserrat;
+}
+p {
+    line-height: 1.5em;
+    font-size: 1.1em;
+}
+h1, header .logo, footer .text {
+    text-align: center;
+}
+header {
+    padding: 20px;
+    border-bottom: 2px solid #f1f1f1;
+}
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+footer {
+    padding: 20px;
+    font-weight: bold;
+    background-color: lightgray;
+}

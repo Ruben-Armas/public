@@ -1,0 +1,660 @@
+# Translation of Plugins - Genesis Custom Blocks - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Genesis Custom Blocks - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-07-14 17:36:31+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.1\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Genesis Custom Blocks - Stable (latest release)\n"
+
+#: php/Views/Settings.php:23
+msgid "Enable analytics"
+msgstr "Activar analíticas"
+
+#: php/Admin/Settings.php:69
+msgid "Settings"
+msgstr "Ajustes"
+
+#: php/Admin/Settings.php:68 php/Views/Settings.php:14
+msgid "Genesis Custom Blocks Settings"
+msgstr "Ajustes de Genesis Custom Blocks"
+
+#: php/Blocks/Controls/InnerBlocks.php:31
+msgid "Inner Blocks"
+msgstr "Bloques internos"
+
+#: php/Blocks/Controls/File.php:38
+msgid "File"
+msgstr "Archivo"
+
+#: php/PostTypes/BlockPost.php:354
+msgid "No Template Editor markup or template found"
+msgstr "No se han encontrado marcados o plantillas en el editor de plantillas"
+
+#: php/PostTypes/BlockPost.php:352
+msgid "Template Editor markup found"
+msgstr "Encontrado el marcado en el editor de plantillas"
+
+#. translators: %1$s: file path
+#: php/Blocks/Loader.php:520
+msgid "No Template Editor markup or template file was found: %1$s"
+msgstr "No se ha encontrado ningún archivo de marcado o plantilla en el editor de plantillas: %1$s"
+
+#. translators: Admin screen title. %s: Admin screen name.
+#: php/Views/EditorHeader.php:19
+msgid "%s &#8212; WordPress"
+msgstr "%s &#8212; WordPress"
+
+#. translators: %s: the function name
+#: php/Util.php:150
+msgid "Genesis Custom Blocks's %s"
+msgstr "%s de Genesis Custom Blocks"
+
+#: php/Admin/EditBlock.php:233
+msgid "Please pass a block name"
+msgstr "Por favor, indica un nombre del bloque"
+
+#: php/Admin/EditBlock.php:215
+msgid "Block name"
+msgstr "Nombre del bloque"
+
+#: php/Admin/EditBlock.php:126
+msgid "Block title"
+msgstr "Título del bloque"
+
+#: php/PostTypes/BlockPost.php:320
+msgid "Keywords"
+msgstr "Palabras clave"
+
+#: php/PostTypes/BlockPost.php:319
+msgid "Category"
+msgstr "Categoría"
+
+#: php/PostTypes/BlockPost.php:300
+msgid "Template:"
+msgstr "Plantilla:"
+
+#: php/PostTypes/BlockPost.php:318
+msgid "Template"
+msgstr "Plantilla"
+
+#: php/PostTypes/BlockPost.php:186
+msgid "No blocks found in Trash."
+msgstr "No se han encontrado bloques en la papelera."
+
+#: php/PostTypes/BlockPost.php:185
+msgid "No blocks found."
+msgstr "No se han encontrado bloques."
+
+#: php/PostTypes/BlockPost.php:184
+msgid "Parent Blocks:"
+msgstr "Bloques padre:"
+
+#: php/PostTypes/BlockPost.php:183
+msgid "Search Blocks"
+msgstr "Buscar bloques"
+
+#: php/PostTypes/BlockPost.php:182
+msgid "All Blocks"
+msgstr "Todos los bloques"
+
+#: php/PostTypes/BlockPost.php:181
+msgid "View Block"
+msgstr "Ver el bloque"
+
+#: php/PostTypes/BlockPost.php:180
+msgid "Edit Block"
+msgstr "Editar el bloque"
+
+#: php/PostTypes/BlockPost.php:179
+msgid "New Block"
+msgstr "Nuevo bloque"
+
+#: php/PostTypes/BlockPost.php:178
+msgid "Add New Block"
+msgstr "Añadir un nuevo bloque"
+
+#: php/PostTypes/BlockPost.php:177
+msgctxt "block"
+msgid "Add New"
+msgstr "Añadir nuevo"
+
+#: php/PostTypes/BlockPost.php:176
+msgctxt "add new on admin bar"
+msgid "Block"
+msgstr "Bloque"
+
+#: php/PostTypes/BlockPost.php:175
+msgctxt "admin menu"
+msgid "Custom Blocks"
+msgstr "Bloques personalizados"
+
+#: php/PostTypes/BlockPost.php:174
+msgctxt "post type singular name"
+msgid "Content Block"
+msgstr "Bloque de contenido"
+
+#: php/PostTypes/BlockPost.php:173
+msgctxt "post type general name"
+msgid "Content Blocks"
+msgstr "Bloques de contenido"
+
+#: php/PostTypes/BlockPost.php:137
+msgid "Must be called after the init action so the controls are registered"
+msgstr "Debe llamarse después de la acción de inicio para que se registren los controles"
+
+#. translators: A function name.
+#: php/Deprecated.php:30
+msgid "Genesis Custom Blocks's %1$s"
+msgstr "%1$s de Genesis Custom Blocks"
+
+#: php/Blocks/Field.php:191
+msgid "No"
+msgstr "No"
+
+#: php/Blocks/Field.php:187
+msgid "Yes"
+msgstr "Sí"
+
+#: php/Blocks/Controls/Number.php:38
+msgid "Number"
+msgstr "Número"
+
+#: php/Blocks/Controls/Multiselect.php:65
+msgid "Each default value on a new line."
+msgstr "Cada valor por defecto en una nueva línea."
+
+#: php/Blocks/Controls/Multiselect.php:38
+msgid "Multi-Select"
+msgstr "Selección múltiple"
+
+#: php/Blocks/Controls/Radio.php:31
+msgid "Radio"
+msgstr "Radio"
+
+#: php/Blocks/Controls/Checkbox.php:38
+msgid "Checkbox"
+msgstr "Casilla de verificación"
+
+#: php/Blocks/Controls/Textarea.php:79
+msgid "New Lines"
+msgstr "Nuevas líneas"
+
+#: php/Blocks/Controls/Textarea.php:71
+msgid "Number of Rows"
+msgstr "Número de filas"
+
+#: php/Blocks/Controls/Textarea.php:38
+msgid "Textarea"
+msgstr "Área de texto"
+
+#: php/Blocks/Controls/Image.php:38
+msgid "Image"
+msgstr "Imagen"
+
+#: php/Blocks/Controls/Range.php:69
+msgid "Step Size"
+msgstr "Tamaño del paso"
+
+#: php/Blocks/Controls/Range.php:61
+msgid "Maximum Value"
+msgstr "Valor máximo"
+
+#: php/Blocks/Controls/Range.php:53
+msgid "Minimum Value"
+msgstr "Valor mínimo"
+
+#: php/Blocks/Controls/Range.php:38
+msgid "Range"
+msgstr "Rango"
+
+#: php/Blocks/Controls/Multiselect.php:53 php/Blocks/Controls/Radio.php:46
+#: php/Blocks/Controls/Select.php:46
+msgid "Choices"
+msgstr "Opciones"
+
+#: php/Blocks/Controls/Select.php:31
+msgid "Select"
+msgstr "Seleccionar"
+
+#: php/Blocks/Controls/Toggle.php:38
+msgid "Toggle"
+msgstr "Conmutador"
+
+#: php/Blocks/Controls/Email.php:31
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: php/Blocks/Controls/ControlAbstract.php:121
+msgid "Inspector"
+msgstr "Inspector"
+
+#: php/Blocks/Controls/ControlAbstract.php:120
+#: php/Blocks/Controls/InnerBlocks.php:32
+msgid "Editor"
+msgstr "Editor"
+
+#: php/Blocks/Controls/ControlAbstract.php:113
+msgid "Placeholder Text"
+msgstr "Texto del marcador de posición"
+
+#: php/Blocks/Controls/ControlAbstract.php:101
+msgid "Help Text"
+msgstr "Texto de ayuda"
+
+#: php/Blocks/Controls/ControlAbstract.php:95
+msgid "Field Width"
+msgstr "Anchura del campo"
+
+#: php/Blocks/Controls/ControlAbstract.php:89
+msgid "Field Location"
+msgstr "Ubicación del campo"
+
+#: php/Blocks/Controls/Checkbox.php:53
+#: php/Blocks/Controls/ControlAbstract.php:107 php/Blocks/Controls/Email.php:46
+#: php/Blocks/Controls/Multiselect.php:62 php/Blocks/Controls/Number.php:53
+#: php/Blocks/Controls/Radio.php:55 php/Blocks/Controls/Range.php:77
+#: php/Blocks/Controls/Select.php:55 php/Blocks/Controls/Textarea.php:54
+#: php/Blocks/Controls/Toggle.php:53 php/Blocks/Controls/Url.php:46
+msgid "Default Value"
+msgstr "Valor por defecto"
+
+#: php/Blocks/Controls/Url.php:31
+msgid "URL"
+msgstr "URL"
+
+#: php/Blocks/Controls/Text.php:47 php/Blocks/Controls/Textarea.php:63
+msgid "Character Limit"
+msgstr "Límite de caracteres"
+
+#: php/Blocks/Controls/Text.php:31
+msgid "Text"
+msgstr "Texto"
+
+#: php/Blocks/Controls/Color.php:31
+msgid "Color"
+msgstr "Color"
+
+#: php/Views/Upgrade.php:134
+msgid "24/7 Support"
+msgstr "Soporte 24/7"
+
+#: php/Views/Upgrade.php:133
+msgid "StudioPress Themes"
+msgstr "StudioPress Themes"
+
+#: php/Views/Upgrade.php:132
+msgid "Genesis Framework"
+msgstr "Genesis Framework"
+
+#: php/Views/Upgrade.php:131
+msgid "Advanced Features for Genesis Custom Blocks"
+msgstr "Características avanzadas para Genesis Custom Blocks"
+
+#: php/Views/Upgrade.php:130
+msgid "Advanced Features for Genesis Blocks"
+msgstr "Características avanzadas para Genesis Blocks"
+
+#: php/Views/Upgrade.php:129
+msgid "Everything in free!!!"
+msgstr "¡Todo de forma gratuita!"
+
+#: php/Views/Upgrade.php:124 php/Views/Upgrade.php:136
+msgid "Learn more"
+msgstr "Aprende más"
+
+#: php/Views/Upgrade.php:121
+msgid "Genesis Blocks"
+msgstr "Genesis Blocks"
+
+#: php/Views/Upgrade.php:119
+msgid "Free"
+msgstr "Gratuito"
+
+#: php/Views/Upgrade.php:115
+msgid "Genesis is more than just custom blocks. With Genesis Pro you get access to the entire suite of products and all their advanced feature-sets."
+msgstr "Genesis es más que simples bloques personalizados. Con Genesis Pro, obtienes acceso a la solución completa de productos y a todos sus conjuntos de características avanzadas."
+
+#: php/Views/Upgrade.php:114
+msgid "Do even more with Genesis"
+msgstr "Haz aún más con Genesis"
+
+#: php/Views/Upgrade.php:110
+msgid "A Genesis Pro subscription gives you access to the incredible support teams that have been the Customer Experience foundation of WP Engine and StudioPress. You will be able to build with confidence knowing that you have extensive documentation and 24/7 support available."
+msgstr "Una suscripción a Genesis Pro te da acceso a los increíbles equipos de soporte que han sido la base de la experiencia del cliente de WP Engine y de StudioPress. Podrás construir con confianza sabiendo que tiene una extensa documentación y un soporte disponible 24/7."
+
+#: php/Views/Upgrade.php:109
+msgid "Industry leading Support"
+msgstr "Soporte líder en la industria"
+
+#: php/Views/Upgrade.php:105
+msgid "Export and import on a per-block basis and share your custom blocks between sites and projects."
+msgstr "Exporta e importa por bloques y comparte tus bloques personalizados entre los sitios y proyectos."
+
+#: php/Views/Upgrade.php:104
+msgid "Block Export & Import"
+msgstr "Importar y exportar bloques"
+
+#: php/Views/Upgrade.php:101
+msgid "+ more coming soon…"
+msgstr "+ más próximamente..."
+
+#: php/Views/Upgrade.php:98
+msgid "Classic Text field"
+msgstr "Campo de texto clásico"
+
+#: php/Views/Upgrade.php:86
+msgid "Rich Text field"
+msgstr "Campo de texto enriquecido"
+
+#: php/Views/Upgrade.php:74
+msgid "User field"
+msgstr "Campo de usuario"
+
+#: php/Views/Upgrade.php:62
+msgid "Taxonomy field"
+msgstr "Campo de taxonomía"
+
+#: php/Views/Upgrade.php:50
+msgid "Post field"
+msgstr "Campo de entrada"
+
+#: php/Views/Upgrade.php:38
+msgid "Repeater field"
+msgstr "Campo repetidor"
+
+#: php/Views/Upgrade.php:26
+msgid "Access additional fields for your custom blocks with Genesis Pro."
+msgstr "Accede a campos adicionales para tus bloques personalizados con Genesis Pro."
+
+#: php/Views/Upgrade.php:25
+msgid "Powerful & Dynamic Fields"
+msgstr "Campos potentes y dinámicos"
+
+#: php/Views/Upgrade.php:24
+msgid "Advanced features for Genesis Custom Blocks"
+msgstr "Características avanzadas para Genesis Custom Blocks"
+
+#: php/Views/Upgrade.php:19
+msgid "Get Genesis Pro"
+msgstr "Obtener Genesis Pro"
+
+#: php/Views/Upgrade.php:17
+msgid "Advanced tools for building better WordPress websites faster."
+msgstr "Herramientas avanzadas para crear más rápido mejores webs con WordPress."
+
+#. translators: placeholder refers to title of custom block.
+#: php/Admin/Import.php:317
+msgid "Error importing %s."
+msgstr "Error al importar %s."
+
+#: php/Admin/Import.php:270
+msgid "Invalid JSON."
+msgstr "JSON no válido."
+
+#: php/Admin/Import.php:269
+msgid "Sorry, there was an error processing the file."
+msgstr "Lo siento, ha habido un error al procesar el archivo."
+
+#. translators: placeholder refers to a file directory.
+#: php/Admin/Import.php:256
+msgid "The export file could not be found at %1$s. It is likely that this was caused by a permissions problem."
+msgstr "No se ha encontrado el archivo de exportación en %1$s. Es probable que haya sido causado por un problema de permisos."
+
+#: php/Admin/Import.php:233
+msgid "Import Selected"
+msgstr "Importar lo seleccionado"
+
+#: php/Admin/Import.php:218
+msgid "Replace"
+msgstr "Reemplazar"
+
+#: php/Admin/Import.php:216
+msgid "Import"
+msgstr "Importar"
+
+#: php/Admin/Import.php:212
+msgid "Please select the blocks to import:"
+msgstr "Por favor, selecciona los bloques a importar:"
+
+#: php/Admin/Import.php:201
+msgid "All done!"
+msgstr "¡Todo hecho!"
+
+#. translators: placeholder refers to title of custom block.
+#: php/Admin/Import.php:177
+msgid "Successfully imported %1$s."
+msgstr "Se ha importado correctamente %1$s."
+
+#. translators: %1$s: an opening anchor tag, %2$s: a closing anchor tag
+#: php/Admin/Import.php:136
+msgid "This JSON file should come from the export link or bulk action in the %1$sContent Blocks screen%2$s, not from the main Export tool."
+msgstr "Este archivo JSON debe provenir del enlace de exportación o de la acción en lotes en la pantalla %1$sBloques de contenido%2$s, no de la herramienta de exportación principal."
+
+#: php/Admin/Import.php:130
+msgid "Choose a JSON (.json) file to upload, then click Upload file and import."
+msgstr "Elige un archivo JSON (.json) para subirlo y, después, haz clic en subir el archivo e importar."
+
+#: php/Admin/Import.php:129
+msgid "Welcome! This importer processes Genesis Custom Blocks JSON files, adding custom blocks to this site."
+msgstr "¡Bienvenido! Este importador procesa archivos JSON de Genesis Custom Blocks, añadiendo bloques personalizados a este sitio."
+
+#: php/Admin/Import.php:120
+msgid "Import Genesis Custom Blocks"
+msgstr "Importar Genesis Custom Blocks"
+
+#: php/Admin/Import.php:68
+msgid "Upload base directory not set."
+msgstr "No se ha establecido el directorio base de subida."
+
+#: php/Admin/Import.php:67 php/Admin/Import.php:247 php/Admin/Import.php:253
+msgid "Sorry, there was an error uploading the file."
+msgstr "Lo siento, ha habido un error al subir el archivo."
+
+#: php/Admin/Import.php:40
+msgid "Import custom blocks created with Genesis Custom Blocks."
+msgstr "Importa bloques personalizados creados con Genesis Custom Blocks."
+
+#: php/Admin/Documentation.php:39
+msgid "Documentation"
+msgstr "Documentación"
+
+#: php/Admin/Onboarding.php:428
+msgid "The destination URL"
+msgstr "La URL de destino"
+
+#: php/Admin/Onboarding.php:423
+msgid "Button Link"
+msgstr "Enlace del botón"
+
+#: php/Admin/Onboarding.php:416
+msgid "A Call-to-Action"
+msgstr "Una llamada a la acción"
+
+#: php/Admin/Onboarding.php:411
+msgid "Button Text"
+msgstr "Texto del botón"
+
+#: php/Admin/Onboarding.php:398
+msgid "Description"
+msgstr "Descripción"
+
+#: php/Admin/Onboarding.php:391
+msgid "The primary display text"
+msgstr "El texto de visualización principal"
+
+#: php/Admin/Onboarding.php:386
+msgid "Title"
+msgstr "Título"
+
+#. translators: A keyword, used for search.
+#: php/Admin/Onboarding.php:381
+msgid "template"
+msgstr "plantilla"
+
+#. translators: A keyword, used for search.
+#: php/Admin/Onboarding.php:380
+msgid "tutorial"
+msgstr "tutorial"
+
+#: php/Admin/Onboarding.php:379
+msgid "sample"
+msgstr "ejemplo"
+
+#: php/Admin/Onboarding.php:367 php/Admin/Onboarding.php:375
+msgid "Example Block"
+msgstr "Bloque de ejemplo"
+
+#: php/Admin/Onboarding.php:331
+msgid "Add New Post"
+msgstr "Añadir una nueva entrada"
+
+#: php/Admin/Onboarding.php:329
+msgid "All that's left is to add your block to a post."
+msgstr "Lo único que falta es añadir tu bloque a una entrada."
+
+#: php/Admin/Onboarding.php:328
+msgid "You've created a new block, and added a block template. Well done!"
+msgstr "Acabas de crear un nuevo bloque y has añadido una plantilla de bloque. ¡Bien hecho!"
+
+#: php/Admin/Onboarding.php:327
+msgid "Only one thing left to do!"
+msgstr "¡Solo falta hacer una cosa más!"
+
+#. translators: Placeholders are <strong> html tags.
+#: php/Admin/Onboarding.php:285
+msgid "When you're ready, save your block by pressing %1$sPublish%2$s."
+msgstr "Cuando estés preparado, guarda tu bloque pulsando %1$sPublicar%2$s."
+
+#: php/Admin/Onboarding.php:278
+msgid "Investigate a few different field types"
+msgstr "Investiga algunos tipos de campos distintos"
+
+#: php/Admin/Onboarding.php:277
+msgid "Change the category"
+msgstr "Cambiar la categoría"
+
+#: php/Admin/Onboarding.php:276
+msgid "Choose an icon"
+msgstr "Elegir un icono"
+
+#: php/Admin/Onboarding.php:274
+msgid "Time to experiment!"
+msgstr "¡Es el momento de experimentar!"
+
+#: php/Admin/Onboarding.php:274
+msgid "Test tube emoji"
+msgstr "Emoji tubo de ensayo"
+
+#: php/Admin/Onboarding.php:252
+msgid "Field Types"
+msgstr "Tipos de campo"
+
+#: php/Admin/Onboarding.php:245
+msgid "There are lots of different field types that let you build powerfully dynamic custom blocks."
+msgstr "Hay muchos tipos de campos diferentes que te permiten construir potentes bloques dinámicos personalizados."
+
+#: php/Admin/Onboarding.php:244
+msgid "Fields let you define the options you see when adding your block to a post or page."
+msgstr "Los campos te permiten definir las opciones que ves cuando añades tu bloque a una entrada o página."
+
+#: php/Admin/Onboarding.php:243
+msgid "Try adding a field."
+msgstr "Prueba a añadir un campo."
+
+#: php/Admin/Onboarding.php:243
+msgid "Eyeglass emoji"
+msgstr "Emoji gafas"
+
+#: php/Admin/Onboarding.php:220 php/Admin/Onboarding.php:298
+msgid "Get Started"
+msgstr "Empieza ya"
+
+#: php/Admin/Onboarding.php:216 php/Admin/Onboarding.php:248
+#: php/Admin/Onboarding.php:294
+msgid "Learn more:"
+msgstr "Aprende más:"
+
+#. translators: Placeholders are <strong> and <a> html tags.
+#: php/Admin/Onboarding.php:205
+msgid "You can %1$sEdit%2$s the block to learn more, or just %3$sTrash%4$s it to dismiss this message."
+msgstr "Puedes %1$sEditar%2$s el bloque para aprender más o, simplemente, envíalo a la %3$sPapelera%4$s para descartar este mensaje."
+
+#. translators: Placeholders are <strong> html tags.
+#: php/Admin/Onboarding.php:193
+msgid "We created this %1$sExample Block%2$s to show you just how easy it is to get started."
+msgstr "Hemos creado este %1$sbloque de ejemplo%2$s para mostrarte lo fácil que es comenzar."
+
+#: php/Admin/Onboarding.php:187
+msgid "Ready to begin?"
+msgstr "¿Preparado para comenzar?"
+
+#: php/Admin/Onboarding.php:187
+msgid "Stethescope emoji"
+msgstr "Emoji estetoscopio"
+
+#: php/Admin/Onboarding.php:187
+msgid "Scientist emoji"
+msgstr "Emoji científico"
+
+#: php/Admin/Onboarding.php:168
+msgid "Start here"
+msgstr "Empieza aquí"
+
+#: php/Admin/Onboarding.php:164
+msgid "Prefer to look at the docs?"
+msgstr "¿Prefieres mirar la documentación?"
+
+#: php/Admin/Onboarding.php:161
+msgid "P.S. We don't like to nag. This message won't be shown again."
+msgstr "P.D.: No nos gusta molestar. Este mensaje no se volverá a mostrar."
+
+#: php/Admin/Onboarding.php:154
+msgid "Let's get started!"
+msgstr "¡Empecemos!"
+
+#: php/Admin/Onboarding.php:151
+msgid "Here's one we prepared earlier."
+msgstr "Aquí hay uno que hemos preparado antes."
+
+#: php/Admin/Onboarding.php:151
+msgid "Want to see how it's done?"
+msgstr "¿Quieres ver cómo se hace?"
+
+#: php/Admin/Onboarding.php:150
+msgid "Genesis Custom Blocks makes it easy to build your own blocks for the WordPress editor."
+msgstr "Genesis Custom Blocks hace fácil crear tus propios bloques para el editor de WordPress."
+
+#: php/Admin/Onboarding.php:149
+msgid "Hi, and welcome!"
+msgstr "¡Hola y bienvenido!"
+
+#: php/Admin/Onboarding.php:149
+msgid "Waving hand emoji"
+msgstr "Emoji agitando la mano"
+
+#: php/Admin/Upgrade.php:79 php/Views/Upgrade.php:127
+msgid "Genesis Pro"
+msgstr "Genesis Pro"
+
+#: php/Admin/Upgrade.php:78
+msgid "Genesis Custom Blocks Pro"
+msgstr "Genesis Custom Blocks Pro"
+
+#. Author URI of the plugin
+msgid "https://studiopress.com"
+msgstr "https://studiopress.com"
+
+#. Description of the plugin
+msgid "The easy way to build custom blocks for Gutenberg."
+msgstr "La manera fácil de construir bloques personalizados para Gutenberg."
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: php/Admin/Import.php:39 php/Views/Upgrade.php:16 php/Views/Upgrade.php:122
+msgid "Genesis Custom Blocks"
+msgstr "Genesis Custom Blocks"

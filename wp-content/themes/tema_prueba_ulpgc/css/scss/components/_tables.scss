@@ -1,0 +1,221 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * @file
+ * Styles tables for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+table {
+    width: 100%;
+    margin: 0 0 10px;
+    border:0;
+    border-top:1px solid $color-gray-10;
+    font-size:$font-size-s;
+    font-family:$font-2;
+    border-collapse:collapse;
+    caption {
+        text-align: left; /* LTR */       
+        margin-bottom: $layout-xs;
+        font-family: $font-1;
+        font-weight:$medium;
+        font-size:$font-size-l;
+        line-height:$line-height-l;
+    }
+    [dir="rtl"] caption {
+        text-align: right;
+    }
+    //thead
+    th, &.tablesaw th {
+        text-align: left; /* LTR */
+        padding: 10px 12px;
+        border:0;        
+        color:$primary-color;
+        border-width: 1px 0;
+        border-top:0;
+        color:$color-gray-dark;
+        background:$color-blue-10; 
+        font-size:$font-size-xs;
+    }
+    [dir="rtl"] th {
+      text-align: right;
+    }
+    thead > tr{
+        border:0;
+        background:$color-blue-50;
+    }
+    //tbody
+    tr {
+        border-bottom: 1px solid $color-gray-10;
+        padding: 0.1em 0.6em;
+        &:hover,&:focus{
+            background:$color-gray-5;
+        }
+        td{
+            vertical-align: middle;
+            padding: 10px 12px;
+            text-align: left; /* LTR */
+            font-size:$font-size-xs;
+            a{
+                text-decoration:underline;
+                font-weight:$bold;
+            }
+        }
+        [dir="rtl"] td {
+            text-align: right;
+        }
+    }
+
+    
+    @include mq("s-screen","max"){
+        th, tr{
+            &.priority-low,
+            &.priority-medium {
+                display: none;
+            }
+        } 
+    }
+    @include mq("m-screen","max"){
+        th, tr{
+            &.priority-low{
+                display: none;
+            }
+        } 
+    }
+}
+
+
+.tablesaw-advance{
+    &-dots{
+        display:none;        
+    }
+    &:not(:first-child){
+        display:none;
+    }
+    a{
+        &.tablesaw-nav-btn{
+            @extend .ulpgcds-btn;
+            @extend .ulpgcds-btn--icon;
+            @extend .ulpgcds-btn--small;
+            &.btn-micro, &.up, &.down{
+                @extend .ulpgcds-btn;
+                @extend .ulpgcds-btn--icon;
+                @extend .ulpgcds-btn--small;
+            }
+            &.left{
+                border:0;
+                text-indent:0;
+                font-size:0;
+                left:auto;
+                margin-bottom:0;
+                &:before{
+                    @extend .ulpgcds-icon;
+                    @include pseudo;
+                    content: $icon-caret-left;           
+                    width:16px;
+                    height:16px;
+                    line-height:1rem;
+                    font-size:$font-size-s;
+                    border:0; 
+                    left:auto;
+                }
+            }
+            &.right{
+                border:0;
+                text-indent:0;
+                font-size:0;
+                right:auto;
+                left:auto;
+                margin-bottom:0;
+                &:before{
+                    @extend %icon;
+                    @include pseudo;
+                    content: $icon-caret-right;
+                    width:16px;
+                    height:16px;
+                    line-height:1rem;
+                    font-size:$font-size-s;
+                    border:0;
+                    right:auto;
+                    left:auto;
+                }
+            }
+            &.up{
+                border:0;
+                text-indent:0;
+                font-size:0;
+                right:auto;
+                left:auto;
+                margin-bottom:0;
+                overflow:visible;
+                @extend .ulpgcds-btn--ghost;
+                &:before{
+                    @extend %icon;
+                    @include pseudo;
+                    content: $icon-caret-up;
+                    width:16px;
+                    height:16px;
+                    line-height:1rem;
+                    font-size:$font-size-s;
+                    border:0;
+                    right:auto;
+                    left:auto;
+                    top:8px;
+                }
+            }
+            &.down{
+                border:0;
+                text-indent:0;
+                font-size:0;
+                right:auto;
+                left:auto;
+                margin-bottom:0;
+                overflow: visible;
+                @extend .ulpgcds-btn--ghost;
+                &:before{
+                    @extend %icon;
+                    @include pseudo;
+                    content: $icon-caret-down;
+                    width:16px;
+                    height:16px;
+                    line-height:1rem;
+                    font-size:$font-size-s;
+                    border:0;
+                    right:auto;
+                    left:auto;
+                    top:8px;
+                }
+            }
+        }
+    }
+    .tablesaw-columntoggle-btnwrap{
+        .btn.down, .btn.up{
+            border: 0;
+            text-indent: 0;
+            font-size: 0;
+            right: auto;
+            left: auto;
+            margin-bottom: 0;
+            overflow: visible;
+            span{
+                
+            }
+        }
+    }
+    .tablesaw-columntoggle-popup{
+        top:40px !important;
+    }
+    .tablesaw-columntoggle-btn span{
+        text-indent: 0;
+        display: inline-block;
+        width: 200px;
+        color: $color-blue;
+        font-size: 1rem;
+        right: 200px;
+        position: relative;
+        overflow: visible;
+        z-index: 2;
+        text-align:right;
+        padding-right:$spacing-xxs;
+    }
+}

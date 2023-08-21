@@ -1,0 +1,53 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Links styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+.ulpgcds-link,a {
+  font-family: $font-2;
+  font-weight: $bold;    
+  line-height: $line-height-m; 
+  color: $color-blue;  
+  text-decoration:underline;
+  position:relative;
+  img{
+      
+  }   
+  
+  &:hover {
+    color: $color-orange;
+  }
+  
+  &:active {
+    color: $color-orange-dark;
+  }
+  
+  &:focus{
+      color: $color-orange-dark;
+  }
+  
+  /* &[href*=".pdf"],&[href*=".doc"],&[href*=".docx"],&[href*=".xls"],&[href*=".xlsx"]
+  ,&[href*=".zip"]{      
+      margin-right:$layout-s;
+      position:relative;
+      &:before{
+        @extend %icon;
+        @extend .ulpgcds-icon-file; 
+        position:absolute;
+        right:-18px;
+        top:4px;
+      }
+  }
+  &[target*="_blank"]{
+        margin-right:$layout-s;
+       &:before{
+          @extend %icon; 
+          @extend .ulpgcds-icon-exterior; 
+          position:absolute;
+          right:-18px;
+          top:4px;
+        } 
+    }
+            */
+}

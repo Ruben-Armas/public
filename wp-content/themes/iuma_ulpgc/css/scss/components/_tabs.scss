@@ -1,0 +1,95 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Tabs styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+.ulpgcds-tabs{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    li{
+            background: none;
+            color: $color-gray;
+            display: inline-block;
+            padding: $spacing-s $spacing-m;
+            cursor: pointer;
+            font-weight:$medium;
+            font-size:$font-size-m;   
+            font-family:$font-1;
+            position:relative;            
+            &:hover{
+                color:$color-orange;
+                &:after{
+                    height:4px;
+                    border-bottom:4px solid $color-orange-50;
+                    width:100%;
+                    content:"";
+                    position:absolute;
+                    bottom:-2px;
+                    left:0;
+                    margin:0;   
+                    display:initial;
+                }
+            }
+            &.active,&:active{
+                color:$color-blue;
+                &:after{
+                    height:4px;
+                    border-bottom:4px solid $color-orange;
+                    width:100%;
+                    content:"";
+                    position:absolute;
+                    bottom:-2px;
+                    left:0;
+                }
+                &:focus{                
+                    color:$color-orange-dark;            
+                    &:after{
+                        border-color:$color-orange-dark;
+                    }
+                }
+            } 
+            &:focus{                
+                color:$color-orange-dark;            
+                &:after{
+                    border-color:$color-orange-dark;
+                }
+            }
+            .icon{
+                display:block;
+                text-align:center;
+                margin:0;
+                margin-bottom:$spacing-xxs;
+            }
+            &:after{
+                background:none;
+                top:auto;
+                position:relative;
+                margin:0;
+                @include border-radius(0);          
+                display:initial;
+            }
+    }    
+    @include mq('s-screen',max){
+        white-space: nowrap;
+        overflow: scroll;
+    }
+}
+.ulpgcds-tab-content{
+    display: none;
+    padding: $spacing-xl;
+    background:$color-gray-5;
+    border-top:1px solid $color-gray-50;
+    &.active{
+        display:block;
+    }
+    h3{
+        color:$color-blue;
+        font-weight: $bold;
+    }
+    h4{
+        color:$color-gray;
+    }
+}		

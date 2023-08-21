@@ -1,0 +1,95 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Tags/badges styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+%tag{
+    font-family:$font-1;
+    font-weight:$medium;
+    font-size:$font-size-xs;  
+    line-height:$line-height-xs;
+    background:$color-blue-10; 
+    color:$color-gray;   
+    border:0;    
+    position:relative;    
+    cursor:pointer;
+    padding:$spacing-xxs $spacing-m $spacing-xxs $spacing-m;
+    text-decoration:none;
+    @include border-radius(14px);
+    box-shadow:none;
+    &:visited{
+        color:$color-gray;
+    }
+    span{
+        line-height:$line-height-xs;
+    }     
+    &:hover{
+        background:$color-orange-10;
+        color:$color-gray;
+        &:before{
+            background-color:$color-orange-dark;
+        }
+        &:visited{
+            color:$color-gray;
+        }
+    }    
+    &:focus{
+        background:$color-orange-dark;
+        color:$color-white;
+    }
+}
+%tag-close{         
+    top:0;
+    width:16px;
+    height:16px;
+    font-size:$font-size-xs;
+    line-height:$line-height-xs;
+    display:inline-block;
+    position:relative;
+    text-decoration:none;
+    &:before{
+        @extend %icon;    
+        content: $icon-close;
+        color:$color-blue;    
+        font-size:$font-small;
+        border-radius:50%;
+        padding:2px; 
+        margin-right:0;
+    }    
+    &:hover{    
+        &:before{
+            color:$color-orange;
+        }
+    }    
+    a{
+        margin-left:8px;
+        text-decoration:none;
+    }  
+}
+.ulpgcds-tags{
+    @extend .no-list-bullets;
+    li{
+        display:inline-block;
+        margin:$layout-xs;
+        list-style:none;
+        width:auto;
+    }
+}
+.ulpgcds-tag{
+    a{        
+        @extend %tag;                
+        .ulpgcds-tag__close{
+            @extend %tag-close;            
+        }
+        &:active,&:focus, &:visited:active, &:visited:active:hover{
+            color:$color-white;
+            .ulpgcds-tag__close{
+                color:$color-white;
+                &:before{
+                    color:$color-white;
+                }
+            }
+        }        
+    }    
+}

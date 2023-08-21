@@ -1,0 +1,95 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Videos for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+.ulpgcds-video{
+    position: relative;
+    padding-bottom: 56.25%; /* 16/9 ratio */
+    //padding-top: 30px; /* IE6 workaround*/
+    height: 0;
+    overflow: hidden;
+    z-index:0;
+    cursor:pointer;
+    background-size:cover;
+    background-image:url(../images/no_image.jpg);
+
+    iframe{
+        border:0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;    
+        z-index:9;        
+        display:none;        
+    }
+    &__play{
+        z-index:1;
+        text-indent:-9999px;
+        position:relative;
+        padding-bottom:56.25%;
+        display:block;
+        &:after{
+            @include pseudo;
+            @extend %icon;
+            content: $icon-play;
+            width: 96px;
+            height: 96px;
+            border: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;          
+            margin:auto;
+            color: $white;
+            line-height: 100%;
+            font-size: 6rem;
+            text-indent:0;    
+        }
+        &:before{
+            @include pseudo;
+            width: 96px;
+            height: 96px;
+            background:$color-orange;
+            @include border-radius(50%);            
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;               
+        }        
+    }
+    &:not(.overlay):hover{        
+        &:after{
+            @include pseudo;
+            width:100%;
+            height:100%;
+            background:$color-orange;
+            position:absolute;
+            top:0;
+            left:0;
+            @include transition(opacity $animation-time $animation-type);             
+            @include opacity(0.3);         
+            
+        }
+        span{
+            &:after{
+                
+            }
+            &:before{
+                background:$color-white;
+            }
+        }
+    }
+    &:hover{
+        .ulpgcds-video__play{            
+            &:after{
+                color:$color-orange;
+            }            
+        }
+    }
+}

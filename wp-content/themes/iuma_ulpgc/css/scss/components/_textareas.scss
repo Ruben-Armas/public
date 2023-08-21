@@ -1,0 +1,101 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Textareas for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+.ulpgcds-form{
+    &__item{
+        &--textarea{
+            label{
+                padding-bottom:$spacing-xxs;
+                font-size:$font-size-s;
+                display:block;
+                text-align:left;
+            }
+            textarea {
+                font-size:$font-size-xs;
+                font-family:$font-2;
+                color: $color-gray;
+                height: auto;
+                min-height: 8rem;
+                min-width:360px;
+                background: $color-gray-5;
+                border: none;
+                border-bottom: solid $color-blue 2px;
+                box-sizing: border-box; 
+                padding:$spacing-xs $spacing-s $spacing-xs $spacing-s;
+                line-height:$line-height-m;        
+                @include transition(border $animation-time $animation-type);
+                &.filled {
+                  background: $color-blue-10;
+                }   
+                &:hover {
+                  border-bottom: solid $color-orange 2px;
+                }  
+                &:focus {
+                  border: solid $color-orange-dark 1px;
+                  border-bottom: solid $color-orange-dark 2px;
+                  background: $color-white;
+                }  
+                /* &:focus:required:invalid {
+                    border: none;
+                    border-bottom: solid $color-red 2px;
+                    background: $color-red-10;
+                    + .help-text{
+                        color:$color-red;
+                    }
+                }
+                &:focus:required:valid{
+                  background: $color-gray-5;  
+                  + .help-text{
+                        color:$color-gray; 
+                    }
+                } */
+                &.form-item__error{
+                    border: none;
+                    border-bottom: solid $color-red 2px;
+                    background: $color-red-10;
+                    + .help-text{
+                        color:$color-red;
+                    }
+                    &:valid{
+                        background: $color-blue-10; 
+                        border-color:$color-blue;
+                        + .help-text{
+                              color:$color-gray; 
+                          }
+                    }
+                }
+                &:disabled{
+                  @include opacity(0.5);    
+                  &:hover{
+                      border-bottom: solid $color-blue 2px;
+                  }
+                }
+
+                @include input-placeholder{
+                  color: $color-gray-50;
+                  font-family:$font-2;
+                }
+                @include mq('s-screen',max){
+                    width:100%;       
+                    min-width:100%;
+                }
+            }
+            
+            .help-text {    
+              @extend %help-text;
+            }
+        }
+        &--counter{
+            position:relative;
+            .counter{
+                font-weight:$medium;
+                font-family: $font-1;
+                position:absolute;
+                top:0;                
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+    /* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Tooltips styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+/* --------------- styles for Tooltip -----------------------*/
+
+.ulpgcds-tooltip-raw[aria-hidden="true"],
+.ulpgcds-tooltip--minimalist[aria-hidden="true"],
+.minimalist-left-ulpgcds-tooltip[aria-hidden="true"] {
+  display: none;
+}
+/* position relative for containers */
+.ulpgcds-tooltip__container,
+.ulpgcds-tooltip--minimalist__container,
+.ulpgcds-tooltip--minimalist__container {
+  position: relative;
+}
+
+/* tooltip styles */
+.ulpgcds-tooltip-raw, 
+.ulpgcds-tooltip--minimalist, 
+.minimalist-left-ulpgcds-tooltip {
+  position: absolute;
+  z-index: 666;
+  width: 10em;
+  border-radius: $radius;
+  background: $color-blue;
+  color: $color-white;
+  padding: .5em;
+  text-align: left;
+  line-height: 1.3;
+  box-shadow: 0 1px 2px 0 #565A5C;
+}
+.ulpgcds-tooltip-raw, 
+.ulpgcds-tooltip--minimalist {
+  right: auto;
+  left: 100%;
+  margin-left: .5em;
+}
+.minimalist-left-ulpgcds-tooltip {
+  right: 100%;
+  left: auto;
+  margin-right: .5em;
+}
+/* used pseudo-element to make arrows */
+.ulpgcds-tooltip-raw::before,
+.ulpgcds-tooltip--minimalist::before,
+.minimalist-left-ulpgcds-tooltip::before {
+  content: '';
+  speak: none;
+  position: absolute;
+  z-index: 666;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+}
+.ulpgcds-tooltip-raw::before,
+.ulpgcds-tooltip--minimalist::before {
+  top: .5em;
+  left: -10px;
+  margin-left: -10px;
+  border: 10px solid transparent;
+}
+.minimalist-left-ulpgcds-tooltip::before {
+  top: .5em;
+  right: -10px;
+  margin-right: -10px;
+  border: 10px solid transparent;
+}
+
+
+
+/* it can be easily adapted in media-queries for tablets/mobile */
+
+/* for this example: mobile */
+@media (max-width: 44.375em) {
+
+  .ulpgcds-tooltip-raw, 
+  .ulpgcds-tooltip--minimalist,
+  .minimalist-left-ulpgcds-tooltip  {
+    top: 100%;
+    left: 50%;
+	  right: 0;
+    margin: 0;
+	  margin-top: .7em;
+	  margin-left: -5em;
+  }
+  .ulpgcds-tooltip-raw::before, 
+  .ulpgcds-tooltip--minimalist::before,
+  .minimalist-left-ulpgcds-tooltip::before  {
+    top: -10px;
+	  right: auto;
+	  left: 50%;
+	  margin-left: -5px;
+    margin-top: -10px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid rgba( 0, 0, 0, .9 );
+  }
+  
+}

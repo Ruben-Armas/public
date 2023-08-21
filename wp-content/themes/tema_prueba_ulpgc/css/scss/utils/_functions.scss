@@ -1,0 +1,116 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Functions
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+/// Native `url(..)` function wrapper
+/// @param {String} $base - base URL for the asset
+/// @param {String} $type - asset type folder (e.g. `fonts/`)
+/// @param {String} $path - asset path
+/// @return {Url}
+@function asset($base, $type, $path) {
+  @return url($base + $type + $path);
+}
+
+/// Returns URL to an image based on its path
+/// @param {String} $path - image path
+/// @param {String} $base [$base-url] - base URL
+/// @return {Url}
+/// @require $base-url
+@function image($path, $base: $base-url) {
+  @return asset($base, 'images/', $path);
+}
+
+/// Returns URL to a font based on its path
+/// @param {String} $path - font path
+/// @param {String} $base [$base-url] - base URL
+/// @return {Url}
+/// @require $base-url
+@function font($path, $base: $base-url) {
+  @return asset($base, 'fonts/', $path);
+}
+
+/// Return z-index value from z-indexes map
+/// @param {String} $key - key from z-indexes
+/// @return {Number}
+@function z-index($key) {
+  @return map-get($z-indexes, $key);
+}
+
+/// Convert angle
+/// @author Chris Eppstein
+/// @param {Number} $value - Value to convert
+/// @param {String} $unit - Unit to convert to
+/// @return {Number} Converted angle
+@function convert-angle($value, $unit) {
+  $convertable-units: deg grad turn rad;
+  $conversion-factors: 1 (10grad/9deg) (1turn/360deg) (3.1415926rad/180deg);
+  @if index($convertable-units, unit($value)) and index($convertable-units, $unit) {
+    @return $value
+             / nth($conversion-factors, index($convertable-units, unit($value)))
+             * nth($conversion-factors, index($convertable-units, $unit));
+  }
+  
+  @warn "Cannot convert `#{unit($value)}` to `#{$unit}`.";
+}
+
+/// Test if `$value` is an angle
+/// @param {*} $value - Value to test
+/// @return {Bool}
+@function is-direction($value) {
+  $is-direction: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value);
+  $is-angle: type-of($value) == 'number' and index('deg' 'grad' 'turn' 'rad', unit($value));
+  
+  @return $is-direction or $is-angle;
+}
+
+/// Convert a direction to legacy syntax
+/// @param {Keyword | Angle} $value - Value to convert
+/// @require {function} is-direction
+/// @require {function} convert-angle
+/// @throw Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be a direction.;
+@function legacy-direction($value) {
+  @if is-direction($value) == false {
+    @error "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be a direction.";
+  }
+
+  $conversion-map: (
+    "to top"          : bottom,
+    "to top right"    : bottom left,
+    "to right top"    : left bottom,
+    "to right"        : left,
+    "to bottom right" : top left,
+    "to right bottom" : left top,
+    "to bottom"       : top,
+    "to bottom left"  : top right,
+    "to left bottom"  : right top,
+    "to left"         : right,
+    "to left top"     : right bottom,
+    "to top left"     : bottom right
+  );
+
+  @if map-has-key($conversion-map, $value) {
+    @return map-get($conversion-map, $value);
+  }
+
+  @return 90deg - $value;
+}
+
+@function device($orientation: null, $device-width: null, $device-width-max: null){
+   /* @if ($device-width != null){
+        @if ($device-width-max){
+           @if ($orientation){
+                @media only screen and (min-width: $device-width) and (max-width: $device-width-max) and (orientation: $orientation){
+                    @content;
+                }
+           } 
+           @else {
+               @media only screen and (min-width: $device-width) and (max-width: $device-width-max) {
+                    @content;
+                }
+           }
+        }
+    } */
+}

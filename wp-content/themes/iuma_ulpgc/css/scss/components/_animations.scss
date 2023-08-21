@@ -1,0 +1,22 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Animations styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+
+@keyframes appear {
+  from { 
+      @include scale(0.9); 
+      @include opacity(0); 
+  }
+  to { 
+      @include scale(1); 
+      @include opacity(1); 
+  }
+}
+
+@keyframes nameX {
+ // how_it_works;
+}

@@ -1,0 +1,78 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Pagers, next, prev, etc styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+.ulpgcds-pager{
+    clear:both;    
+    &__results{
+        text-align:center;
+        font-size:$font-size-xs;
+        line-height:$line-height-xs;
+        + ul{
+            margin-top:$layout-s;
+        }
+    }
+    &__items,ul{
+        text-align:center;
+    }    
+    &__item{
+        display:inline-block;
+        text-align:center;
+        padding:0 $spacing-xxs 0 $spacing-xxs;
+        a{
+            display:block;
+            width:1.5rem;
+            height:1.5rem;
+            background:none;
+            border:0;
+            color:$color-gray;    
+            line-height: $line-height-m;
+            font-size:$font-size-xs;
+            cursor:pointer;
+            text-decoration:none;
+            font-weight:$regular;
+        }
+        &--is-active a, &--is-active--li{
+            background:$color-blue;
+            color:$white;
+            @include border-radius($radius);
+            pointer-events: none;
+        }
+        a:hover{
+            background:$color-blue-10;
+            color:$color-gray;
+            font-weight:bold;
+            @include border-radius($radius);
+        }
+        a:focus{
+            background:$color-orange-10;
+        }
+        &--first{
+
+        }
+        &--prev{    
+            a{
+                @extend %icon;
+                @extend .ulpgcds-icon-chevron-left;
+            }
+
+        }
+        &--last{
+
+        }
+        &--next{
+            a{
+                @extend %icon;
+                @extend .ulpgcds-icon-chevron-right;
+            }
+        }  
+        a[aria-disabled="true"]{
+            color:$color-gray-10;
+            pointer-events:none; 
+            background:none;
+        }            
+    }
+
+}  

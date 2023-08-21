@@ -1,0 +1,111 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Loadings styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+.ulpgcds-loader{
+    position:relative;
+    min-height:6rem;
+    &__logo{
+        width: 96px;
+        height: 96px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom:0;
+        right: 0;
+        margin: auto;
+        .color-logo {
+            fill: $color-blue;
+        }
+        &--reverse{  
+            width: 96px;
+            height: 96px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom:0;
+            right: 0;
+            margin: auto;
+            .color-logo {
+             fill: $color-white;
+            }
+        }
+    }
+    
+}
+
+.spinner-1 {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right: 0;
+  margin: auto;
+}
+
+.spinner-1 .line {
+  fill: none;
+  stroke: $color-orange;
+  stroke-width: 8%;
+  opacity: 1;
+  stroke-linecap: round;
+  transform-origin: 50% 50%;
+  transform: rotate3d(0, 0, 1, 0deg);
+  animation: 2000ms spinner-1-arc ease-in-out infinite, 1800ms spinner-1-rotate linear infinite;
+  -webit-animation: 2000ms spinner-1-arc ease-in-out infinite, 1800ms spinner-1-rotate linear infinite;
+}
+.spinner-1 .ring {
+  fill: none;
+  stroke: $color-blue;
+  stroke-width: 8%;
+  opacity: 1;
+}
+@keyframes spinner-1-rotate {
+  to { 
+      @include transform(rotate3d(0, 0, 1, 360deg)); 
+  }
+}
+@keyframes spinner-1-arc {
+  from { stroke-dasharray: 0 150; stroke-dashoffset: 0; }
+  to { stroke-dasharray: 100 150; stroke-dashoffset: -140; }
+}
+
+.spinner-2 {
+  width: 120;
+  height: 120px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right: 0;
+  margin: auto;
+}
+
+.spinner-2 .line {
+  fill: none;
+  stroke: $color-orange;
+  stroke-width: 4%;
+  opacity: 1;
+  stroke-linecap: round;
+  transform-origin: 50% 50%;
+  transform: rotate3d(0, 0, 1, 0deg);
+  animation: 2000ms spinner-2-arc ease-in-out infinite, 1800ms spinner-2-rotate linear infinite;
+  -webkit-animation: 2000ms spinner-2-arc ease-in-out infinite, 1800ms spinner-2-rotate linear infinite;
+}
+
+
+@keyframes spinner-2-rotate {
+  to { 
+      @include transform(rotate3d(0, 0, 1, 360deg)); }
+}
+@keyframes spinner-2-arc {
+  from { stroke-dasharray: 0 150; stroke-dashoffset: 0; }
+  to { stroke-dasharray: 100 150; stroke-dashoffset: -140; }
+}

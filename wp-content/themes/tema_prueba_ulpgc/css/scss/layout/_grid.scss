@@ -1,0 +1,113 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * Grids styles for #{$theme-name}
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+
+.wrapper, .ulpgcds-grid {
+    max-width: $grid-breakpoint;
+    padding:0 $grid-safemargin;
+    margin:0 auto;       
+    &--fluid{
+        width:100%;
+        max-width:100%;
+        padding:0;
+        overflow:hidden;
+    }
+    @include mq('m-screen',max){
+        max-width: $grid-breakpoint-md;
+        padding:0 $grid-safemargin-md;
+    } 
+    @include mq('s-screen',max){
+        max-width: $grid-breakpoint-sm;
+        padding:0 $grid-safemargin-sm;
+    } 
+}
+
+    .row{
+        @include flexContainer;
+        flex-wrap: wrap;
+        margin-left:-$grid-gutter/2;
+        margin-right:-$grid-gutter/2;
+        + .row{
+            margin-top:$grid-gutter/2;
+            clear:both;
+        }
+        @include mq('m-screen',max){
+            margin-left:-$grid-gutter-md/2;
+            margin-right:-$grid-gutter-md/2;
+            + .row{
+                margin-top:$grid-gutter-md/2;
+            }
+        } 
+        @include mq('s-screen',max){
+            margin-left:-$grid-gutter-sm/2;
+            margin-right:-$grid-gutter-sm/2;
+            + .row{
+                margin-top:$grid-gutter-sm/2;
+            }
+        }         
+        .col-center{
+            margin:0 auto;
+            left:0;
+            right:0;
+        }
+        [class*="col-"]{
+            overflow:hidden;
+        }                
+        @for $i from 1 through $grid-columns {
+            .col-#{$i} {
+                $col__width: 100% / ($grid-columns / $i);
+                flex-basis: calc(#{$col__width} - #{$grid-gutter});
+                margin: 0 ($grid-gutter / 2) 0 ($grid-gutter / 2);
+                //padding: 0 ($grid-gutter / 2) 0 ($grid-gutter / 2);
+            }
+            .col-offset-#{$i} {
+                margin-left: calc(100% / (#{$grid-columns} / #{$i}) + (#{$grid-gutter} / 2));
+            }
+        }
+        
+        /* Columns Tablet */
+        @include mq-device{          
+        //@include mq('m-screen',max){      
+            @for $i from 1 through $grid-columns-md {                
+                .col-md-#{$i} {
+                    $col__width: 100% / ($grid-columns-md / $i);
+                    flex-basis: calc(#{$col__width} - #{$grid-gutter-md});
+                    margin: 0 ($grid-gutter-md / 2) 0 ($grid-gutter-md / 2);
+                    //padding: 0 ($grid-gutter-md / 2) 0 ($grid-gutter-md / 2);
+                }
+                .col-offset-md-#{$i} {                    
+                    margin-left: calc(100% / (#{$grid-columns-md} / #{$i}) + (#{$grid-gutter-md} / 2));
+                }
+            }
+        } 
+        
+        /* Columns Mobile */
+        @include mq('s-screen',max){      
+            @for $i from 1 through $grid-columns {
+                .col-#{$i} {
+                    width:100%; 
+                    overflow:hidden;
+                    flex-basis: 100%;                    
+                    margin: 0 $grid-gutter-sm/2;                                           
+                }             
+            }  
+            @for $i from 1 through $grid-columns-sm {
+                
+                .col-sm-#{$i} {
+                    $col__width: 100% / ($grid-columns-sm / $i);
+                    flex-basis: calc(#{$col__width} - #{$grid-gutter-sm});
+                    margin: 0 ($grid-gutter / 2) 0 ($grid-gutter-sm / 2);
+                    //padding: 0 ($grid-gutter-sm / 2) 0 ($grid-gutter-sm / 2);
+                }
+                .col-offset-sm-#{$i} {
+                    margin-left: 100% / ($grid-columns-sm / $i);
+                }
+                
+            }
+        }        
+    }
+    
