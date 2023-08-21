@@ -49,8 +49,8 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
         }
         return { tabName: '', tabIcon: '', randomId: 0 }; // Si no es el bloque esperado, devuelve una cadena vacía
       });
-      console.log('atributosHijos->');
-      console.log(atributosHijos);
+      //console.log('atributosHijos->');
+      //console.log(atributosHijos);
 
       // Actualizar los atributos items en el bloque padre solo una vez
       props.setAttributes({ items: atributosHijos });
@@ -65,6 +65,14 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
       updateData();
     }, []);
 
+    const savedMessageElement = showSavedMessage && wp.element.createElement(
+      wp.components.Notice,
+      {
+        status: 'success',
+        isDismissible: false
+      },
+      'Guardado'
+    );
     const saveElements = wp.element.createElement(
       'div', null,
       wp.element.createElement(
@@ -75,14 +83,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
         },
         'Recuerde Guardar / Actualizar el Bloque'
       ),
-      showSavedMessage && wp.element.createElement(
-        wp.components.Notice,
-        {
-          status: 'success',
-          isDismissible: false
-        },
-        'Guardado'
-      ),
+      savedMessageElement,
       wp.element.createElement(
         wp.components.Flex,
         { direction: 'row', wrap: 'wrap' },
@@ -235,6 +236,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     // Preview
     const preview = wp.element.createElement(
       'div', null,
+      savedMessageElement,
       wp.element.createElement(
         'ul',
         { className: 'ulpgcds-tabs' },
@@ -275,7 +277,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
           wp.blockEditor.InnerBlocks,
           {
             allowedBlocks: ['tabs-block/tab-item'],
-            template: [['tabs-block/tab-item', { isActive: true }]],
+            template: [['tabs-block/tab-item']],
             templateLock: false,
           }
         ),
@@ -359,16 +361,11 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
       type: 'boolean',
       default: false,
     },
-    isFirst: {
-      type: 'boolean',
-      default: false,
-    },
   },
 
   edit: function(props) {
     const { attributes, setAttributes } = props;
-    const { tabName, tabIcon, randomId, isActive, isFirst } = attributes;
-    console.log('props.clientId-> '+props.clientId);
+    const { tabName, tabIcon, randomId, isActive } = attributes;
 
     var setTabName = function(newTabName) {
       setAttributes({ tabName: newTabName });
@@ -377,8 +374,8 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
       setAttributes({ tabIcon: newTabIcon });
     };
 
-    // UseEffect para actualizar los atributos randomId e isActive solo una vez al cargar la página
-    React.useEffect(() => {
+    // Si es el primer bloque -> isActive: true
+    function checkIfFirstBlock() {
       // Obtén el ID del bloque padre
       const parentClientId = wp.data.select('core/block-editor').getBlockHierarchyRootClientId(props.clientId);
 
@@ -387,13 +384,14 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
 
       // Comprueba si el bloque actual es el primer bloque hijo
       const isFirstBlock = parentInnerBlocks.length > 0 && parentInnerBlocks[0].clientId === props.clientId;
-      setAttributes({ isFirst: isFirstBlock })
+      setAttributes({ isActive: isFirstBlock })
+    }
 
-      // Actualiza el atributo isActive solo una vez
-      if (!isActive) {
-        setAttributes({ isActive: true });
-      }
-
+    // Actualiza isActive
+    checkIfFirstBlock();
+    
+    // UseEffect para actualizar los atributos randomId solo una vez al cargar la página
+    React.useEffect(() => {
       // Actualiza el atributo randomId solo una vez
       if (!randomId) {
         const randId = Math.floor(Math.random() * 10000);
@@ -404,7 +402,7 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
     return wp.element.createElement(
       wp.components.PanelBody,
       {
-        title: 'Pestaña',
+        title: `Pestaña --> ${tabName}`,
         initialOpen: false,
       },
       wp.element.createElement(
@@ -430,19 +428,22 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
       wp.element.createElement(
         wp.blockEditor.InnerBlocks,
         {
-          template: [['core/paragraph']],
+          template: [
+            [ 'core/heading', { level: 3, value: tabName, placeholder: 'Título (Opcional)' } ],
+            ['core/paragraph']
+          ],
           templateLock: false
         }
       ),
     );
   },
   save: function(props) {
-    const { randomId, isActive, isFirst } = props.attributes;
-    console.log('isFirst-> '+ isFirst);
+    const { randomId, isActive } = props.attributes;
+    
     return wp.element.createElement(
       'div',
       {
-        className: `ulpgcds-tab-content ${isFirst ? 'active' : ''}`,
+        className: `ulpgcds-tab-content ${isActive ? 'active' : ''}`,
         id: `tab-${randomId}`,
       },
       wp.element.createElement(
