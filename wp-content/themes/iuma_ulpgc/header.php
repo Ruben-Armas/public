@@ -1,36 +1,27 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <!--<meta name="description" content="Sitio Demo del Sistema de diseño de la ULPGC">
-    <meta name="MobileOptimized" content="width">
-    <meta name="HandheldFriendly" content="true">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="https://designsystem.ulpgc.es/themes/ulpgcds/ulpgcds/js/chosen/chosen.css" media="all">
-    <link type="text/css" rel="stylesheet" href="https://designsystem.ulpgc.es/themes/ulpgcds/ulpgcds/js/jquery.ui/datepicker.css" media="all">
-    <link type="text/css" rel="stylesheet" href="https://designsystem.ulpgc.es/themes/ulpgcds/ulpgcds/js/tablesaw/tablesaw.css" media="all">
-    <link type="text/css" rel="stylesheet" href="https://designsystem.ulpgc.es/themes/ulpgcds/ulpgcds/js/slick/slick.css" media="all">
-    <link type="text/css" rel="stylesheet" href="https://designsystem.ulpgc.es/themes/ulpgcds/ulpgcds/css/ulpgcds.css" media="all">
-    <link type="text/css" rel="stylesheet" href="/code/demo/assets/css/demo.css" media="all">
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="https://designsystem.ulpgc.es/themes/ulpgcds/ulpgcds/js/tablesaw/tablesaw.jquery.js"></script>
-    <script type="text/javascript" src="https://designsystem.ulpgc.es/themes/ulpgcds/ulpgcds/js/tablesaw/tablesaw-init.js"></script>-->
-
     <title><?php wp_title(); ?></title>
 
-    <!--ulpgc style-->
-    <link type="text/css" rel="stylesheet" href="https://cdn.ulpgc.es/ulpgcds/1.0/css/ulpgcds.css" media="all" />
-    <!--carrusel-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.css"/>
-    <script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!--jquery-->
+	<script src="https://www2.ulpgc.es/js/jquery-latest.js"></script>
+
+	<!--ulpgc style-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.ulpgc.es/ulpgcds/1.0/css/ulpgcds.css" media="all" />
+	<!--carrusel-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.css"/>
+	<!--ORIGINAL CON ERRORES<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.min.js"></script>-->
+	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.js"></script>
     
     <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>		
     <!--ulpgc style-->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/ulpgcds.js?v=1.0"></script>
+	<!--jquery MOVIDO AL PRINCIPIO<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/ulpgcds.js?v=1.0"></script>
 
     <?php wp_body_open(); ?>
     <header class="ulpgcds-header">
