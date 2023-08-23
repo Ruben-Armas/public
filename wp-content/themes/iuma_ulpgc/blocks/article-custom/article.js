@@ -12,11 +12,11 @@ const getFormattedDate = (dateCheck, date) => {
 };
 
 // Registro del bloque
-wp.blocks.registerBlockType('tabs-block/my-block', {
-  title: 'Pestañas / Tabs',
-  className: 'ulpgcds-tabs',
-  description: 'Pestañas con el estilo de la ULPGC',
-  icon: 'table-row-after',
+wp.blocks.registerBlockType('article-block/my-block', {
+  title: 'Artículo',
+  className: 'ulpgcds-article',
+  description: 'Artículo con el estilo de la ULPGC',
+  icon: 'id-alt',
   category: 'ulpgc',
   attributes: {
     dateCheck: {
@@ -30,6 +30,18 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     phoneView: {
       type: 'boolean',
       default: false
+    },
+    url: {
+      type: 'string',
+      default: ''
+    },
+    image: {
+      type: 'string',
+      default: ''
+    },
+    altImage: {
+      type: 'string',
+      default: ''
     },
     title: {
       type: 'string',
