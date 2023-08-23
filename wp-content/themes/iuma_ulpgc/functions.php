@@ -37,6 +37,7 @@ require_once get_template_directory() . '/blocks/video-youtube/youtube-block.php
 require_once get_template_directory() . '/blocks/video-bustreaming/bustreaming-block.php';
 require_once get_template_directory() . '/blocks/video-vimeo/vimeo-block.php';
 require_once get_template_directory() . '/blocks/tabs-custom/tabs.php';
+require_once get_template_directory() . '/blocks/article-custom/article.php';
 
 // Modify WP Editor Blocks Output
 require_once get_template_directory() . '/blocks-modified/column_mod.php';
