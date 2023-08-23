@@ -3,8 +3,6 @@
     <meta charset="utf-8">
     <title><?php wp_title(); ?></title>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
     <!--jquery-->
 	<script src="https://www2.ulpgc.es/js/jquery-latest.js"></script>
 
