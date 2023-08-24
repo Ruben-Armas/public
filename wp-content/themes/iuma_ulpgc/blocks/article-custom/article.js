@@ -115,6 +115,8 @@ wp.blocks.registerBlockType('article-block/my-block', {
       setIsEditing(false);
     };
 
+    const defaultImage = '/wp-content/themes/iuma_ulpgc/images/default.png';
+
     // Preview
     const previewContent = wp.element.createElement(
       'div',
@@ -124,10 +126,18 @@ wp.blocks.registerBlockType('article-block/my-block', {
       wp.element.createElement(
         'a',
         { href: url ? url : '#' },
-        image && wp.element.createElement(
+        // Imagen
+        title ? image && wp.element.createElement(
           'img',
           {
             src: image,
+            alt: altImage ? altImage : 'Descripción de la imagen',
+          },
+        ) :
+        wp.element.createElement(
+          'img',
+          {
+            src: image ? image : defaultImage,
             alt: altImage ? altImage : 'Descripción de la imagen',
           },
         ),
