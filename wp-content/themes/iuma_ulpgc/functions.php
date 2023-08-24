@@ -32,12 +32,15 @@ function deshabilitar_estilos_astra() {
 add_action( 'wp_enqueue_scripts', 'deshabilitar_estilos_astra', 20 );*/
 
 
-// Custom Editor Blocks (A mano)
+// Custom Editor Blocks
 require_once get_template_directory() . '/blocks/video-youtube/youtube-block.php';
 require_once get_template_directory() . '/blocks/video-bustreaming/bustreaming-block.php';
 require_once get_template_directory() . '/blocks/video-vimeo/vimeo-block.php';
 require_once get_template_directory() . '/blocks/tabs-custom/tabs.php';
 require_once get_template_directory() . '/blocks/article-custom/article.php';
+
+// Custom Editor Blocks Dynamic
+require_once get_template_directory() . '/blocks-dynamic/carrusel-news/carrusel_news.php';
 
 // Modify WP Editor Blocks Output
 require_once get_template_directory() . '/blocks-modified/column_mod.php';
