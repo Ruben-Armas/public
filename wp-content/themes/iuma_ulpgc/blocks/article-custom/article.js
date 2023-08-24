@@ -1,10 +1,14 @@
 const getFormattedDate = (dateCheck, date) => {
   if (dateCheck && date) {
-    const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+    const capitalizeMonth = (month) => {
+      return month.charAt(0).toUpperCase() + month.slice(1);
+    };
+  
+    const formattedDate = date ? new Date(date).toLocaleDateString('es-ES', {
       day: '2-digit',
       month: 'short',
       year: 'numeric'
-    });
+    }).replace(/(\w+)/, capitalizeMonth) : '';
     return formattedDate;
   } else {
     return '';
@@ -219,20 +223,53 @@ wp.blocks.registerBlockType('article-block/my-block', {
     ];
   },
   // Save view
-  save: function (props) {
-    const { dateCheck, date, title, content } = props.attributes;
-
-    const formattedDate = getFormattedDate(dateCheck, date);
-
+  save: function(props) {
+    const { dateCheck, date, phoneView, url, image, altImage, title, content } = props.attributes;
+    let customClassName = 'ulpgcds-article';
+    let customDate = '';
+  
+    if (phoneView)
+      customClassName = 'ulpgcds-article ulpgcds-article--short';
+  
+    customDate = getFormattedDate(dateCheck, date);
+  
     return wp.element.createElement(
       'div',
       {
-        className: 'ulpgcds-article'
+        className: customClassName
       },
-      wp.element.createElement('p', null, 'Fecha: ' + formattedDate),
-      wp.element.createElement('h2', null, { __html: title }),
-      wp.element.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
-      // Resto del código del bloque save...
-    );
+      wp.element.createElement(
+        'a',
+        { href: url },
+        wp.element.createElement(
+          'img',
+          {
+            src: image,
+            alt: altImage,
+          },
+        ),
+        // Mostrar el elemento div con la fecha si dateCheck está activo y date tiene un valor
+        customDate && wp.element.createElement(
+          'div',
+          { className: 'ulpgcds-article__date' },
+          customDate
+        ),
+        wp.element.createElement(
+          'h3',
+          {},
+          title
+        ),
+      ),
+      wp.element.createElement(
+        'p',
+        {},
+        content
+      ),
+      wp.element.createElement(
+        'p',
+        { className: 'fecha' },
+        date
+      )
+    )
   }
 });
