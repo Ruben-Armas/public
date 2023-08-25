@@ -85,7 +85,7 @@ function carruselnews_render($attributes, $content) {
 
   $maxPostEditToShow = 5; // Número de artículos a mostrar en el editor
   $counter = 0; // Contador para contar los artículos mostrados
-  $maxPosts = $attributes['maxPosts'];
+  $numMaxWords = $attributes['maxWords'];
 
   foreach ( $recent_posts as $recent_post ) {
     $counter++;
@@ -99,9 +99,9 @@ function carruselnews_render($attributes, $content) {
     // Si no hay extracto, obtener una versión truncada del contenido para mostrar como extracto
     if ( empty($recent_post_excerpt) ) {
       $content = $recent_post['post_content'];
-      $recent_post_excerpt = wp_trim_words( $content, $attributes['maxWords'] );
+      $recent_post_excerpt = wp_trim_words( $content, $numMaxWords );
     } else {
-      $recent_post_excerpt = wp_trim_words( $recent_post_excerpt, $attributes['maxWords'] );
+      $recent_post_excerpt = wp_trim_words( $recent_post_excerpt, $numMaxWords );
     }
 
     // Mostrar solo 5 artículos en el editor
