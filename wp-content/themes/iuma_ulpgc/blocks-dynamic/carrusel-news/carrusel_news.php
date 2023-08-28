@@ -96,6 +96,12 @@ function carruselnews_render($attributes, $content) {
     $recent_post_content = $recent_post['post_content'];  //Todo el contenido
     $recent_post_permalink = get_permalink( $recent_post['ID'] );
 
+    // Obtener la URL de la imagen destacada
+    $featured_image_url = get_the_post_thumbnail_url( $recent_post['ID'], 'medium' );
+    // Obtener la descripción de la imagen destacada (texto alternativo)
+    $image_alt = get_post_meta( get_post_thumbnail_id( $recent_post['ID'] ), '_wp_attachment_image_alt', true );
+    if ($featured_image_url && $image_alt == '') $image_alt = 'Imagen destacada de ('. $recent_post_title. ')';
+
     // Si no hay extracto, obtener una versión truncada del contenido para mostrar como extracto
     if ( empty($recent_post_excerpt) ) {
       $content = $recent_post['post_content'];
@@ -113,6 +119,7 @@ function carruselnews_render($attributes, $content) {
       $output .= "
         <article class='ulpgcds-article'>
           <a href='$recent_post_permalink'>
+            <img src='$featured_image_url' alt='$image_alt'>
             <h3>$recent_post_title</h3>
             <div class='ulpgcds-article__date'>$recent_post_date</div>
           </a>

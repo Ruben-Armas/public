@@ -115,61 +115,6 @@ add_filter('block_type_metadata', 'modify_block_category', 10, 2);
 
 
 //Pruebas--------------------
-use function Genesis\CustomBlocks\add_block;
-use function Genesis\CustomBlocks\add_field;
-
-function register_other_dr_seuss_block() {
-    add_block(
-        'one-fish',
-        array(
-            'title'    => 'One Fish',
-            'category' => 'common',
-            'icon'     => 'waves',
-            'excluded' => array( 'post' ),
-            'keywords' => array( 'sad', 'glad', 'bad' ),
-            'fields'   => array(
-                'thin' => array(
-                    'label'   => 'Thin',
-                    'control' => 'toggle',
-                    'width'   => '25',
-                    'default' => true,
-                ),
-                'fat' => array(
-                    'label'   => 'Fat',
-                    'control' => 'toggle',
-                    'width'   => '25',
-                    'default' => false,
-                ),
-                'hat'  => array(
-                    'label'   => 'Hat',
-                    'control' => 'select',
-                    'width'   => '50',
-                    'options' => array(
-                        array(
-                            'label' => 'Yellow',
-                            'value' => 'yellow',
-                        ),
-                        array(
-                            'label' => 'Red',
-                            'value' => 'red',
-                        ),
-                        array(
-                            'label' => 'Blue',
-                            'value' => 'blue',
-                        ),
-                    ),
-                ),
-            ),
-        )
-    );
-}
-add_action( 'genesis_custom_blocks_add_blocks', 'register_other_dr_seuss_block' );
-function register_other_block() {
-    add_field( 'two-fish', 'hello-there-ned-how-do-you-do' );
-    add_field( 'two-fish', 'tell-me-tell-me-what-is-new', array( 'placeholder' => 'My hat is old, my teeth are gold.' ) );
-}
-add_action( 'genesis_custom_blocks_add_fields', 'register_other_block' );
-
 /*function custom_field_url_suggestions( $suggestions, $field ) {
     if ( 'url' === $field['type'] ) {
         $args = array(
@@ -200,7 +145,7 @@ function enqueue_custom_script() {
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_custom_script' );
 */
-
+//--------------------Pruebas
 
 //wp_enqueue_script('carrusel-script', get_template_directory_uri() . '/js/carrusel.js', array('jquery'), '1.0', true);
 function carrusel_js(){    
@@ -208,7 +153,6 @@ function carrusel_js(){
     wp_enqueue_script('miscript');    
 }
 add_action("wp_enqueue_scripts", "carrusel_js");
-//Pruebas--------------------
 
 
 /**
@@ -386,4 +330,40 @@ function save_sidebar_custom_meta_box_data( $post_id ) {
 }
 add_action( 'save_post', 'save_sidebar_custom_meta_box_data' );
 
+
+// Soporte para imagenes destacadas
+add_theme_support( 'post-thumbnails' );
+
+// Vista previa de las imagenes destacadas de la entrada en el panel de administración
+if ( !function_exists('AddThumbColumn') && function_exists('add_theme_support') ) {
+    add_theme_support('post-thumbnails', array( 'post', 'page' ) );
+    function AddThumbColumn($cols) {
+        $cols['thumbnail'] = __('Thumbnail');
+        return $cols;
+    }
+    function AddThumbValue($column_name, $post_id) {
+        $width = (int) 50;
+        $height = (int) 50;
+        if ( 'thumbnail' == $column_name ) {
+            $thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
+            $attachments = get_children( array('post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
+            if ($thumbnail_id)
+                $thumb = wp_get_attachment_image( $thumbnail_id, array($width, $height), true );
+            elseif ($attachments) {
+                foreach ( $attachments as $attachment_id => $attachment ) {
+                    $thumb = wp_get_attachment_image( $attachment_id, array($width, $height), true );
+                }
+            }
+            if ( isset($thumb) && $thumb ) {
+                echo $thumb;
+            } else {
+                echo __('None');
+            }
+        }
+    }
+    add_filter( 'manage_posts_columns', 'AddThumbColumn' );
+    add_action( 'manage_posts_custom_column', 'AddThumbValue', 10, 2 );
+    add_filter( 'manage_pages_columns', 'AddThumbColumn' );
+    add_action( 'manage_pages_custom_column', 'AddThumbValue', 10, 2 );
+    }
 ?>
