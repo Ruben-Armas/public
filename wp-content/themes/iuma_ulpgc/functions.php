@@ -41,6 +41,7 @@ require_once get_template_directory() . '/blocks/article-custom/article.php';
 
 // Custom Editor Blocks Dynamic
 require_once get_template_directory() . '/blocks-dynamic/carrusel-news/carrusel_news.php';
+require_once get_template_directory() . '/blocks-dynamic/image-update/image_update.php';
 
 // Modify WP Editor Blocks Output
 require_once get_template_directory() . '/blocks-modified/column_mod.php';

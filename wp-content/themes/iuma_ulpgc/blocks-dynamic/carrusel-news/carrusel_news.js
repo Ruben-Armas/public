@@ -32,11 +32,9 @@ class FirstBlockEdit extends wp.element.Component {
   
     const handleEdit = () => {
       setAttributes({ isEditingBlock: true });
-      console.log('set_true');
     };  
     const handlePreview = () => {
       setAttributes({ isEditingBlock: false });
-      console.log('set_false');
     }; 
 
     // Preview
@@ -156,7 +154,7 @@ wp.blocks.registerBlockType('carruselnews-block/my-block', {
     isWebView: {
       type:'boolean',
       default: false,
-    },
+    }
   },
   
   edit: withSelect(select => {

@@ -163,7 +163,7 @@ wp.blocks.registerBlockType('article-block/my-block', {
       'div', null,
       //Block inspector
       wp.element.createElement(
-        wp.editor.InspectorControls,
+        wp.blockEditor.InspectorControls,
         null,
         wp.element.createElement(
           wp.components.PanelBody,

@@ -35,7 +35,7 @@ function carrusel_news_dynamic() {
       'isWebView' => [
         'type' => 'boolean',
         'default' => true,
-      ],
+      ]
 		]
   ]);
 

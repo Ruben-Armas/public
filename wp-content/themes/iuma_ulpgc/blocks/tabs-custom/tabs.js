@@ -253,7 +253,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
       'div', null,
       //Block inspector
       wp.element.createElement(
-        wp.editor.InspectorControls,
+        wp.blockEditor.InspectorControls,
         null,
         saveElements,
         wp.element.createElement(
