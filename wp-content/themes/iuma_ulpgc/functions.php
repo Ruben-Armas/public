@@ -38,6 +38,7 @@ require_once get_template_directory() . '/blocks/video-bustreaming/bustreaming-b
 require_once get_template_directory() . '/blocks/video-vimeo/vimeo-block.php';
 require_once get_template_directory() . '/blocks/tabs-custom/tabs.php';
 require_once get_template_directory() . '/blocks/article-custom/article.php';
+require_once get_template_directory() . '/blocks/card-custom/card.php';
 
 // Custom Editor Blocks Dynamic
 require_once get_template_directory() . '/blocks-dynamic/carrusel-news/carrusel_news.php';

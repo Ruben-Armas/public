@@ -16,7 +16,7 @@ function image_update_dynamic() {
     get_template_directory_uri() . $blockPath . '.css',
     array(),
     filemtime( get_template_directory() . $blockPath . '.css' )
-);
+  );
   // Registra el bloque
   register_block_type( 'imageupdate-block/my-block', [
     'editor_script' => 'imageupdate-block-js',

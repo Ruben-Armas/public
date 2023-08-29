@@ -1,0 +1,14 @@
+.notice-error-custom {
+    background-color: #f4a2a2;
+    border-left-color: #cc1818;
+
+    align-items: center;
+    border-left: 4px solid #a11414;
+    display: flex;
+    margin: 5px 15px 2px;
+    padding: 0px 12px;
+}
+
+.vertical-margin {
+    margin: 24px 0px 32px 0px;
+}
