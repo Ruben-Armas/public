@@ -8,6 +8,8 @@
 
 	<!--ulpgc style-->
 	<link rel="stylesheet" type="text/css" href="https://cdn.ulpgc.es/ulpgcds/1.0/css/ulpgcds.css" media="all" />
+    <!--table-->
+    <link rel="stylesheet" href="https://designsystem.ulpgc.es/code/tablesaw/tablesaw.css">
 	<!--carrusel-->
 	<link rel="stylesheet" type="text/css" href="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.css"/>
 	<!--ORIGINAL CON ERRORES<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.min.js"></script>-->
@@ -20,6 +22,9 @@
     <!--ulpgc style-->
 	<!--jquery MOVIDO AL PRINCIPIO<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
 	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/ulpgcds.js?v=1.0"></script>
+    <!--table-->
+    <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw.jquery.js"></script>
+    <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw-init.js"></script>
 
     <?php wp_body_open(); ?>
     <header class="ulpgcds-header">
