@@ -9,7 +9,7 @@
 Plugin Name: Akeeba Backup CORE for WordPress
 Plugin URI: https://www.akeeba.com
 Description: The complete backup solution for WordPress
-Version: 7.9.0
+Version: 7.9.2
 Author: Akeeba Ltd
 Author URI: https://www.akeeba.com
 Network: true

@@ -43,22 +43,13 @@ if (!defined('APATH_BASE'))
 }
 
 // Load the Composer autoloader, if not present. Normally, it SHOULD be included already.
-if (false === include $akeebaBackupWpRoot . 'vendor/autoload.php')
+$abwpAutoloader = include $akeebaBackupWpRoot . 'vendor/autoload.php';
+
+if (!$abwpAutoloader instanceof \Composer\Autoload\ClassLoader)
 {
 	echo 'ERROR: Composer Autoloader not found' . PHP_EOL;
 
 	exit(1);
-}
-
-// Load the autoloader, if not present. Normally, it SHOULD be included already.
-if (!class_exists('Awf\\Autoloader\\Autoloader'))
-{
-	if (false === include_once $akeebaBackupWpRoot . 'Awf/Autoloader/Autoloader.php')
-	{
-		echo 'ERROR: AWF Autoloader not found' . PHP_EOL;
-
-		exit(1);
-	}
 }
 
 // Tell the Akeeba Engine where to find a valid cacert.pem file
@@ -66,7 +57,7 @@ defined('AKEEBA_CACERT_PEM') || define('AKEEBA_CACERT_PEM', \Composer\CaBundle\C
 
 
 // Add our app to the autoloader. We use setMap instead of addMap to improve its performance.
-Awf\Autoloader\Autoloader::getInstance()->setMap('Solo\\', [
+$abwpAutoloader->setPsr4('Solo\\', [
 	__DIR__ . '/Solo',
 	__DIR__ . '/../app/Solo',
 ]);

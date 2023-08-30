@@ -81,13 +81,15 @@ class Pdomysql extends Mysql
 		$options['ssl'] = $options['ssl'] ?? [];
 		$options['ssl'] = is_array($options['ssl']) ? $options['ssl'] : [];
 
-		$options['ssl']['enable']             = ($options['ssl']['enable'] ?? $options['dbencryption'] ?? false) ?: false;
+		$options['ssl']['enable']             =
+			($options['ssl']['enable'] ?? $options['dbencryption'] ?? false) ?: false;
 		$options['ssl']['cipher']             = ($options['ssl']['cipher'] ?? $options['dbsslcipher'] ?? null) ?: null;
 		$options['ssl']['ca']                 = ($options['ssl']['ca'] ?? $options['dbsslca'] ?? null) ?: null;
 		$options['ssl']['capath']             = ($options['ssl']['capath'] ?? $options['dbsslcapath'] ?? null) ?: null;
 		$options['ssl']['key']                = ($options['ssl']['key'] ?? $options['dbsslkey'] ?? null) ?: null;
 		$options['ssl']['cert']               = ($options['ssl']['cert'] ?? $options['dbsslcert'] ?? null) ?: null;
-		$options['ssl']['verify_server_cert'] = ($options['ssl']['verify_server_cert'] ?? $options['dbsslverifyservercert'] ?? false) ?: false;
+		$options['ssl']['verify_server_cert'] =
+			($options['ssl']['verify_server_cert'] ?? $options['dbsslverifyservercert'] ?? false) ?: false;
 
 		// Figure out if a port is included in the host name
 		$this->fixHostnamePortSocket($options['host'], $options['port'], $options['socket']);
@@ -175,7 +177,13 @@ class Pdomysql extends Mysql
 
 		if (is_object($this->cursor))
 		{
-			$this->cursor->closeCursor();
+			try
+			{
+				$this->cursor->closeCursor();
+			}
+			catch (\Throwable $e)
+			{
+			}
 		}
 
 		$this->connection = null;
@@ -219,8 +227,8 @@ class Pdomysql extends Mysql
 			$statement->closeCursor();
 			$statement = null;
 		}
-			// If we catch an exception here, we must not be connected.
-		catch (Exception $e)
+		// If we catch an exception here, we must not be connected.
+		catch (\Throwable $e)
 		{
 			$status = false;
 		}
@@ -590,7 +598,7 @@ class Pdomysql extends Mysql
 		$this->freeResult();
 
 		// Take a local copy so that we don't modify the original query and cause issues later
-		$query = $this->replacePrefix((string) $this->sql);
+		$query = $this->replacePrefix((string)$this->sql);
 
 		if ($this->limit > 0 || $this->offset > 0)
 		{

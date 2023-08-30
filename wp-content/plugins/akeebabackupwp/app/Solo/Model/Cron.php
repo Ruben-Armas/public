@@ -306,16 +306,26 @@ class Cron extends DataModel
 			try
 			{
 				$tz = $this->container->appConfig->get('forced_backup_timezone', 'UTC');
+				$tz = ($tz === 'AKEEBA/DEFAULT') ? 'UTC' : $tz;
 			}
 			catch (\Exception $e)
 			{
 				$tz = 'UTC';
 			}
 
+			try
+			{
+				$tz = new \DateTimeZone($tz);
+			}
+			catch (\Throwable $e)
+			{
+				$tz = new \DateTimeZone('UTC');
+			}
+
 			$now = new \DateTime('now');
 			$now->setTimezone($tz);
 
-			$previousRun          = $cronExpression->getPreviousRunDate($now, 0, false, $tz)->format(DATE_W3C);
+			$previousRun          = $cronExpression->getPreviousRunDate($now, 0, false, $tz->getName())->format(DATE_W3C);
 			$this->last_run_start = (new Date($previousRun))->toSql();
 			$this->last_run_end   = null;
 			$this->last_exit      = self::TASK_INITIAL_SCHEDULE;
@@ -388,16 +398,26 @@ class Cron extends DataModel
 			try
 			{
 				$tz = $this->container->appConfig->get('forced_backup_timezone', 'UTC');
+				$tz = ($tz === 'AKEEBA/DEFAULT') ? 'UTC' : $tz;
 			}
 			catch (\Exception $e)
 			{
 				$tz = 'UTC';
 			}
 
+			try
+			{
+				$tz = new \DateTimeZone($tz);
+			}
+			catch (\Throwable $e)
+			{
+				$tz = new \DateTimeZone('UTC');
+			}
+
 			$relativeTime->setTimezone($tz);
 
 			$cronParser = new CronExpression($task->cron_expression);
-			$nextRun    = $cronParser->getNextRunDate($relativeTime, 0, false, $tz);
+			$nextRun    = $cronParser->getNextRunDate($relativeTime, 0, false, $tz->getName());
 
 			// A task is pending if its next run is after its last run but before the current date and time
 			if ($nextRun > $previousRun && $nextRun <= $now)

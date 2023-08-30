@@ -1,4 +1,17 @@
 <?php die();?>
+Akeeba Solo 7.9.2
+================================================================================
+~ Improved error reporting on application error
+# [LOW] Third party S3 implementations (e.g. DigitalOcean Spaces) send malformed HTTP headers which cause the post-processing to stop
+
+Akeeba Solo 7.9.1
+================================================================================
+~ Using our framework, AWF, as a Composer dependency
+# [HIGH] Potential deadlock initialising the backup engine
+# [MEDIUM] HTTP PUT might fail on some servers
+# [LOW] opcache_invalidate may not invalidate a file
+# [LOW] Would not work on 32-bit versions of PHP
+
 Akeeba Solo 7.9.0
 ================================================================================
 + Support for files and archives over 2GiB (JPA file format 1.3)

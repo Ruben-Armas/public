@@ -37,25 +37,17 @@ use Awf\Autoloader\Autoloader;
 // Include the Composer autoloader
 if (function_exists('opcache_invalidate'))
 {
-	@opcache_invalidate(__DIR__ . '/vendor/autoload.php');
-	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_classmap.php');
-	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_namespaces.php');
-	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_psr4.php');
-	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_real.php');
-	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_static.php');
+	@opcache_invalidate(__DIR__ . '/vendor/autoload.php', true);
+	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_classmap.php', true);
+	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_namespaces.php', true);
+	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_psr4.php', true);
+	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_real.php', true);
+	@opcache_invalidate(__DIR__ . '/vendor/composer/autoload_static.php', true);
 }
 
 if (false === include __DIR__ . '/vendor/autoload.php')
 {
 	echo 'ERROR: Composer Autoloader not found' . PHP_EOL;
-
-	exit(1);
-}
-
-// Include the AWF autoloader
-if (false === include __DIR__ . '/Awf/Autoloader/Autoloader.php')
-{
-	echo 'ERROR: AWF Autoloader not found' . PHP_EOL;
 
 	exit(1);
 }

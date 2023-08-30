@@ -3976,11 +3976,17 @@ class AKUnarchiverJPA extends AKAbstractUnarchiver
 
 				case "\x4A\x50\x01\x02":
 					$moreBinData              = fread($this->fp, $length);
-					$moreExtraHeader          = unpack('Puncompressed/Pcompressed', $moreBinData);
-					$header_data['uncsize']   = $moreExtraHeader['uncompressed'];
-					$header_data['csize']     = $moreExtraHeader['compressed'];
-					$temp['uncompressedsize'] = $moreExtraHeader['uncompressed'];
-					$temp['compressedsize']   = $moreExtraHeader['compressed'];
+
+					// Only decode on 64-bit versions of PHP
+					if (PHP_INT_SIZE >= 8)
+					{
+						$moreExtraHeader          = unpack('Puncompressed/Pcompressed', $moreBinData);
+						$header_data['uncsize']   = $moreExtraHeader['uncompressed'];
+						$header_data['csize']     = $moreExtraHeader['compressed'];
+						$temp['uncompressedsize'] = $moreExtraHeader['uncompressed'];
+						$temp['compressedsize']   = $moreExtraHeader['compressed'];
+					}
+
 					break;
 
 				default:
@@ -4198,9 +4204,14 @@ class AKUnarchiverJPA extends AKAbstractUnarchiver
 						case 512:
 							$bindata                   = fread($this->fp, $extra_header['length']);
 							$restBytes                 -= $extra_header['length'];
-							$sizes                     = unpack('Pclen/Punclen', $bindata);
-							$header_data['compsize']   = $sizes['clen'];
-							$header_data['uncompsize'] = $sizes['unclen'];
+
+							// Only decode on 64-bit versions of PHP
+							if (PHP_INT_SIZE >= 8)
+							{
+								$sizes                     = unpack('Pclen/Punclen', $bindata);
+								$header_data['compsize']   = $sizes['clen'];
+								$header_data['uncompsize'] = $sizes['unclen'];
+							}
 							break;
 
 						default:
@@ -9756,7 +9767,7 @@ if (!defined('KICKSTART'))
 					// opcode cache busting before including the filename
 					if (function_exists('opcache_invalidate'))
 					{
-						opcache_invalidate($filename);
+						opcache_invalidate($filename, true);
 					}
 
 					if (function_exists('apc_compile_file'))

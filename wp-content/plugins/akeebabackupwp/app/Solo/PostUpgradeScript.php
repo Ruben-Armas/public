@@ -310,7 +310,7 @@ class PostUpgradeScript
 		'Solo/View/Users/tmpl',
 		'Solo/View/Wizard/tmpl',
 
-		// Precompiled tempaltes
+		// Precompiled templates
 		'Solo/PrecompiledTemplates',
 
 		// Obsolete jQuery stuff
@@ -322,6 +322,9 @@ class PostUpgradeScript
 
 		// Removed legacy Azure connector
 		'Solo/engine/Postproc/Connector/Azure',
+
+		// AWF is installed via Composer now
+		'Awf',
 	];
 
 	/**
@@ -574,12 +577,12 @@ class PostUpgradeScript
 		// Invalidate the Composer files' OPCache.
 		if (function_exists('opcache_invalidate'))
 		{
-			@opcache_invalidate(APATH_BASE . '/../vendor/autoload.php');
-			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_classmap.php');
-			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_namespaces.php');
-			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_psr4.php');
-			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_real.php');
-			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_static.php');
+			@opcache_invalidate(APATH_BASE . '/../vendor/autoload.php', true);
+			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_classmap.php', true);
+			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_namespaces.php', true);
+			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_psr4.php', true);
+			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_real.php', true);
+			@opcache_invalidate(APATH_BASE . '/../vendor/composer/autoload_static.php', true);
 		}
 
 		// Special handling for running the Solo application inside WordPress.

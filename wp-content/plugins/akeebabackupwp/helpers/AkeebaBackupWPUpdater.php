@@ -424,13 +424,7 @@ HTML;
 		defined('AKEEBASOLO') || define('AKEEBASOLO', 1);
 
 		@include_once __DIR__ . '/../app/version.php';
-
-		// Include the autoloader
-		if (!include_once __DIR__ . '/../app/Awf/Autoloader/Autoloader.php')
-		{
-			return false;
-		}
-
+		
 		global $akeebaBackupWordPressLoadPlatform;
 		$akeebaBackupWordPressLoadPlatform = false;
 

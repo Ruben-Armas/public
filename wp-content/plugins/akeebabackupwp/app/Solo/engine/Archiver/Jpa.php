@@ -165,8 +165,14 @@ class Jpa extends BaseArchiver
 			$headerSize += 8;
 		}
 
-		// Version 1.3 long long sizes
-		$headerSize += 22;
+		$is64Bit = $this->is64Bit();
+
+		if ($is64Bit)
+		{
+			// Version 1.3 long long sizes
+			$headerSize += 22;
+
+		}
 
 		// Write the archive header
 		$this->fwrite($this->fp, self::ARCHIVE_SIGNATURE); // ID string (JPA)
@@ -185,11 +191,14 @@ class Jpa extends BaseArchiver
 			$this->fwrite($this->fp, pack('v', $this->totalParts)); // Number of parts
 		}
 
-		// Version 1.3
-		$this->fwrite($this->fp, self::ARCHIVE_LONGLONG_SIZES_EXTRA_HEADER); // Signature
-		$this->fwrite($this->fp, pack('v', 18)); // Extra field length
-		$this->fwrite($this->fp, pack('P', $this->totalUncompressedSize)); // Size of files when extracted
-		$this->fwrite($this->fp, pack('P', $this->totalCompressedSize)); // Size of files when stored
+		if ($is64Bit)
+		{
+			// Version 1.3
+			$this->fwrite($this->fp, self::ARCHIVE_LONGLONG_SIZES_EXTRA_HEADER); // Signature
+			$this->fwrite($this->fp, pack('v', 18)); // Extra field length
+			$this->fwrite($this->fp, pack('P', $this->totalUncompressedSize)); // Size of files when extracted
+			$this->fwrite($this->fp, pack('P', $this->totalCompressedSize)); // Size of files when stored
+		}
 
 		$this->fclose($this->fp);
 
@@ -217,8 +226,15 @@ class Jpa extends BaseArchiver
 			 * Akeeba Backup for Joomla 8.3/9.6, Solo/Akeeba Backup for WordPress 7.9: JPA Format 1.3
 			 */
 			define('_JPA_MAJOR', 1); // JPA Format major version number
-			define('_JPA_MINOR', 3); // JPA Format minor version number
 
+			if ($this->is64Bit())
+			{
+				define('_JPA_MINOR', 3); // JPA Format minor version number
+			}
+			else
+			{
+				define('_JPA_MINOR', 2); // JPA Format minor version number
+			}
 		}
 		parent::__bootstrap_code();
 	}
@@ -420,8 +436,13 @@ class Jpa extends BaseArchiver
 			$blockLength += 8;
 		}
 
-		// We need to account for the Long Long File Sizes Extra Field in JPA v1.3
-		$blockLength += 20;
+		$is64Bit = $this->is64Bit();
+
+		if ($is64Bit)
+		{
+			// We need to account for the Long Long File Sizes Extra Field in JPA v1.3
+			$blockLength += 20;
+		}
 
 		// Get file type
 		$fileType = 1;
@@ -466,11 +487,14 @@ class Jpa extends BaseArchiver
 			$this->fwrite($this->fp, pack('V', $fileModTime)); // Timestamp
 		}
 
-		// The Long Long File Sizes Extra Field
-		$this->fwrite($this->fp, "\x00\x02"); // Extra Field Identifier
-		$this->fwrite($this->fp, pack('v', 20)); // Extra Field Length
-		$this->fwrite($this->fp, pack('P', $c_len)); // Compressed size
-		$this->fwrite($this->fp, pack('P', $unc_len)); // Uncompressed size
+		if ($is64Bit)
+		{
+			// The Long Long File Sizes Extra Field
+			$this->fwrite($this->fp, "\x00\x02"); // Extra Field Identifier
+			$this->fwrite($this->fp, pack('v', 20)); // Extra Field Length
+			$this->fwrite($this->fp, pack('P', $c_len)); // Compressed size
+			$this->fwrite($this->fp, pack('P', $unc_len)); // Uncompressed size
+		}
 
 		// Cache useful information about the file
 		if (!$isDir && !$isSymlink && !$isVirtual)
@@ -559,5 +583,19 @@ class Jpa extends BaseArchiver
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Is this a 64-bit version of PHP?
+	 *
+	 * @return  bool
+	 *
+	 * @since   9.6.1
+	 * @see     https://www.php.net/manual/en/reserved.constants.php
+	 */
+	private function is64Bit(): bool
+	{
+		// 64-bit versions use 8 bytes for the Integer intrinsic type. We use >= for forward compatibility.
+		return PHP_INT_SIZE >= 8;
 	}
 }

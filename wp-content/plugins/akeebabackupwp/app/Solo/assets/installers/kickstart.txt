@@ -30,7 +30,7 @@ define('KICKSTART_RECOMMENDED_PHP', '7.4.0');
 
 if (!defined('VERSION'))
 {
-	define('VERSION', '8.0.0');
+	define('VERSION', '8.0.2-dev202307081324-rev90d85bd');
 }
 
 if (!defined('KICKSTARTPRO'))
@@ -208,7 +208,7 @@ function importKickstartFeatures($directory, $prefixes = array('kickstart'))
 		// Op-code busting before loading the feature (in case it's self-modifying)
 		if (function_exists('opcache_invalidate'))
 		{
-			opcache_invalidate($directory . '/' . $filename);
+			opcache_invalidate($directory . '/' . $filename, true);
 		}
 
 		if (function_exists('apc_compile_file'))
@@ -4201,11 +4201,17 @@ class AKUnarchiverJPA extends AKAbstractUnarchiver
 
 				case "\x4A\x50\x01\x02":
 					$moreBinData              = fread($this->fp, $length);
-					$moreExtraHeader          = unpack('Puncompressed/Pcompressed', $moreBinData);
-					$header_data['uncsize']   = $moreExtraHeader['uncompressed'];
-					$header_data['csize']     = $moreExtraHeader['compressed'];
-					$temp['uncompressedsize'] = $moreExtraHeader['uncompressed'];
-					$temp['compressedsize']   = $moreExtraHeader['compressed'];
+
+					// Only decode on 64-bit versions of PHP
+					if (PHP_INT_SIZE >= 8)
+					{
+						$moreExtraHeader          = unpack('Puncompressed/Pcompressed', $moreBinData);
+						$header_data['uncsize']   = $moreExtraHeader['uncompressed'];
+						$header_data['csize']     = $moreExtraHeader['compressed'];
+						$temp['uncompressedsize'] = $moreExtraHeader['uncompressed'];
+						$temp['compressedsize']   = $moreExtraHeader['compressed'];
+					}
+
 					break;
 
 				default:
@@ -4423,9 +4429,14 @@ class AKUnarchiverJPA extends AKAbstractUnarchiver
 						case 512:
 							$bindata                   = fread($this->fp, $extra_header['length']);
 							$restBytes                 -= $extra_header['length'];
-							$sizes                     = unpack('Pclen/Punclen', $bindata);
-							$header_data['compsize']   = $sizes['clen'];
-							$header_data['uncompsize'] = $sizes['unclen'];
+
+							// Only decode on 64-bit versions of PHP
+							if (PHP_INT_SIZE >= 8)
+							{
+								$sizes                     = unpack('Pclen/Punclen', $bindata);
+								$header_data['compsize']   = $sizes['clen'];
+								$header_data['uncompsize'] = $sizes['unclen'];
+							}
 							break;
 
 						default:
@@ -9981,7 +9992,7 @@ if (!defined('KICKSTART'))
 					// opcode cache busting before including the filename
 					if (function_exists('opcache_invalidate'))
 					{
-						opcache_invalidate($filename);
+						opcache_invalidate($filename, true);
 					}
 
 					if (function_exists('apc_compile_file'))
@@ -14233,7 +14244,7 @@ function echoPage()
 		<div id="header">
 			<div class="title">
 				<span id="logo" alt="Akeeba Kickstart logo"></span>
-				Akeeba Kickstart <?php echo $edition ?> <?php echo defined('VERSION') ? VERSION : '8.0.0' ?>
+				Akeeba Kickstart <?php echo $edition ?> <?php echo defined('VERSION') ? VERSION : '8.0.2-dev202307081324-rev90d85bd' ?>
 			</div>
 		</div>
 
@@ -14891,7 +14902,7 @@ function kickstart_application_cli()
 
 	if (!$silent)
 	{
-		$version = defined('VERSION') ? VERSION : '8.0.0';
+		$version = defined('VERSION') ? VERSION : '8.0.2-dev202307081324-rev90d85bd';
 		echo <<< BANNER
 Akeeba Kickstart CLI $version
 Copyright (c) 2008-$year Akeeba Ltd / Nicholas K. Dionysopoulos

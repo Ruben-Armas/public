@@ -65,10 +65,13 @@ class Wordpress extends Base
 
 		if (empty($stock_directories))
 		{
-			$stock_directories['[SITEROOT]'] = $this->get_site_root();
-			$stock_directories['[ROOTPARENT]'] = @realpath($this->get_site_root() . '/..');
-			$stock_directories['[SITETMP]'] = APATH_BASE . '/tmp';
+            $host = $this->get_host();
+
+			$stock_directories['[SITEROOT]']       = $this->get_site_root();
+			$stock_directories['[ROOTPARENT]']     = @realpath($this->get_site_root() . '/..');
+			$stock_directories['[SITETMP]']        = APATH_BASE . '/tmp';
 			$stock_directories['[DEFAULT_OUTPUT]'] = APATH_BASE . '/backups';
+            $stock_directories['[HOST]']           = empty($host) ? 'unknown_host' : $host;
 		}
 
 		return $stock_directories;
@@ -271,8 +274,18 @@ class Wordpress extends Base
 	 */
 	public function get_host()
 	{
-		$overrideURL = Factory::getConfiguration()->get('akeeba.platform.site_url', '');
-		$overrideURL = trim($overrideURL);
+		static $deadLockTest = false;
+
+		if (!$deadLockTest)
+		{
+			$deadLockTest = true;
+			$overrideURL = Factory::getConfiguration()->get('akeeba.platform.site_url', '');
+			$overrideURL = trim($overrideURL);
+		}
+		else
+		{
+			$overrideURL = null;
+		}
 
 		if (defined('WPINC') && (function_exists('home_url') || function_exists('network_home_url')))
 		{

@@ -27,7 +27,7 @@ if (
 }
 
 // Let's double check that the file is at the same version of the component
-define('AKEEBABACKUP_MUPLUGIN_COREUPDATE_VERSION', '7.9.0');
+define('AKEEBABACKUP_MUPLUGIN_COREUPDATE_VERSION', '7.9.2');
 
 // Disable version check for alpha versions
 if (stripos(AKEEBABACKUP_MUPLUGIN_COREUPDATE_VERSION, 'rev') === false)

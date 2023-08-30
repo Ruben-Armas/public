@@ -5,7 +5,7 @@ Tags: backup, restore, migrate, move
 Requires at least: 3.8.0
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 7.9.0
+Stable tag: 7.9.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -179,6 +179,22 @@ link on our site to request more information for your specific needs.
 7. Want to automate your backups? Akeeba Backup will give you step by step instructions, specific to your site.
 
 == Changelog ==
+
+* eeba Backup 7.9.2
+* Improved error reporting on application error
+* [HIGH] Backup widget appears in a multisite's blogs, where the plugin is not available.
+* [MEDIUM] Sometimes not choosing a forced backup timezone could result in an error setting up a CRON job
+* [LOW] Third party S3 implementations (e.g. DigitalOcean Spaces) send malformed HTTP headers which cause the post-processing to stop
+
+* eeba Backup 7.9.1.1
+* [HIGH] Internal CronExpression error setting up and running WP-CRON jobs
+
+* eeba Backup 7.9.1
+* [HIGH] Potential deadlock initialising the backup engine
+* [HIGH] TypeError setting up a WP-CRON job
+* [MEDIUM] HTTP PUT might fail on some servers
+* [LOW] opcache_invalidate may not invalidate a file
+* [LOW] Would not work on 32-bit versions of PHP
 
 * eeba Backup 7.9.0
 * Support for files and archives over 2GiB (JPA file format 1.3)

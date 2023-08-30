@@ -6,5 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Solo\\Alice\\' => array($baseDir . '/Solo/AliceChecks'),
+    'Solo\\' => array($baseDir . '/Solo'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
+    'Awf\\' => array($vendorDir . '/akeeba/awf/src'),
 );

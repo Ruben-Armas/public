@@ -141,7 +141,14 @@ class Mysqli extends Mysql
 	{
 		if (is_object($this->connection))
 		{
-			return @mysqli_ping($this->connection);
+			try
+			{
+				return @mysqli_ping($this->connection);
+			}
+			catch (\Throwable $e)
+			{
+				return false;
+			}
 		}
 
 		return false;

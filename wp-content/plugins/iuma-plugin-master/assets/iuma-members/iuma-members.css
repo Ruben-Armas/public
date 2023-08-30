@@ -1,0 +1,12 @@
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+    background-color: #f1f1f1;
+}
+
+.paginate_button.current {
+    background: #f1f1f1 !important;
+}
+
+.paginate_button:hover{
+    background:rgb(145, 145, 145) !important;
+    border: 1px solid transparent !important;
+}

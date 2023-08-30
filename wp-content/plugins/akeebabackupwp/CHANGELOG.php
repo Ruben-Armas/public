@@ -1,4 +1,23 @@
 <?php die(); ?>
+Akeeba Backup 7.9.2
+================================================================================
+~ Improved error reporting on application error
+# [HIGH] Backup widget appears in a multisite's blogs, where the plugin is not available.
+# [MEDIUM] Sometimes not choosing a forced backup timezone could result in an error setting up a CRON job
+# [LOW] Third party S3 implementations (e.g. DigitalOcean Spaces) send malformed HTTP headers which cause the post-processing to stop
+
+Akeeba Backup 7.9.1.1
+================================================================================
+# [HIGH] Internal CronExpression error setting up and running WP-CRON jobs
+
+Akeeba Backup 7.9.1
+================================================================================
+# [HIGH] Potential deadlock initialising the backup engine
+# [HIGH] TypeError setting up a WP-CRON job
+# [MEDIUM] HTTP PUT might fail on some servers
+# [LOW] opcache_invalidate may not invalidate a file
+# [LOW] Would not work on 32-bit versions of PHP
+
 Akeeba Backup 7.9.0
 ================================================================================
 + Support for files and archives over 2GiB (JPA file format 1.3)

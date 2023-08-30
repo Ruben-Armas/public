@@ -636,12 +636,6 @@ HTML;
 
 		@include_once __DIR__ . '/../app/version.php';
 
-		// Include the autoloader
-		if (!include_once __DIR__ . '/../app/Awf/Autoloader/Autoloader.php')
-		{
-			return false;
-		}
-
 		global $akeebaBackupWordPressLoadPlatform;
 		$akeebaBackupWordPressLoadPlatform = true;
 
@@ -863,6 +857,11 @@ HTML;
 	public static function registerDashboardWidgets()
 	{
 		if (!defined('AKEEBABACKUP_PRO') || !AKEEBABACKUP_PRO)
+		{
+			return;
+		}
+
+		if (is_multisite())
 		{
 			return;
 		}
