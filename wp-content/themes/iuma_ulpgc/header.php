@@ -20,7 +20,7 @@
 
 <body <?php body_class(); ?>>		
     <!--ulpgc style-->
-	<!--jquery MOVIDO AL PRINCIPIO<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+	<!--jquery CAMBIADO y MOVIDO AL PRINCIPIO<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
 	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/ulpgcds.js?v=1.0"></script>
     <!--table-->
     <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw.jquery.js"></script>
