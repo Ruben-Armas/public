@@ -1,60 +1,18 @@
-// Funciones comunes al edit y save
-function getFormattedDate(date){
-  if (date) {
-    const tmpFormattedDate = new Date(date).toLocaleDateString('es-ES', {
+const getFormattedDate = (dateCheck, date) => {
+  if (dateCheck && date) {
+    const capitalizeMonth = (month) => {
+      return month.charAt(0).toUpperCase() + month.slice(1);
+    };
+  
+    const formattedDate = date ? new Date(date).toLocaleDateString('es-ES', {
       day: '2-digit',
       month: 'short',
       year: 'numeric'
-    });
-    return tmpFormattedDate;
+    }).replace(/(\w+)/, capitalizeMonth) : '';
+    return formattedDate;
   } else {
     return '';
   }
-};
-
-function showPreviewFinalArticle(props, editorWp){
-  const { formattedDate, phoneView, url, image, altImage, title, content } = props.attributes;
-
-  const paragraphs = content.split('\n');
-
-  return wp.element.createElement(
-    'div',
-    {
-      className: `ulpgcds-article ${phoneView ? ' ulpgcds-article--short' : ''}`
-    },
-    wp.element.createElement(
-      'a',
-      {href: url},
-      image && wp.element.createElement(
-        'img',
-        {
-          src: image,
-          alt: altImage,
-        },
-      ),
-      formattedDate && wp.element.createElement(
-        'div',
-        { className: 'ulpgcds-article__date' },
-        formattedDate
-      ),
-      wp.element.createElement(
-        'h3', null,
-        title
-      ),
-    ),    
-    content && wp.element.createElement(
-      'div',
-      { style: editorWp ? { whiteSpace: 'pre-line' }: null },
-
-      editorWp ? paragraphs.join('\n') :
-      paragraphs.map((paragraph) =>
-        wp.element.createElement(
-          'p', null,
-          paragraph
-        )
-      )
-    )
-  )
 };
 
 // Registro del bloque
@@ -65,48 +23,43 @@ wp.blocks.registerBlockType('article-block/my-block', {
   icon: 'id-alt',
   category: 'ulpgc',
   attributes: {
-    title: {
-      type: 'string',
-      default: '',
-    },
-    content: {
-      type: 'string',
-      default: '',
-    },
-    url: {
-      type: 'string',
-      default: '',
-    },
-    image: {
-      type: 'string',
-      default: '',
-    },
-    altImage: {
-      type: 'string',
-      default: '',
+    dateCheck: {
+      type: 'boolean',
+      default: false
     },
     date: {
       type: 'string',
-      default: '',
-    },
-    dateCheck: {
-      type: 'boolean',
-      default: false,
-    },
-    formattedDate: {
-      type: 'string',
-      default: '',
+      default: ''
     },
     phoneView: {
       type: 'boolean',
-      default: true,
+      default: false
     },
+    url: {
+      type: 'string',
+      default: ''
+    },
+    image: {
+      type: 'string',
+      default: ''
+    },
+    altImage: {
+      type: 'string',
+      default: ''
+    },
+    title: {
+      type: 'string',
+      default: ''
+    },
+    content: {
+      type: 'string',
+      default: ''
+    }
   },
 
   edit: function(props) {
-    const { dateCheck, date, formattedDate, phoneView, url, image, altImage, title, content } = props.attributes;
+    const { dateCheck, date, phoneView, url, image, altImage, title, content } = props.attributes;
     const [isEditing, setIsEditing] = wp.element.useState(false);
-  
     var setTitle = function(newTitle) {
       props.setAttributes({ title: newTitle });
     };
@@ -127,11 +80,9 @@ wp.blocks.registerBlockType('article-block/my-block', {
       const newDate = newDateCheck ? new Date().toISOString() : '';
       // Guarda el check y la fecha por defecto(si está activo)
       props.setAttributes({ dateCheck: newDateCheck, date: newDate });
-      props.setAttributes({ formattedDate: getFormattedDate(newDate) });
     };    
     var setDate = function(newDate) {
       props.setAttributes({ date: newDate });
-      props.setAttributes({ formattedDate: getFormattedDate(newDate) });
     };
     const setImage = (newImage) => {
       props.setAttributes({ image: newImage.url });
@@ -156,46 +107,56 @@ wp.blocks.registerBlockType('article-block/my-block', {
   
       mediaFrame.open();
     };
-  
+    
     const handleEdit = () => {
       setIsEditing(true);
     };  
     const handlePreview = () => {
       setIsEditing(false);
-      //props.setAttributes({ title: editedTitle, content: editedContent });
     };
-  
+
     const defaultImage = '/wp-content/themes/iuma_ulpgc/images/default.png';
 
     // Preview
-    const previewContent = title ? showPreviewFinalArticle(props, true) :
+    const previewContent = wp.element.createElement(
+      'div',
+      {
+        className: `ulpgcds-article ${phoneView ? ' ulpgcds-article--short' : ''}`
+      },
       wp.element.createElement(
-        'div',
-        {
-          className: `ulpgcds-article ${phoneView ? ' ulpgcds-article--short' : ''}`
-        },
+        'a',
+        { href: url ? url : '#' },
+        // Imagen
+        title ? image && wp.element.createElement(
+          'img',
+          {
+            src: image,
+            alt: altImage ? altImage : 'Descripción de la imagen',
+          },
+        ) :
         wp.element.createElement(
           'img',
           {
-            src: title && image ? image : defaultImage,
-            alt: altImage || 'Descripción de la imagen',
+            src: image ? image : defaultImage,
+            alt: altImage ? altImage : 'Descripción de la imagen',
           },
         ),
         // Mostrar el elemento div con la fecha si dateCheck está activo y date tiene un valor
         dateCheck && date && wp.element.createElement(
           'div',
           { className: 'ulpgcds-article__date' },
-          formattedDate || '01 Ene 2023'
+          getFormattedDate(dateCheck, date)
         ),
         wp.element.createElement(
           'h3', null,
-          title || 'Título del artículo'
+          title ? title : 'Título del artículo'
         ),
-        wp.element.createElement(
-          'p', null,
-          content || 'Contenido del artículo'
-        )
-      );
+      ),
+      wp.element.createElement(
+        'p', null,
+        content ? content : 'Contenido del artículo'
+      )
+    );
 
     // Edit
     const editContent = wp.element.createElement(
@@ -337,6 +298,41 @@ wp.blocks.registerBlockType('article-block/my-block', {
   },
   // Save view
   save: function(props) {
-    return showPreviewFinalArticle(props, false)
+    const { dateCheck, date, phoneView, url, image, altImage, title, content } = props.attributes;
+    let customDate = '';
+  
+    customDate = getFormattedDate(dateCheck, date);
+  
+    return wp.element.createElement(
+      'div',
+      {
+        className: `ulpgcds-article ${phoneView ? ' ulpgcds-article--short' : ''}`
+      },
+      wp.element.createElement(
+        'a',
+        { href: url },
+        wp.element.createElement(
+          'img',
+          {
+            src: image,
+            alt: altImage,
+          },
+        ),
+        // Mostrar el elemento div con la fecha si dateCheck está activo y date tiene un valor
+        customDate && wp.element.createElement(
+          'div',
+          { className: 'ulpgcds-article__date' },
+          customDate
+        ),
+        wp.element.createElement(
+          'h3', null,
+          title
+        ),
+      ),
+      wp.element.createElement(
+        'p', null,
+        content
+      )
+    )
   }
 });

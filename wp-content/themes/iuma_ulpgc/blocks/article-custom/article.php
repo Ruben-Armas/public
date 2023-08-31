@@ -6,9 +6,9 @@ function register_article_custom() {
     // Registra el script
     wp_register_script(
         'article-block', // Unique handle for JS file
-        get_template_directory_uri() . $blockPath . '.js',
-        array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components' ),
-        filemtime( get_template_directory() . $blockPath . '.js' )
+        get_template_directory_uri() . $blockPath . '.js', // Path to file
+        array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components' ), // Required dependencies for blocks
+        filemtime( get_template_directory() . $blockPath . '.js' ) // Version of last time file was saved
     );
 
     // Registra el bloque
