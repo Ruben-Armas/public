@@ -39,6 +39,7 @@ wp.blocks.registerBlockType('imageupdate-block/my-block', {
     }
   },
   
+  //Editor view
   edit: function(props){
     const { attributes, setAttributes } = props;
     const [isEditing, setIsEditing] = wp.element.useState(false);
@@ -105,7 +106,7 @@ wp.blocks.registerBlockType('imageupdate-block/my-block', {
           txtUrlCheck && wp.element.createElement(
             wp.components.TextControl,
             {
-              label: 'Texto del enlace (url)',
+              label: 'Texto del enlace clicable (url) (Opcional)',
               type: 'text',
               value: txtUrl,
               placeholder: `Por defecto: ${defaultTxtUrl}`,
@@ -125,8 +126,9 @@ wp.blocks.registerBlockType('imageupdate-block/my-block', {
           wp.components.TextControl,
           {
             label: 'Ruta de la imagen',
-            value: path_img,
             placeholder: `Por defecto: ${defaultPath_img}`,
+            type: 'text',
+            value: path_img,
             onChange: setPath_img
           }
         ),
@@ -134,8 +136,9 @@ wp.blocks.registerBlockType('imageupdate-block/my-block', {
           wp.components.TextControl,
           {
             label: 'Nombre de la imagen',
-            value: name_img,
             placeholder: `Por defecto: ${defaultName_img}`,
+            type: 'text',
+            value: name_img,
             onChange: setName_img
           }
         ),
@@ -143,8 +146,8 @@ wp.blocks.registerBlockType('imageupdate-block/my-block', {
           wp.blockEditor.URLInput,
           {
             label: 'Dirección (Url) a la que lleva la imagen',
-            value: url,
             placeholder: `Por defecto: ${defaultUrl}`,
+            value: url,
             onChange: setUrl
           }
         )

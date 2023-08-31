@@ -1,28 +1,28 @@
 <?php
 
-function image_update_dynamic() {
-  $blockPath = '/blocks-dynamic/image-update/image_update';
+function img_auto_update_dynamic() {
+  $blockPath = '/blocks-dynamic/img-auto_update/image_update';
 
   // Registra el script
   wp_register_script(
-    'imageupdate-block-js', // Unique handle for JS file
+    'imageautoupdate-block-js', // Unique handle for JS file
     get_template_directory_uri() . $blockPath . '.js', // Path to file
     ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-data'], // Required dependencies for blocks
     filemtime(get_template_directory() . $blockPath . '.js') // Version of last time file was saved
   );
   // Registra los estilos del bloque
   wp_register_style(
-    'imageupdate-block-css',
+    'imageautoupdate-block-css',
     get_template_directory_uri() . $blockPath . '.css',
     array(),
     filemtime( get_template_directory() . $blockPath . '.css' )
   );
   // Registra el bloque
-  register_block_type( 'imageupdate-block/my-block', [
-    'editor_script' => 'imageupdate-block-js',
-    'editor_style' => 'imageupdate-block-css',  // Estilo del editor
-    'style' => 'imageupdate-block-css', // Estilo de la vista pública
-    'render_callback' => 'imageupdate_render',
+  register_block_type( 'imageautoupdate-block/my-block', [
+    'editor_script' => 'imageautoupdate-block-js',
+    'editor_style' => 'imageautoupdate-block-css',  // Estilo del editor
+    'style' => 'imageautoupdate-block-css', // Estilo de la vista pública
+    'render_callback' => 'imageautoupdate_render',
     'attributes' => [
 			'path_img' => [
         'type' => 'string',
@@ -55,7 +55,7 @@ function image_update_dynamic() {
 }
 add_action( 'init', 'image_update_dynamic' );
 
-function imageupdate_render($attributes) {
+function imageautoupdate_render($attributes) {
   $path_img = $attributes['path_img'];
   $name_img = $attributes['name_img'];
   $url = $attributes['url'];
@@ -70,6 +70,7 @@ function imageupdate_render($attributes) {
   $output = $webView ? '' : '<div class="notice-error-custom"><p>La imagen no existe o no está en la ruta indicada.</p></div>';
 
   if ($image_exists) {
+    // Añade time al nombre de la imagen para que no haya que borrar caché
     $timestamp = time();
     $imgUrl = $path_img . $name_img . '?v=' . $timestamp;
 
@@ -80,6 +81,11 @@ function imageupdate_render($attributes) {
         "<h3 class='vertical-margin'>$txtUrl</h3>" : ''; 
     $output .= "
       </a>";
+
+
+    if (!$webView && $txtUrlCheck && $url){
+      $output .= "<div style='background-color:#f0f07f'>Dirección(Url) a la que lleva la imagen, no definida</div>";
+    }
   }
 
   return $output;
