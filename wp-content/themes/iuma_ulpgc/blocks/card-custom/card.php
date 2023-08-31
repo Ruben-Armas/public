@@ -14,9 +14,9 @@ function register_card_custom() {
   // Registra los estilos del bloque
   wp_register_style(
     'card-block-css',
-    get_template_directory_uri() . $blockPath . '.css',
+    get_template_directory_uri() . $blockPath . '.scss',
     array(),
-    filemtime( get_template_directory() . $blockPath . '.css' )
+    filemtime( get_template_directory() . $blockPath . '.scss' )
   );
 
   // Registra el bloque

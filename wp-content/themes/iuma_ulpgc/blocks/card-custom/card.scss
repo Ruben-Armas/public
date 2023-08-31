@@ -1,0 +1,70 @@
+@import "../../css/scss/utils/_variables.scss";
+
+.card_custom {
+    //margin: $layout-xxs $layout-xs $layout-s $layout-m $layout-l $layout-xl $layout-xxl $layout-xxxl $layout-xxxxl;
+    //padding-top: $spacing-xxs $spacing-xs $spacing-s $spacing-m $spacing-l $spacing-xl $spacing-xxl $spacing-xxxl;
+    //padding-bottom: $spacing-xxs $spacing-xs $spacing-s $spacing-m $spacing-l $spacing-xl $spacing-xxl $spacing-xxxl;
+    
+    margin: $layout-xs;
+    padding: $spacing-m 0 $spacing-m 0;
+
+    //margin: 0 0 16px 0;
+    //padding: 16px 0 16px 0;
+    //background: linear-gradient(to right, #eee, white);
+}
+.card_first {
+    //margin-top: $layout-m;
+    margin-top: 32px;
+}
+.card_last {
+    //margin-top: $layout-s;
+    margin-bottom: 32px;
+}
+
+.card_person_name {
+    color: #565a5c;
+    font-family: Rubik, sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding-bottom: 4px;
+}
+
+.card_job_name {
+    color: #565a5c;
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.card_col_img {
+    display: flex;
+    justify-content: center;
+}
+.card_img {
+    width: auto;
+    height: 200px;
+    //max-width: 80%;
+    object-fit: cover;
+}
+.card_info {
+    line-height: 2rem;
+}
+
+/* Media query para dispositivos con ancho máximo de 768px (tamaño de pantalla para móviles) */
+@media (max-width: 768px) {
+    .card_person_name, .card_job_name {
+        font-size: 1.125rem;
+    }
+    .card_job_name {
+        line-height: 1.5rem;
+    }
+    .card_info {
+        font-size: 0.875rem;
+        line-height: 1.5rem;
+    }
+    .card_custom {
+        padding: 10px 0;
+    }    
+}
