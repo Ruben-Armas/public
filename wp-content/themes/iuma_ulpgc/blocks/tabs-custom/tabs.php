@@ -2,7 +2,6 @@
 
 function register_tabs_custom() {
     $blockPath = '/blocks/tabs-custom/tabs';
-    //echo "youtube <br>";
 
     // Registra el script
     wp_register_script(
