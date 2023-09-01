@@ -1,7 +1,7 @@
 <?php
 
 function img_auto_update_dynamic() {
-  $blockPath = '/blocks-dynamic/img-auto_update/image_update';
+  $blockPath = '/blocks-dynamic/img-auto_update/img-auto_update';
 
   // Registra el script
   wp_register_script(
@@ -53,7 +53,7 @@ function img_auto_update_dynamic() {
   ]);
 
 }
-add_action( 'init', 'image_update_dynamic' );
+add_action( 'init', 'img_auto_update_dynamic' );
 
 function imageautoupdate_render($attributes) {
   $path_img = $attributes['path_img'];

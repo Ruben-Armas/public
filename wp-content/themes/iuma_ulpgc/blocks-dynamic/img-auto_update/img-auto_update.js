@@ -4,7 +4,7 @@ const defaultUrl = 'https://accedacris.ulpgc.es/cris/ou/ou00045';
 const defaultTxtUrl = 'Pulse este enlace para ver más información.';
 
 // Registro del bloque
-wp.blocks.registerBlockType('imageupdate-block/my-block', {
+wp.blocks.registerBlockType('imageautoupdate-block/my-block', {
   title: 'Imagen Auto Actualizable',
   description: '(Bloque dinámico) Imagen que se actualiza automáticamente al cambiar la imagen de la carpeta seleccionada.',
 
