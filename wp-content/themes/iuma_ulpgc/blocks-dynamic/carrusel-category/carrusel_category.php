@@ -27,6 +27,10 @@ function carrusel_category_dynamic() {
         'type' => 'int',
         'default' => 0,
       ],
+      'imgHighlightCheck' => [
+        'type' => 'boolean',
+        'default' => false,
+      ],
       'isEditingBlock' => [
         'type' => 'boolean',
         'default' => false,
@@ -54,6 +58,8 @@ function getFormattedDate($date) {
 
 
 function carruselcategory_render($attributes, $content) {
+  $defaultImage = '/wp-content/themes/iuma_ulpgc/images/default.png';
+
   $recent_posts = wp_get_recent_posts( array(
     'numberposts' => $attributes['maxPosts'],
     'category'    => $attributes['selectedCategory'],
@@ -86,6 +92,7 @@ function carruselcategory_render($attributes, $content) {
   $maxPostEditToShow = 5; // Número de artículos a mostrar en el editor
   $counter = 0; // Contador para contar los artículos mostrados
   $numMaxWords = $attributes['maxWords'];
+  $isImgHighlighted = $attributes['imgHighlightCheck'];
 
   foreach ( $recent_posts as $recent_post ) {
     $counter++;
@@ -114,31 +121,22 @@ function carruselcategory_render($attributes, $content) {
     // Mostrar solo 5 artículos en el editor
     if ( !$webView && $counter > $maxPostEditToShow ) {
       break;
-    }
-
-    /*$output .= $webView ? '<li>' : '<div class="col-4 col-sm-4">';
-      $output .= "
-        <article class='ulpgcds-article'>
-          <a href='$recent_post_permalink'>
-            <img src='$recent_post_image_url' alt='$recent_post_image_alt'>
-            <h3>$recent_post_title</h3>
-            <div class='ulpgcds-article__date'>$recent_post_date</div>
-          </a>
-          <p>$recent_post_excerpt</p>
-        </article>
-      ";
-    $output .= $webView ? '</li>' : '</div>';*/
+    }    
 
     $output .= $webView ? '<li>' : '<div class="col-4 col-sm-4">';
       $output .= "
         <article class='ulpgcds-article'>
           <a href='$recent_post_permalink'>
       ";
-      $output .= $recent_post_image_url ? 
+      $output .= $recent_post_image_url ?
+        (
+          $isImgHighlighted ?
             "<span class='ulpgcds-carrusel--medium__img'>
-              <img alt='$recent_post_image_alt' src='$recent_post_image_url' />
+              <img src='$recent_post_image_url' alt='$recent_post_image_alt'>
             </span>"
-      : '';
+          : "<img src='$recent_post_image_url' alt='$recent_post_image_alt'>"
+        )
+      : "<img src='$defaultImage' alt='Imagen por defecto'>";
       $output .= "
             <div class='ulpgcds-article__date'>$recent_post_date</div>
             <h3>$recent_post_title</h3>
