@@ -8,6 +8,9 @@
  * @since 1.0.0
  */
 
+// Soporte para imagenes destacadas
+add_theme_support( 'post-thumbnails' );
+ 
 /*
  * Define Constants
 
@@ -41,12 +44,22 @@ require_once get_template_directory() . '/blocks/article-custom/article.php';
 require_once get_template_directory() . '/blocks/card-custom/card.php';
 require_once get_template_directory() . '/blocks/table-custom/table.php';
 
+require_once get_template_directory() . '/blocks/accordion/accordion.php';
+require_once get_template_directory() . '/blocks/text_area-custom/text_area.php';
+require_once get_template_directory() . '/blocks/web_view-custom/web_view.php';
+
 // Custom Editor Blocks Dynamic
-require_once get_template_directory() . '/blocks-dynamic/carrusel-news/carrusel_news.php';
-require_once get_template_directory() . '/blocks-dynamic/image-update/image_update.php';
+//require_once get_template_directory() . '/blocks-dynamic/prueba/prueba.php';
+require_once get_template_directory() . '/blocks-dynamic/carrusel-category/carrusel_category.php';
+require_once get_template_directory() . '/blocks-dynamic/img-auto_update/img-auto_update.php';
 
 // Modify WP Editor Blocks Output
 require_once get_template_directory() . '/blocks-modified/column_mod.php';
+
+
+//Pruebas--------------------
+
+//--------------------Pruebas
 
 // Añade las librerias en el editor (para ver las vistas previas estilizadas)
 function cargar_editor_assets() {
@@ -117,39 +130,44 @@ function modify_block_category($settings) {
 add_filter('block_type_metadata', 'modify_block_category', 10, 2);
 
 
-//Pruebas--------------------
-/*function custom_field_url_suggestions( $suggestions, $field ) {
-    if ( 'url' === $field['type'] ) {
-        $args = array(
-            'post_type' => 'page',
-            'posts_per_page' => -1,
-        );
-        $pages = get_posts( $args );
-        foreach ( $pages as $page ) {
-            $suggestions[] = array(
-                'value' => get_permalink( $page->ID ),
-                'label' => get_the_title( $page->ID ),
-            );
+// Vista previa de las imagenes destacadas de la entrada en el panel de administración
+if ( !function_exists('AddThumbColumn') && function_exists('add_theme_support') ) {
+    add_theme_support('post-thumbnails', array( 'post', 'page' ) );
+    function AddThumbColumn($cols) {
+        $cols['thumbnail'] = __('Thumbnail');
+        return $cols;
+    }
+    function AddThumbValue($column_name, $post_id) {
+        $width = (int) 50;
+        $height = (int) 50;
+        if ( 'thumbnail' == $column_name ) {
+            $thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
+            $attachments = get_children( array('post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
+            if ($thumbnail_id)
+                $thumb = wp_get_attachment_image( $thumbnail_id, array($width, $height), true );
+            elseif ($attachments) {
+                foreach ( $attachments as $attachment_id => $attachment ) {
+                    $thumb = wp_get_attachment_image( $attachment_id, array($width, $height), true );
+                }
+            }
+            if ( isset($thumb) && $thumb ) {
+                echo $thumb;
+            } else {
+                echo __('None');
+            }
         }
     }
-    return $suggestions;
+    add_filter( 'manage_posts_columns', 'AddThumbColumn' );
+    add_action( 'manage_posts_custom_column', 'AddThumbValue', 10, 2 );
+    add_filter( 'manage_pages_columns', 'AddThumbColumn' );
+    add_action( 'manage_pages_custom_column', 'AddThumbValue', 10, 2 );
 }
-add_filter( 'gcb_field_suggestions', 'custom_field_url_suggestions', 10, 2 );
-*/
-/*
-function enqueue_custom_script() {
-    wp_enqueue_script(
-        'ulpgcds-script', // Nombre único para el archivo JS
-        'https://cdn.ulpgc.es/ulpgcds/1.0/js/ulpgcds.js', // URL completa del archivo JS externo
-        array(), // Dependencias (si las hay)
-        '1.0', // Versión del archivo JS
-        true // Cargar el archivo JS en el pie de página (opcional)
-    );
-}
-add_action( 'wp_enqueue_scripts', 'enqueue_custom_script' );
-*/
-//--------------------Pruebas
 
+/**
+ * Añade el JavaScript que hace funcionar al Carrusel
+ *
+ * @return void
+ */
 //wp_enqueue_script('carrusel-script', get_template_directory_uri() . '/js/carrusel.js', array('jquery'), '1.0', true);
 function carrusel_js(){    
     wp_register_script('miscript', get_stylesheet_directory_uri(). '/js/carrusel.js', array('jquery'), '1.0', true );
@@ -333,40 +351,4 @@ function save_sidebar_custom_meta_box_data( $post_id ) {
 }
 add_action( 'save_post', 'save_sidebar_custom_meta_box_data' );
 
-
-// Soporte para imagenes destacadas
-add_theme_support( 'post-thumbnails' );
-
-// Vista previa de las imagenes destacadas de la entrada en el panel de administración
-if ( !function_exists('AddThumbColumn') && function_exists('add_theme_support') ) {
-    add_theme_support('post-thumbnails', array( 'post', 'page' ) );
-    function AddThumbColumn($cols) {
-        $cols['thumbnail'] = __('Thumbnail');
-        return $cols;
-    }
-    function AddThumbValue($column_name, $post_id) {
-        $width = (int) 50;
-        $height = (int) 50;
-        if ( 'thumbnail' == $column_name ) {
-            $thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
-            $attachments = get_children( array('post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
-            if ($thumbnail_id)
-                $thumb = wp_get_attachment_image( $thumbnail_id, array($width, $height), true );
-            elseif ($attachments) {
-                foreach ( $attachments as $attachment_id => $attachment ) {
-                    $thumb = wp_get_attachment_image( $attachment_id, array($width, $height), true );
-                }
-            }
-            if ( isset($thumb) && $thumb ) {
-                echo $thumb;
-            } else {
-                echo __('None');
-            }
-        }
-    }
-    add_filter( 'manage_posts_columns', 'AddThumbColumn' );
-    add_action( 'manage_posts_custom_column', 'AddThumbValue', 10, 2 );
-    add_filter( 'manage_pages_columns', 'AddThumbColumn' );
-    add_action( 'manage_pages_custom_column', 'AddThumbValue', 10, 2 );
-    }
 ?>
