@@ -1,6 +1,6 @@
 const { withSelect, select } = wp.data;
 
-const postsVal = 7;
+const postsVal = 5;
 const wordsVal = 35;
 
 
@@ -9,9 +9,14 @@ class FirstBlockEdit extends wp.element.Component {
     const { attributes, setAttributes, categories } = this.props;
     const {maxPosts, maxWords, selectedCategory, isEditingBlock} = attributes;
 
+		//console.log('isEditingBlock-> '+isEditingBlock);
+		//console.log(this.props);
+		//console.log(this.props.posts);
+
+    //Guarda las categorías obtenidas en el edit
     let choices = [];
     if (categories) {
-      choices.push({ value: 0, label: 'Seleccione una Categoría' });
+      choices.push({ value: 0, label: 'Sin especificar' });
       categories.forEach(category => {
         //choices.push({ value: post.id, label: post.title.rendered });
         choices.push({ value: category.id, label: category.name });
@@ -37,18 +42,25 @@ class FirstBlockEdit extends wp.element.Component {
       setAttributes({ isEditingBlock: false });
     }; 
 
-    // Preview
+    // Preview (Le paso al php los atributos y elementos a mostrar)
     const previewContent = wp.element.createElement(
-      wp.serverSideRender,
+      wp.components.PanelBody,
       {
-        block: this.props.name,
-        attributes:
-          { 
-            maxPosts: maxPosts,
-            maxWords: maxWords,
-            selectedCategory: selectedCategory
-          },
-      }
+        title: 'Carrusel de Entradas/Categorías (Dinámico)',
+        initialOpen: true,
+      },
+      wp.element.createElement(
+        wp.serverSideRender,
+        {
+          block: this.props.name,
+          attributes:
+            { 
+              maxPosts: maxPosts,
+              maxWords: maxWords,
+              selectedCategory: selectedCategory,
+            },
+        }
+      )
     );
 
     // Edit
@@ -59,18 +71,19 @@ class FirstBlockEdit extends wp.element.Component {
       wp.element.createElement(
         wp.components.PanelBody,
         {
-          title: 'Carrusel de Noticias (Dinámico)',
+          title: 'Carrusel de Entradas/Categorías (Dinámico)',
           initialOpen: true,
         },
         wp.element.createElement(
           wp.components.RangeControl,
           {
             label: 'Nº máximo de entradas',
+            type: 'number',
             value: maxPosts,
+            initialPosition: postsVal,
             onChange: setMaxPosts,
             min: '0',
-            max: '25',
-            initialPosition: postsVal,
+            max: '15',
             allowReset: true,
             railColor: 'red'
           },
@@ -79,11 +92,12 @@ class FirstBlockEdit extends wp.element.Component {
           wp.components.RangeControl,
           {
             label: 'Nº máximo de palabras por entrada',
+            type: 'number',
             value: maxWords,
+            initialPosition: wordsVal,
             onChange: setMaxWords,
             min: '0',
-            max: '125',
-            initialPosition: wordsVal,
+            max: '100',
             allowReset: true,
             railColor: 'red'
           },
@@ -125,10 +139,10 @@ class FirstBlockEdit extends wp.element.Component {
 }
 
 // Registro del bloque
-wp.blocks.registerBlockType('carruselnews-block/my-block', {
-  title: 'Carrusel Noticias Recientes',
+wp.blocks.registerBlockType('carruselcategory-block/my-block', {
+  title: 'Carrusel Entradas / Categorías',
   className: 'ulpgcds-carrusel',
-  description: '(Bloque dinámico) Carrusel de noticias recientes con el estilo de la ULPGC',
+  description: '(Bloque dinámico) Carrusel de Entradas/Categorías con el estilo de la ULPGC',
 
   icon: 'slides',
   category: 'ulpgc',
