@@ -40,17 +40,15 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
       const hijos = wp.data.select('core/block-editor').getBlocks(props.clientId);
 
       const atributosHijos = hijos.map((block) => {
-        if (block.name === 'tabs-block/tab-item') {
+        if (block.name === 'tabs-block/tab-item' && block.attributes.tabName !== '') {
           return {
-            tabName: block.attributes.tabName || '',
+            tabName: block.attributes.tabName,
             tabIcon: block.attributes.tabIcon || '',
             randomId: block.attributes.randomId || 0,
           };
         }
-        return { tabName: '', tabIcon: '', randomId: 0 }; // Si no es el bloque esperado, devuelve una cadena vacía
-      });
-      //console.log('atributosHijos->');
-      //console.log(atributosHijos);
+        return null; // Si no es el bloque esperado o no cumple la condición, retorna null
+      }).filter((atributo) => atributo !== null); // filter para eliminar los elementos null del resultado.
 
       // Actualizar los atributos items en el bloque padre solo una vez
       props.setAttributes({ items: atributosHijos });
