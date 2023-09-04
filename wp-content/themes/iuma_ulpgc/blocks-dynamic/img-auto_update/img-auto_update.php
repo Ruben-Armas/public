@@ -83,7 +83,7 @@ function imageautoupdate_render($attributes) {
       </a>";
 
 
-    if (!$webView && $txtUrlCheck && $url){
+    if (!$webView && $txtUrlCheck && !$url){
       $output .= "<div style='background-color:#f0f07f'>Dirección(Url) a la que lleva la imagen, no definida</div>";
     }
   }
