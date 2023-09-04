@@ -21,10 +21,10 @@ const isURLValid = function (url) {
   // Registro del bloque
   wp.blocks.registerBlockType('webview-block/my-block', {
     title: 'Web embebida',
-    description: 'Web embebida',
-  
+    description: 'Web embebida',  
     icon: 'editor-code',
     category: 'ulpgc',
+    example: {},
     attributes: {
       url: {
         type: 'string',

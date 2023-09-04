@@ -14,7 +14,7 @@
     title: 'Video de BUstreaming',
     icon: 'video-alt2',
     category: 'ulpgc',
-
+    example: {},
     attributes: {
       url: {
         type: 'string',

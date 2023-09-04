@@ -14,7 +14,7 @@
     title: 'Video de Vimeo',
     icon: 'format-video',
     category: 'ulpgc',
-
+    example: {},
     attributes: {
       url: {
         type: 'string',

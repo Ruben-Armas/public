@@ -64,6 +64,7 @@ wp.blocks.registerBlockType('article-block/my-block', {
   description: 'Artículo con el estilo de la ULPGC',
   icon: 'id-alt',
   category: 'ulpgc',
+  example: {},
   attributes: {
     title: {
       type: 'string',

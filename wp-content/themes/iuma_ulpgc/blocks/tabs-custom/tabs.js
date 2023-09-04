@@ -5,6 +5,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
   description: 'Pestañas con el estilo de la ULPGC',
   icon: 'table-row-after',
   category: 'ulpgc',
+  example: {},
   attributes: {
     items: {
       type: 'array',

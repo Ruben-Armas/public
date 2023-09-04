@@ -4,6 +4,7 @@ wp.blocks.registerBlockType('table-block/my-block', {
   description: 'Tabla con el estilo de la ULPGC',
   icon: 'editor-table',
   category: 'ulpgc',
+  example: {},
   attributes: {
     dateCheck: {
       type: 'boolean',

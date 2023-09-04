@@ -76,9 +76,9 @@ function showPreviewFinalTextArea(props){
 wp.blocks.registerBlockType('textarea-block/my-block', {
   title: 'Área de texto',
   description: 'Área de texto con el estilo de la ULPGC',
-
   icon: 'text',
   category: 'ulpgc',
+  example: {},
   attributes: {
     labelText: {
       type: 'string',

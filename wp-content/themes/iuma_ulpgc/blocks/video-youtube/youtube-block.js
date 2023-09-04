@@ -14,7 +14,7 @@
     title: 'Video de YouTube',
     icon: 'youtube',
     category: 'ulpgc',
-
+    example: {},
     attributes: {
       url: {
         type: 'string',
