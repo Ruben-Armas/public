@@ -11,22 +11,23 @@ function register_card_custom() {
     filemtime( get_template_directory() . $blockPath . '.js' )
   );
 
-  // Registra los estilos del bloque
+  // Registra el bloque
+  register_block_type( 'card-block/my-block', array(
+    'editor_script' => 'card-block'
+  ) );
+  
+  // Registra los estilos backend y frontend del bloque
   wp_register_style(
-    'card-block-css',
+    'card-block-style',
     get_template_directory_uri() . $blockPath . '.scss',
     array(),
     filemtime( get_template_directory() . $blockPath . '.scss' )
   );
+  wp_enqueue_style( 'card-block-style' );
 
-  // Registra el bloque
-  register_block_type( 'card-block/my-block', array(
-    'editor_script' => 'card-block',
-    'editor_style' => 'card-block-css',  // Estilo del editor
-    'style' => 'card-block-css', // Estilo de la vista pública
-  ) );
 }
-// Hook into editor only hook
+
 add_action( 'enqueue_block_editor_assets', 'register_card_custom' );
+add_action( 'wp_enqueue_scripts', 'register_card_custom' );
 
 ?>
