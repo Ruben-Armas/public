@@ -1,3 +1,35 @@
+function showPreviewFinalTabs(props){
+  const { items } = props.attributes;
+
+  return wp.element.createElement(
+    'div',
+    null,
+    wp.element.createElement(
+      'ul',
+      { className: 'ulpgcds-tabs' },
+      items.map((itemObj, index) => (
+        wp.element.createElement(
+          'li',
+          {
+            key: itemObj.randomId,
+            href: `#tab-${itemObj.randomId}`,
+            className: index === 0 ? 'active' : ''
+          },
+          itemObj.tabIcon && wp.element.createElement(
+            'span',
+            { className: `icon ${itemObj.tabIcon}` }
+            ),
+          itemObj.tabName
+        )
+      ))
+    ),
+    wp.element.createElement(
+      wp.blockEditor.InnerBlocks.Content,
+      null
+    )
+  );
+}
+
 // Registro del bloque
 wp.blocks.registerBlockType('tabs-block/my-block', {
   title: 'Pestañas / Tabs',
@@ -197,7 +229,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     const tabElementsLi = [];
     const tabElementsDiv  = [];
     if (items.length > 0) {
-      for (let index = 0; index < tabItemsToShow; index++) {
+      for (let index = 0; index <= tabItemsToShow; index++) {
         const itemObj = items[index];
         tabElementsLi.push(
           wp.element.createElement(
@@ -249,7 +281,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     );
     
     // Preview o Preview default
-    previewContent = items.length <=0 ? previewDefault : preview;
+    previewContent = items.length <=0 ? previewDefault : preview/*showPreviewFinalTabs(props)*/;
 
     // Edit
     const editContent = wp.element.createElement(
@@ -310,7 +342,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     );
   },
   save: function(props) {
-    const { items } = props.attributes;
+    /*const { items } = props.attributes;
 
     return wp.element.createElement(
       'div',
@@ -338,7 +370,8 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
         wp.blockEditor.InnerBlocks.Content,
         null
       )
-    );
+    );*/
+    return showPreviewFinalTabs(props);
   }
 });
 
