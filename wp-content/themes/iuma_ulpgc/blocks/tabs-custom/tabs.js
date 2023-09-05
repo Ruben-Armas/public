@@ -225,24 +225,24 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     );
 
     // Elementos a mostrar en la Preview
-    const tabItemsToShow = Math.min(4, items.length);
+    const tabItemsToShow = Math.min(5, items.length);
     const tabElementsLi = [];
     const tabElementsDiv  = [];
     if (items.length > 0) {
-      for (let index = 0; index <= tabItemsToShow; index++) {
-        const itemObj = items[index];
+      for (let index = 0; index < tabItemsToShow; index++) {
+        const itemObji = items[index];
         tabElementsLi.push(
           wp.element.createElement(
             'li',
             {
-              href: index < tabItemsToShow ? `#tab-00${index}` : (index === tabItemsToShow ? '#tab-more' : null),
+              href: index < tabItemsToShow ? `#tab-00${index}` : (index === tabItemsToShow -1 ? '#tab-more' : null),
               className: index === 0 ? 'active' : ''
             },
-            itemObj.tabIcon && wp.element.createElement(
+            itemObji.tabIcon && wp.element.createElement(
               'span',
-              { className: `icon ${itemObj.tabIcon}` }
+              { className: `icon ${itemObji.tabIcon}` }
             ),
-            index < tabItemsToShow ? itemObj.tabName : (index === tabItemsToShow ? '...' : null)
+            index < tabItemsToShow ? itemObji.tabName : (index === tabItemsToShow -1 ? '...' : null)
           )
         );
         tabElementsDiv.push(
@@ -250,16 +250,16 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
             'div',
             {
               className: `ulpgcds-tab-content ${index === 0 ? 'active' : ''}`,
-              href: index < tabItemsToShow ? `tab-00${index}` : (index === tabItemsToShow ? 'tab-more' : null)
+              href: index < tabItemsToShow ? `tab-00${index}` : (index === tabItemsToShow -1 ? 'tab-more' : null)
             },
             wp.element.createElement(
               'h3', null,
-              index < tabItemsToShow ? `Encabezado de --> ${itemObj.tabName}...` : (index === tabItemsToShow ? '...' : null)
+              index < tabItemsToShow ? `Encabezado de --> ${itemObji.tabName}...` : (index === tabItemsToShow -1 ? '...' : null)
               
             ),
             wp.element.createElement(
               'p', null,
-              index < tabItemsToShow ? `Contenido de --> ${itemObj.tabName}...` : (index === tabItemsToShow ? '...' : null)
+              index < tabItemsToShow ? `Contenido de --> ${itemObji.tabName}...` : (index === tabItemsToShow -1 ? '...' : null)
             ),
           )
         )
@@ -279,6 +279,21 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
       ),
       tabElementsDiv
     );
+    /*const preview = wp.element.createElement(
+      'div', null,
+      // Muestra el mensaje de guardado
+      savedMessageElement,
+      // Crea el elemento Tabs/Pestañas
+      wp.element.createElement(
+        'ul',
+        { className: 'ulpgcds-tabs' },
+        tabElementsLi
+      ),
+      /*wp.element.createElement(
+        wp.serverSideRender,
+        { block: 'tabs-block/tab-item' },
+      )*/
+    //);
     
     // Preview o Preview default
     previewContent = items.length <=0 ? previewDefault : preview/*showPreviewFinalTabs(props)*/;
@@ -342,7 +357,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     );
   },
   save: function(props) {
-    /*const { items } = props.attributes;
+    const { items } = props.attributes;
 
     return wp.element.createElement(
       'div',
@@ -370,8 +385,8 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
         wp.blockEditor.InnerBlocks.Content,
         null
       )
-    );*/
-    return showPreviewFinalTabs(props);
+    );
+    /*return showPreviewFinalTabs(props);*/
   }
 });
 
