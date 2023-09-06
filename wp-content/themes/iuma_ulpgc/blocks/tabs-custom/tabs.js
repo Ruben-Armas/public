@@ -1,35 +1,3 @@
-function showPreviewFinalTabs(props){
-  const { items } = props.attributes;
-
-  return wp.element.createElement(
-    'div',
-    null,
-    wp.element.createElement(
-      'ul',
-      { className: 'ulpgcds-tabs' },
-      items.map((itemObj, index) => (
-        wp.element.createElement(
-          'li',
-          {
-            key: itemObj.randomId,
-            href: `#tab-${itemObj.randomId}`,
-            className: index === 0 ? 'active' : ''
-          },
-          itemObj.tabIcon && wp.element.createElement(
-            'span',
-            { className: `icon ${itemObj.tabIcon}` }
-            ),
-          itemObj.tabName
-        )
-      ))
-    ),
-    wp.element.createElement(
-      wp.blockEditor.InnerBlocks.Content,
-      null
-    )
-  );
-}
-
 // Registro del bloque
 wp.blocks.registerBlockType('tabs-block/my-block', {
   title: 'Pestañas / Tabs',
@@ -230,7 +198,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     const tabElementsDiv  = [];
     if (items.length > 0) {
       for (let index = 0; index < tabItemsToShow; index++) {
-        const itemObji = items[index];
+        const itemObj = items[index];
         tabElementsLi.push(
           wp.element.createElement(
             'li',
@@ -238,11 +206,11 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
               href: index < tabItemsToShow ? `#tab-00${index}` : (index === tabItemsToShow -1 ? '#tab-more' : null),
               className: index === 0 ? 'active' : ''
             },
-            itemObji.tabIcon && wp.element.createElement(
+            itemObj.tabIcon && wp.element.createElement(
               'span',
-              { className: `icon ${itemObji.tabIcon}` }
+              { className: `icon ${itemObj.tabIcon}` }
             ),
-            index < tabItemsToShow ? itemObji.tabName : (index === tabItemsToShow -1 ? '...' : null)
+            index < tabItemsToShow ? itemObj.tabName : (index === tabItemsToShow -1 ? '...' : null)
           )
         );
         tabElementsDiv.push(
@@ -254,12 +222,12 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
             },
             wp.element.createElement(
               'h3', null,
-              index < tabItemsToShow ? `Encabezado de --> ${itemObji.tabName}...` : (index === tabItemsToShow -1 ? '...' : null)
+              index < tabItemsToShow ? `Encabezado de --> ${itemObj.tabName}...` : (index === tabItemsToShow -1 ? '...' : null)
               
             ),
             wp.element.createElement(
               'p', null,
-              index < tabItemsToShow ? `Contenido de --> ${itemObji.tabName}...` : (index === tabItemsToShow -1 ? '...' : null)
+              index < tabItemsToShow ? `Contenido de --> ${itemObj.tabName}...` : (index === tabItemsToShow -1 ? '...' : null)
             ),
           )
         )
@@ -279,21 +247,6 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
       ),
       tabElementsDiv
     );
-    /*const preview = wp.element.createElement(
-      'div', null,
-      // Muestra el mensaje de guardado
-      savedMessageElement,
-      // Crea el elemento Tabs/Pestañas
-      wp.element.createElement(
-        'ul',
-        { className: 'ulpgcds-tabs' },
-        tabElementsLi
-      ),
-      /*wp.element.createElement(
-        wp.serverSideRender,
-        { block: 'tabs-block/tab-item' },
-      )*/
-    //);
     
     // Preview o Preview default
     previewContent = items.length <=0 ? previewDefault : preview/*showPreviewFinalTabs(props)*/;
@@ -386,7 +339,6 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
         null
       )
     );
-    /*return showPreviewFinalTabs(props);*/
   }
 });
 
