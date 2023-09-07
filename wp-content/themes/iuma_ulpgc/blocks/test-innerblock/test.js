@@ -74,7 +74,7 @@ wp.blocks.registerBlockType('test-block/my-block', {
         wp.element.createElement(
           wp.blockEditor.InnerBlocks,
           {
-            allowedBlocks: ['core/heading'],
+            allowedBlocks: ['core/heading', 'core/image'],
             template: [['core/heading']],            
             templateLock: false,
           }

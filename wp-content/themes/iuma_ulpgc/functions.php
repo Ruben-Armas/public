@@ -42,6 +42,9 @@ require_once get_template_directory() . '/blocks/video-vimeo/vimeo-block.php';
 require_once get_template_directory() . '/blocks/tabs-custom/tabs.php';
 require_once get_template_directory() . '/blocks/article-custom/article.php';
 require_once get_template_directory() . '/blocks/card-custom/card.php';
+
+require_once get_template_directory() . '/blocks/accordion-old/accordion.php';
+
 require_once get_template_directory() . '/blocks/accordion/accordion.php';
 require_once get_template_directory() . '/blocks/text_area-custom/text_area.php';
 require_once get_template_directory() . '/blocks/web_view-custom/web_view.php';

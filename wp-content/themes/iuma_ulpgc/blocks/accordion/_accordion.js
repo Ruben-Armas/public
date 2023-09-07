@@ -6,8 +6,94 @@ wp.blocks.registerBlockType('accordion-block/my-block', {
   icon: 'menu-alt3',
   category: 'ulpgc',
   example: {},
+  attributes: {
+    items: {
+      type: 'array',
+      default: []
+    }
+  },
 
   edit: function(props) {
+    const { items } = props.attributes;
+    const [isEditing, setIsEditing] = wp.element.useState(false);
+    const [showSavedMessage, setShowSavedMessage] = React.useState(false);
+    //console.log('props block edit');
+    //console.log(items);
+    
+    /*function showMessage() {
+      setShowSavedMessage(true);
+
+      // Después de 2 segundos, ocultar el mensaje de "guardado"
+      setTimeout(() => {
+        setShowSavedMessage(false);
+      }, 2000);
+    }
+    // Actualiza los atributos obtenidos de los hijos
+    function updateData(){
+      const hijos = wp.data.select('core/block-editor').getBlocks(props.clientId);
+
+      const atributosHijos = hijos.map((block) => {
+        if (block.name === 'accordion-block/row-item' && block.attributes.rowName !== '') {
+          return {
+            rowName: block.attributes.rowName,
+          };
+        }
+        return null; // Si no es el bloque esperado o no cumple la condición, retorna null
+      }).filter((atributo) => atributo !== null); // filter para eliminar los elementos null del resultado.
+
+      // Actualizar los atributos items en el bloque padre solo una vez
+      props.setAttributes({ items: atributosHijos });
+    }
+    function handleSaveButtonClick() {
+      showMessage();
+      updateData();
+    };
+
+    // UseEffect para actualizar los atributos tabNames solo una vez al cargar la página
+    React.useEffect(() => {
+      updateData();
+    }, []);
+
+    const savedMessageElement = showSavedMessage && wp.element.createElement(
+      wp.components.Notice,
+      {
+        status: 'success',
+        isDismissible: false
+      },
+      'Guardado'
+    );
+    const saveElements = [
+      wp.element.createElement(
+        wp.components.Notice,
+        {
+          status: 'warning',
+          isDismissible: false
+        },
+        'Recuerde Guardar / Actualizar el Bloque'
+      ),
+      // Muestra el mensaje de guardado
+      savedMessageElement,
+      // Help Element
+      wp.element.createElement(
+        wp.components.Flex,
+        { direction: 'row', wrap: 'wrap' },
+        wp.element.createElement(
+          wp.components.FlexItem,
+          { style: { flexGrow: 1 } },
+          wp.element.createElement(
+            wp.components.Button,
+            { 
+              isPrimary: true,
+              onClick: handleSaveButtonClick,
+              style: { marginLeft: '15px' }
+            },
+            'Guardar / Actualizar Bloque'
+          )
+        )
+      )
+    ];*/
+
+    // Edit
     return wp.element.createElement(
       'div', null,
       //Block inspector
@@ -24,7 +110,7 @@ wp.blocks.registerBlockType('accordion-block/my-block', {
           'Para añadir más bloques hijos hay que seleccionar su bloque padre y pulsar el +'
         ),
       ),
-      // Create Tabs
+      // Create Accordion
       wp.element.createElement(
         wp.components.PanelBody,
         {
@@ -37,16 +123,25 @@ wp.blocks.registerBlockType('accordion-block/my-block', {
           {
             allowedBlocks: ['accordion-block/row-item'],
             template: [['accordion-block/row-item', {isInitialOpen: true}]],
+            //template: [['core/paragraph']],
             templateLock: false,
           }
         )
       )
     );
   },
-  save: function(props) {  
+  save: function(props) {
+    const { items } = props.attributes;
+
     return wp.element.createElement(
       'div',
-      { className: 'ulpgcds-accordion' },      
+      { className: 'ulpgcds-accordion' },
+      /*items.map((itemObj, index) => (
+        wp.element.createElement(
+          'p', null,
+          itemObj.rowName
+        )
+      )),*/
       wp.element.createElement(
         wp.blockEditor.InnerBlocks.Content,
         null
@@ -54,12 +149,12 @@ wp.blocks.registerBlockType('accordion-block/my-block', {
     );
   }
 });
-  
+
 wp.blocks.registerBlockType('accordion-block/row-item', {
-  title: 'Accordion Row',
+  title: 'Fila / Elemento',
   icon: 'list-view',
   category: 'ulpgc',
-  parent: ['accordion-block/my-block'],
+  parent: ['tabs-block/my-block'],
   attributes: {
     rowName: {
       type: 'string',
@@ -67,7 +162,7 @@ wp.blocks.registerBlockType('accordion-block/row-item', {
     },
     tagName: {
       type: 'string',
-      default: 'h3',
+      default: '',
     },
     divCheck: {
       type: 'boolean',
@@ -87,7 +182,7 @@ wp.blocks.registerBlockType('accordion-block/row-item', {
       setAttributes({ rowName: newRowName });
     };
     var setTagName = function(newTagName) {
-      props.setAttributes({ tagName: newTagName });
+      props.setAttributes({ newTagName: newTagName });
     }
     var setDivCheck = function() {
       props.setAttributes({ divCheck: !divCheck });
@@ -95,7 +190,7 @@ wp.blocks.registerBlockType('accordion-block/row-item', {
 
     return [
       //Block inspector
-      wp.element.createElement(
+      /*wp.element.createElement(
         wp.blockEditor.InspectorControls,
         null,
         wp.element.createElement(
@@ -131,7 +226,7 @@ wp.blocks.registerBlockType('accordion-block/row-item', {
             }
           )
         ),
-      ),
+      ),*/
       // Create Accordion Row
       wp.element.createElement(
         wp.components.PanelBody,
@@ -148,7 +243,7 @@ wp.blocks.registerBlockType('accordion-block/row-item', {
             onChange: setRowName
           },
         ),
-        'Contenido: (Puede añadir todos los bloques que necesite)',
+        //'Contenido: (Puede añadir todos los bloques que necesite)',
         wp.element.createElement(
           wp.blockEditor.InnerBlocks,
           {
@@ -161,24 +256,30 @@ wp.blocks.registerBlockType('accordion-block/row-item', {
   },
   save: function(props) {
     const { rowName, tagName, divCheck } = props.attributes;
-
+    
     const contentRow = wp.element.createElement(
       wp.blockEditor.InnerBlocks.Content,
       null
     );
-    
-    return wp.element.createElement(
-      'div', null,
+
+    return [
       wp.element.createElement(
-        tagName,
-        null, rowName
-      ),
-      divCheck ? (
+        'div', null,
         wp.element.createElement(
-          'div', null,
-          contentRow
-        )
-      ) : contentRow
-    );
+          'h3',//tagName,
+          null, rowName
+        ),
+        //divCheck ? (
+          wp.element.createElement(
+            'div', null,
+            //contentRow
+            wp.element.createElement(
+              wp.blockEditor.InnerBlocks.Content,
+              null
+            )
+          )
+        //) : ''
+      )
+    ];
   }
 });
