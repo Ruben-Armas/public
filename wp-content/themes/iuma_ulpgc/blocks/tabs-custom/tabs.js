@@ -265,7 +265,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
             status: 'success',
             isDismissible: false
           },
-          'Para añadir más bloques hijos hay que seleccionar su bloque padre y pulsar el +'
+          'Para añadir más bloques hijos seleccione su bloque padre y pulse +'
         ),
       ),
       // Create Tabs
