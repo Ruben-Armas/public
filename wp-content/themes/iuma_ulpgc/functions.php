@@ -90,6 +90,13 @@ function cargar_editor_assets() {
 }
 add_action( 'enqueue_block_editor_assets', 'cargar_editor_assets' );
 
+/*
+//iuma tarjetas style
+function agregar_estilos_tarjetas_iuma_legacy() {
+    wp_enqueue_style('estilos-tarjetas_iuma', get_template_directory_uri() . '/css/card_iuma_legacy.css');
+}
+add_action('wp_enqueue_scripts', 'agregar_estilos_tarjetas_iuma_legacy');
+*/
 
 // Categoría ULPGC
 function add_filter_category_block_ulpgc_when_post_provided( $block_categories, $editor_context ) {    
