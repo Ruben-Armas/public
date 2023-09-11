@@ -16,7 +16,7 @@
       var blockProps = useBlockProps();
       const innerBlocksProps = useInnerBlocksProps( blockProps, {
         allowedBlocks: ['accordion-block/row-item'],
-        template: [ [ 'accordion-block/row-item', {isInitialOpen: true} ] ],
+        template: [ [ 'accordion-block/row-item' ] ],
         templateLock: false,
       })
 
@@ -96,13 +96,22 @@
       },
       isInitialOpen: {
         type: 'boolean',
-        default: false,
-      },
+        default: '',
+      }
     },
   
     edit: function(props) {
       const { attributes, setAttributes } = props;
       const { rowName, tagName, divCheck, isInitialOpen } = attributes;
+
+      // UseEffect para actualizar el atributo isInitialOpen solo una vez al cargar la página
+      React.useEffect(() => {
+        if (isInitialOpen === '') {
+          setAttributes({ isInitialOpen: true });
+        } else {
+          setAttributes({ isInitialOpen: false });
+        }
+      }, []);
   
       var setRowName = function(newRowName) {
         setAttributes({ rowName: newRowName });

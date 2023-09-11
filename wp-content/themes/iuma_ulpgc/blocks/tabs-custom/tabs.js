@@ -17,8 +17,8 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
     const { items } = props.attributes;
     const [isEditing, setIsEditing] = wp.element.useState(false);
     const [showSavedMessage, setShowSavedMessage] = React.useState(false);
-    console.log('props block edit');
-    console.log(items);
+    //console.log('props block edit');
+    //console.log(items);
     
     const handleEdit = () => {
       setIsEditing(true);
@@ -364,11 +364,15 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
       type: 'boolean',
       default: false,
     },
+    isInitialOpen: {
+      type: 'boolean',
+      default: '',
+    }
   },
 
   edit: function(props) {
     const { attributes, setAttributes } = props;
-    const { tabName, tabIcon, randomId } = attributes;
+    const { tabName, tabIcon, randomId, isInitialOpen } = attributes;
 
     var setTabName = function(newTabName) {
       setAttributes({ tabName: newTabName });
@@ -393,12 +397,18 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
     // Actualiza isActive
     checkIfFirstBlock();
     
-    // UseEffect para actualizar los atributos randomId solo una vez al cargar la página
+    // UseEffect para actualizar los atributos randomId e isInitialOpen solo una vez al cargar la página
     React.useEffect(() => {
       // Actualiza el atributo randomId solo una vez
       if (!randomId.length) {
         const randId = Math.floor(Math.random() * 10000);
         setAttributes({ randomId: randId });
+      }
+      // Actualiza el atributo isInitialOpen solo una vez
+      if (isInitialOpen === '') {
+        setAttributes({ isInitialOpen: true });
+      } else {
+        setAttributes({ isInitialOpen: false });
       }
     }, []);
 
@@ -406,7 +416,7 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
       wp.components.PanelBody,
       {
         title: `Pestaña --> ${tabName}`,
-        initialOpen: false,
+        initialOpen: isInitialOpen,
       },
       wp.element.createElement(
         wp.components.TextControl,
