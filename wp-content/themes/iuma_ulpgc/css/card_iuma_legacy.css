@@ -2,7 +2,6 @@
     Estilos anteriores utilizados para las tarjetas / cards del IUMA
     Actualmente se sigue utilizando para las Cards de "Proyectos" y "Transferencia de tecnología"
 */
-/*
 *{
 	margin: 0;
 	padding: 0;
@@ -12,7 +11,7 @@
 	border-bottom: 1px solid #eee;
 	margin: 0;
 	/*padding: 5.34em 6.67em;*/
-	/*padding-top: 0em;
+	padding-top: 0em;
 	padding-left: 6.67em;
 	padding-right: 6.67em;
 	padding-bottom: 5.34em;
@@ -454,4 +453,3 @@ h2.margen_titulos_separacion_miembros_consejo_comision {
 		padding-left: 25px;
 	}
 }
-*/
