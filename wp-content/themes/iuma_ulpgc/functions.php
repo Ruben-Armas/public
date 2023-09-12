@@ -60,7 +60,7 @@ require_once get_template_directory() . '/blocks-modified/column_mod.php';
 
 
 //Pruebas--------------------
-//PRUEBA DE COMIT
+
 //--------------------Pruebas
 
 // Añade las librerias en el editor (para ver las vistas previas estilizadas)
