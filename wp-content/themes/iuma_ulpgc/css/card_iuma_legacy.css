@@ -385,8 +385,11 @@ h2.margen_titulos_separacion_miembros_consejo_comision {
 	font-family: 'Open Sans', sans-serif !important;
 }
 .tarjeta-proyectos-iuma .descripcion-proyectos-iuma .informacion-proyectos-iuma a:after {
-	content: "\f061";
-	font-family: FontAwesome;
+	/*Icono sustituido por el de la ULPGC*/
+	/*content: "\f061";
+	font-family: FontAwesome;*/
+	content: "\e908";
+	font-family: ULPGC-icon;
 	margin-left: -10px;
 	opacity: 0;
 	vertical-align: middle;
