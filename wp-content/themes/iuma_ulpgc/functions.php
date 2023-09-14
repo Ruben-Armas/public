@@ -10,6 +10,13 @@
 
 // Soporte para imagenes destacadas
 add_theme_support( 'post-thumbnails' );
+
+// Carga los estilos del tema
+function theme_styles()  { 
+    // Cargar hoja de estilo 
+    wp_enqueue_style( 'style', get_template_directory_uri() . '/style.css'); 
+} 
+add_action('wp_enqueue_scripts', 'theme_styles');
  
 /*
  * Define Constants

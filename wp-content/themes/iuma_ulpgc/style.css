@@ -5,3 +5,12 @@ Author: Rubén
 Description: Tema que aplica los estilos de la ULPGC
 Version: 1.0
 */
+
+.divisiones-responsable {
+    margin-top: 16px;
+}
+
+.divisiones-cod-unesco {
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
