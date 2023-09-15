@@ -60,6 +60,7 @@ require_once get_template_directory() . '/blocks/test-blockprops/test.php';
 // Custom Editor Blocks Dynamic
 //require_once get_template_directory() . '/blocks-dynamic/prueba/prueba.php';
 require_once get_template_directory() . '/blocks-dynamic/carrusel-category/carrusel_category.php';
+require_once get_template_directory() . '/blocks-dynamic/list-category/list_category.php';
 require_once get_template_directory() . '/blocks-dynamic/img-auto_update/img-auto_update.php';
 
 // Modify WP Editor Blocks Output
