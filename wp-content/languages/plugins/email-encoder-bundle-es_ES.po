@@ -1,0 +1,426 @@
+# Translation of Plugins - Email Encoder &#8211; Protect Email Addresses and Phone Numbers - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Email Encoder &#8211; Protect Email Addresses and Phone Numbers - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-05-10 12:42:51+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.4\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Email Encoder &#8211; Protect Email Addresses and Phone Numbers - Stable (latest release)\n"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:213
+msgid "Do not soft-filter all html attributes. This might optimizes the performance, but can break the site if other plugins use your email in attribute tags."
+msgstr "No filtra suavemente todos los atributos HTML. Esto puede optimizar el rendimiento, pero puede romper el sitio si otros plugins usan tu correo electrónico en etiquetas de atributos."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:212
+msgid "html attributes without soft encoding."
+msgstr "atributos HTML sin codificación suave."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:208
+msgid "Check this option if you face issues with encoded script tags. This will deactivate protection for script tags."
+msgstr "Marca esta opción si tienes problemas con las etiquetas de script codificadas. Esto desactivará la protección para las etiquetas de script."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:207
+msgid "no script tags"
+msgstr "sin etiquetas de script"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1021
+msgid "Escape (Javascript)"
+msgstr "Escape (JavaScript)"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1020
+msgid "Rot13 (Javascript)"
+msgstr "ROT13 (JavaScript)"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:370
+msgid "Activate the advanced settings in case you want to customize the default logic or you want to troubleshoot the plugin."
+msgstr "Activa los ajustes avanzados en caso de que desees personalizar la lógica por defecto o si quieres diagnosticar el plugin."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:270
+msgid "By comma separating post id's ( e.g. 123,4535,643), you are able to exclude these posts from the logic protection."
+msgstr "Al separar con coma los ID de entrada (por ejemplo, 123,4535,643), puedes excluir estas entradas de la protección lógica."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:267
+msgid "Exclude post id's from protection"
+msgstr "Excluir los ID de entradas de la protección"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:178
+msgid "Warning: this option could conflict with certain form plugins. Test it first. (Requires javascript)"
+msgstr "Advertencia: esta opción podría entrar en conflicto con ciertos plugins de formulario. Pruébalo primero. (Requiere JavaScript)"
+
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:157
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:161
+msgid "You don't have permission to update these settings."
+msgstr "No tienes permiso para actualizar estos ajustes."
+
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:80
+msgid "Visit us"
+msgstr "Visítanos"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1022
+msgid "Encode (HTML)"
+msgstr "Codificar (HTML)"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:367
+msgid "Show advanced settings for more configuration possibilities."
+msgstr "Mostrar ajustes avanzados para más posibilidades de configuración."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:366
+msgid "Advanced Settings"
+msgstr "Ajustes avanzados"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:349
+msgid "Encoder form settings"
+msgstr "Ajustes del formulario del codificador"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:340
+msgid "Otherwise it will be shown in \"Settings\"-menu."
+msgstr "De lo contrario, se mostrará en el menú «Ajustes»."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:337
+msgid "Show this page in the main menu item"
+msgstr "Mostrar esta página en un elemento del menú principal"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:336
+msgid "Admin Menu"
+msgstr "Menú de administración"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:328
+msgid "Only visible for admin users. If your emails look broken, simply deactivate this feature."
+msgstr "Solo visible para usuarios administradores. Si tus correos electrónicos se ven rotos, simplemente desactiva esta característica."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:325
+msgid "Mark emails on the site as successfully encoded"
+msgstr "Marcar correos electrónicos en el sitio como codificados correctamente"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:324
+msgid "Security Check"
+msgstr "Comprobar seguridad"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:317
+msgid "This forces every script to be enqueued within the footer."
+msgstr "Esto obliga a que cada script se coloque en cola dentro del pie de página."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:314
+msgid "Check this button if you want to load all frontend scripts within the footer."
+msgstr "Marca este botón si quieres cargar todos los scripts del pie de página en la portada."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:313
+msgid "Load scripts in footer"
+msgstr "Cargar scripts en pie de página"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:293
+msgid "Leave blank for none"
+msgstr "Dejar en blanco para ninguno"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:290
+msgid "Add extra classes to mailto links."
+msgstr "Añade clases adicionales a los enlaces de mailto."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:289
+msgid "Additional classes"
+msgstr "Clases adicionales"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:281
+msgid "This text will be shown for protected email addresses and within noscript tags."
+msgstr "Este texto se mostrará para direcciones de correo electrónico protegidas y dentro de etiquetas noscript."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:278
+msgid "Set protection text *"
+msgstr "Establecer texto de protección *"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:251
+msgid "Change the font size of the image text. Default: 4 - You can choose from 1 - 5"
+msgstr "Cambia el tamaño de fuente del texto de la imagen. Valor por defecto: 4 - puedes elegir entre 1 y 5"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:250
+msgid "Font Size"
+msgstr "Tamaño de fuente"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:246
+msgid "Change the background opacity for the created images. 0 = not transparent - 127 = completely transprent"
+msgstr "Cambia la opacidad de fondo para las imágenes creadas. 0 = no transparente - 127 = completamente transparente"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:245
+msgid "Background Opacity"
+msgstr "Opacidad del fondo"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:241
+msgid "Change the text opacity for the created images. 0 = not transparent - 127 = completely transprent"
+msgstr "Cambia la opacidad del texto para las imágenes creadas. 0 = no transparente - 127 = completamente transparente"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:240
+msgid "Text Opacity"
+msgstr "Opacidad del texto"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:235
+msgid "Image Background Colors"
+msgstr "Colores de imagen de fondo"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:231
+#: core/includes/classes/class-email-encoder-bundle-settings.php:236
+msgid "Please include RGB colors, comme saparated. E.g.: 0,0,255"
+msgstr "Incluye colores RGB, separados por comas. Ej.: 0,0,255"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:230
+msgid "Image Colors"
+msgstr "Colores de imagen"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:226
+msgid "Customize the settings for dynamically created images."
+msgstr "Personaliza los ajustes de las imágenes creadas dinámicamente."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:225
+msgid "Image settings"
+msgstr "Ajustes de imagen"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:203
+msgid "Check this option if your site does not support CSS directions."
+msgstr "Marca esta opción si tu sitio no es compatible con direcciones CSS."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:202
+msgid "mailto links without CSS direction"
+msgstr "enlaces mailto sin dirección CSS"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:198
+msgid "Check this option if you want to register the email filters on the \"init\" hook instead of the \"wp\" hook."
+msgstr "Marca esta opción si quieres registrar los filtros de correo electrónico en el gancho «init» en lugar del gancho «wp»."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:197
+msgid "emails from \"init\" hook"
+msgstr "correos electrónicos del gancho «init»"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:193
+msgid "Protect every shortcode content separately. (This may slows down your site)"
+msgstr "Protege cada contenido de shortcode por separado. (Esto puede ralentizar tu sitio)"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:192
+msgid "shortcode content"
+msgstr "contenido de shortcode"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:188
+msgid "Plain emails will be automatically converted to png images where possible."
+msgstr "Los correos electrónicos simples se convertirán automáticamente a imágenes png siempre que sea posible."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:187
+msgid "plain emails by converting them to png images"
+msgstr "correos electrónicos simples al convertirlos en imágenes png"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:183
+msgid "Plain emails will be automatically converted to mailto links where possible."
+msgstr "Los correos electrónicos simples se convertirán automáticamente en enlaces mailto siempre que sea posible."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:182
+msgid "plain emails by converting them to mailto links"
+msgstr "correos electrónicos simples al convertirlos en enlaces mailto"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:158
+#: core/includes/classes/class-email-encoder-bundle-settings.php:173
+msgid "Activating this option results in protecting the rss feed based on the given protection method."
+msgstr "La activación de esta opción da como resultado la protección del feed RSS según el método de protección dado."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:132
+msgid "automatically the best method (excluding javascript)"
+msgstr "automáticamente el mejor método (excluyendo JavaScript)"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:129
+msgid "automatically the best method (including javascript)"
+msgstr "automáticamente el mejor método (incluido JavaScript)"
+
+#: core/includes/classes/class-email-encoder-bundle-run.php:597
+msgid "Your email could not be converted."
+msgstr "Tu correo electrónico no se ha podido convertir."
+
+#: core/includes/partials/help-tabs/general.php:4
+msgid "The plugin works out-of-the-box to protect your email addresses. All settings are default set to protect your email addresses automatically."
+msgstr "El plugin funciona de forma inmediata para proteger tus direcciones de correo electrónico. Todos los ajustes están configurados por defecto para proteger tus direcciones de correo electrónico automáticamente."
+
+#: core/includes/partials/help-tabs/template-tags.php:22
+#: core/includes/partials/help-tabs/template-tags.php:30
+msgid "Protects the given content against spambots."
+msgstr "Protege el contenido dado contra robots de spam."
+
+#: core/includes/partials/help-tabs/shortcodes.php:2
+msgid "You can protect those addresses using the following shortcode. Everything you add within these both tags, will be checked for emails automatically."
+msgstr "Puedes proteger esas direcciones usando el siguiente shortcode. Todo lo que añadas dentro de estas dos etiquetas se comprobará automáticamente para ver si hay correos electrónicos."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:177
+msgid "input form email fields using strong protection."
+msgstr "introduce los campos de correo electrónico del formulario utilizando una protección fuerte."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:157
+msgid "RSS feed"
+msgstr "Feed RSS"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:153
+msgid "Customize what this plugin protects."
+msgstr "Personalizar lo que protege este plugin."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:152
+msgid "Protect..."
+msgstr "Proteger..."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:139
+msgid "simple HTML character encoding."
+msgstr "Codificación simple de caracteres HTML."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:136
+msgid "You can configure the protection text within the advanced settings."
+msgstr "Puedes configurar el texto de protección dentro de la ajustes avanzados."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:135
+msgid "a strong method that replaces all emails with a \"*protection text*\"."
+msgstr "un método fuerte que reemplaza todos los correos electrónicos con un «*texto de protección*»."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:126
+msgid "Protect emails using"
+msgstr "Protege los correos electrónicos usando"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:115
+msgid "This turns off the protection for emails. (Not recommended)"
+msgstr "Esto desactiva la protección para correos electrónicos. (No recomendado)"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:114
+msgid "Don't do anything."
+msgstr "No hacer nada."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:110
+msgid "Secure only mails that occur within WordPress filters. (Not recommended)"
+msgstr "Asegura solo los correos que se producen dentro de los filtros de WordPress. (No recomendado)"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:109
+msgid "Wordpress filters"
+msgstr "Filtros de WordPress"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:106
+msgid "This will check the whole page against any mails and secures them."
+msgstr "Esto comprobará toda la página contra cualquier correo electrónico y los protege."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:105
+msgid "Full-page scan"
+msgstr "Explorar página completa"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:102
+msgid "Protect emails"
+msgstr "Proteger correos electrónicos"
+
+#: core/includes/classes/class-email-encoder-bundle-run.php:591
+msgid "Your signture is invalid."
+msgstr "Tu firma no es válida."
+
+#: core/includes/partials/widgets/main.php:106
+msgid "Save all"
+msgstr "Guardar todo"
+
+#: core/includes/partials/help-tabs/general.php:7
+msgid "To report problems or bugs or for support, please use <a href=\"https://wordpress.org/support/plugin/email-encoder-bundle#postform\" target=\"_new\">the official forum</a>."
+msgstr "Para informar de problemas o errores o para obtener soporte, utiliza <a href=\"https://wordpress.org/support/plugin/email-encoder-bundle#postform\" target=\"_new\">el foro oficial</a>."
+
+#: core/includes/partials/help-tabs/template-tags.php:19
+msgid "This will output the email encoder form on your website."
+msgstr "Esto generará el formulario del codificador de correo electrónico en tu web."
+
+#: core/includes/partials/help-tabs/template-tags.php:13
+msgid "Get Email Encoder Form"
+msgstr "Obtener formulario de codificador de correo electrónico"
+
+#: core/includes/partials/help-tabs/template-tags.php:10
+msgid "You can pass 3 optional arguments: <code>$display</code>, <code>$attrs</code> and <code>$method</code>"
+msgstr "Puedes pasar 3 argumentos opcionales: <code>$display</code>, <code>$attrs</code> y <code>$method</code>"
+
+#: core/includes/partials/help-tabs/shortcodes.php:10
+msgid "Display the encoder form"
+msgstr "Mostrar el formulario del codificador"
+
+#: core/includes/partials/help-tabs/shortcodes.php:8
+msgid "You can also protect phone numbers and any kind of text by using the following shortcode:"
+msgstr "También puedes proteger los números de teléfono y cualquier tipo de texto utilizando el siguiente shortcode:"
+
+#: core/includes/partials/help-tabs/shortcodes.php:5
+#: core/includes/partials/help-tabs/template-tags.php:4
+msgid "Create a protected mailto link:"
+msgstr "Crea un enlace mailto protegido:"
+
+#: core/includes/partials/help-tabs/shortcodes.php:1
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: core/includes/partials/help-tabs/general.php:10
+msgid "You can now also check your website protection using our email checker tool: <a href=\"https://wpemailencoder.com/email-checker/\" target=\"_blank\">https://wpemailencoder.com/email-checker/</a>."
+msgstr "Ahora también puedes verificar la protección de tu web utilizando nuestra herramienta de verificación de correo electrónico: <a href=\"https://wpemailencoder.com/email-checker/\" target=\"_blank\">https://wpemailencoder.com/email-checker/</a>."
+
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:234
+msgid "If you like you can also create you own secured emails manually with this form. Just copy/paste the generated code and put it in your post, page or template. We choose automatically the best method for you, based on your settings."
+msgstr "Si quieres, también puedes crear tus propios correos electrónicos seguros manualmente con este formulario. Simplemente copia/pega el código generado y ponlo en tu entrada, página o plantilla. Elegimos automáticamente el mejor método para ti, según tus ajustes."
+
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:197
+msgid "General"
+msgstr "General"
+
+#: core/class-email-encoder-bundle.php:54
+#: core/class-email-encoder-bundle.php:64
+msgid "Cheatin&#8217; huh?"
+msgstr "Haciendo trampas, ¿eh?"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/email-encoder-bundle/"
+msgstr "https://es.wordpress.org/plugins/email-encoder-bundle/"
+
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:76
+msgid "Settings"
+msgstr "Configurar"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1032
+msgid "Email Address:"
+msgstr "Correo electrónico:"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1034
+msgid "Mailto Link:"
+msgstr "Enlace mailto:"
+
+#: core/includes/partials/help-tabs/template-tags.php:1
+msgid "Template functions"
+msgstr "Funciones de plantilla"
+
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:202
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#. Description of the plugin
+msgid "Protect email addresses on your site and hide them from spambots. Easy to use & flexible."
+msgstr "Protege las direcciones de correo electrónico en tu sitio y escóndelas de los robots de spam. Fácil de usar y flexible."
+
+#. Plugin Name of the plugin
+msgid "Email Encoder - Protect Email Addresses"
+msgstr "Email Encoder - Protect Email Addresses"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1037
+msgid "Protected Mail Link (code):"
+msgstr "Enlace de correo protegido (código):"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1036
+msgid "Create Protected Mail Link &gt;&gt;"
+msgstr "Crear enlace de correo protegido &gt;&gt;"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1035
+msgid "Encoding Method:"
+msgstr "Método de codificación:"
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:356
+msgid "Show a \"powered by\" link on bottom of the encoder form"
+msgstr "Mostrar un enlace «Funciona con» en la parte inferior del formulario del codificador"
+
+#: core/includes/classes/class-email-encoder-bundle-validate.php:1033
+msgid "Display Text:"
+msgstr "Mostrar texto:"
+
+#: core/includes/classes/class-email-encoder-bundle-run-admin.php:247
+msgid "You can also put the encoder form on your site by using the shortcode <code>[eeb_form]</code> or the template function <code>eeb_form()</code>."
+msgstr "También puedes colocar el formulario del codificador en tu sitio utilizando el shortcode <code>[eeb_form]</code> o la función de plantilla <code>eeb_form ()</code>."
+
+#: core/includes/classes/class-email-encoder-bundle-settings.php:172
+msgid "Remove all shortcodes from the RSS feeds"
+msgstr "Eliminar todos los shortcodes de los feeds RSS"

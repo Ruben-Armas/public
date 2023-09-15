@@ -1,0 +1,257 @@
+# Translation of Plugins - Media Sync - Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Media Sync - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-11-03 14:20:05+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.4\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Media Sync - Development (trunk)\n"
+
+#: includes/MediaSync.class.php:883
+msgid "Error processing filter media_sync_filter_before_update_metadata for file: %s."
+msgstr "Error al procesar el filtro media_sync_filter_before_update_metadata para el archivo: %s."
+
+#: includes/MediaSync.class.php:900
+msgid "Error updating attachment metadata (`wp_postmeta` table) for file: %s."
+msgstr "Error al actualizar los metadatos del adjunto (tabla `wp_postmeta`) para el archivo: %s."
+
+#: includes/MediaSync.class.php:816
+msgid "Error inserting attachment (`wp_posts` table) for file: %s."
+msgstr "Error al insertar el adjunto (tabla `wp_posts`) para el archivo: %s."
+
+#: includes/MediaSync.class.php:787
+msgid "Error preparing attachment data for file: %s."
+msgstr "Error al preparar los datos del adjunto para el archivo: %s."
+
+#: includes/MediaSync.class.php:742
+msgid "Error getting mime type for file: %s."
+msgstr "Error al obtener el tipo mime para el archivo: %s."
+
+#: includes/MediaSync.class.php:734
+msgid "Invalid mime type for file: %s."
+msgstr "Tipo mime no válido para el archivo: %s."
+
+#: includes/MediaSync.class.php:851
+msgid "Attachment metadata could not be generated from %s."
+msgstr "Los metadatos de los adjuntos no se han podido generar desde %s"
+
+#: includes/MediaSync.class.php:844
+msgid "Error generating attachment metadata (`wp_postmeta` table) for file: %s."
+msgstr "Error al generar los metadatos de los adjuntos (tabla `wp_postmeta`) para el archivo: %s."
+
+#: includes/MediaSync.class.php:826
+msgid "Attach ID not received for inserted attachment (`wp_posts` table) for file: %s."
+msgstr "No se ha recibido el ID de adjunto para el adjunto insertado (tabla `wp_posts`) para el archivo: %s."
+
+#: includes/MediaSync.class.php:807
+msgid "File to import not found at path: %s."
+msgstr "El archivo a importar no se encuentra en la ruta: %s."
+
+#: includes/MediaSync.class.php:385
+msgid "Turn on debugging"
+msgstr "Activar la depuración"
+
+#: includes/MediaSync.class.php:471
+msgid "at"
+msgstr "en"
+
+#: includes/MediaSync.class.php:347
+msgid "Scan directory"
+msgstr "Directorio a explorar"
+
+#: includes/MediaSync.class.php:101
+msgid "Scan directory not found. Please check settings."
+msgstr "No se ha encontrado el directorio a explorar. Por favor, comprueba los ajustes."
+
+#: includes/MediaSync.class.php:445
+msgid "If file timestamp does not match the folder in which it is - it will construct the date/time based on the folder: %s."
+msgstr "Si la marca temporal del archivo no coincide con la carpeta en la que se encuentra - construirá la fecha/hora en base a la carpeta: %s."
+
+#: includes/MediaSync.class.php:443
+msgid "Smart file time"
+msgstr "Hora del archivo inteligente"
+
+#: includes/MediaSync.class.php:438
+msgid "File modification timestamp - when it was last modified."
+msgstr "Marca temporal de modificación del archivo - cuando se modificó por última vez."
+
+#: includes/MediaSync.class.php:436
+msgid "File time"
+msgstr "Hora del archivo"
+
+#: includes/MediaSync.class.php:431
+msgid "Defaults to what WordPress uses - current time."
+msgstr "Por defecto es lo que usa WordPress - la hora actual."
+
+#: includes/MediaSync.class.php:429
+msgid "Default"
+msgstr "Por defecto"
+
+#: includes/MediaSync.class.php:377
+msgid "Preselected / default value for file date"
+msgstr "Preseleccionado / valor por defecto para la fecha de archivo"
+
+#: includes/MediaSync.class.php:370
+msgid "Show \"Dry Run\" option"
+msgstr "Mostrar la opción «Simulacro»"
+
+#: includes/MediaSync.class.php:363
+msgid "Dry Run"
+msgstr "Simulacro"
+
+#: includes/MediaSync.class.php:331
+msgid "Media Sync Settings"
+msgstr "Ajustes de Media Sync"
+
+#: includes/MediaSync.class.php:179
+msgid "Date/time to set for newly imported files"
+msgstr "Fecha/hora a establecer en los archivos recién importados"
+
+#: media-sync.php:153
+msgid "Without file"
+msgstr "Sin archivo"
+
+#: media-sync.php:151
+msgid "With file"
+msgstr "Con archivo"
+
+#: media-sync.php:146 media-sync.php:149
+msgid "Filter by missing file"
+msgstr "Filtrar por archivo faltante"
+
+#: includes/MediaSync.class.php:278
+msgid "No Results"
+msgstr "No hay resultados"
+
+#: includes/MediaSync.class.php:238
+msgid "Filter"
+msgstr "Filtrar"
+
+#: includes/MediaSync.class.php:233
+msgid "Only files missing from Media Library"
+msgstr "Solo archivos que falten en la biblioteca de medios"
+
+#: includes/MediaSync.class.php:231
+msgid "All files"
+msgstr "Todos los archivos"
+
+#: includes/MediaSync.class.php:229
+msgid "Filter by type"
+msgstr "Filtrar por tipo"
+
+#: includes/MediaSync.class.php:151
+msgid "Use this to see Media Library items that are missing actual files. This takes you to Media Library but with custom filter."
+msgstr "Usa esta opción para ver los elementos de la biblioteca de medios a los que les faltan archivos reales. Esto te lleva a la biblioteca de medios pero con un filtro personalizado."
+
+#: includes/MediaSync.class.php:147
+msgid "Filter Media Library"
+msgstr "Filtrar la biblioteca de medios"
+
+#: includes/MediaSync.class.php:145
+msgid "Sync - Media Library"
+msgstr "Sincronizar - Biblioteca de medios"
+
+#: includes/MediaSync.class.php:137
+msgid "Use this to see content of upload dir: %s and import files to Media Library."
+msgstr "Usa esta opción para ver el contenido del directorio de subidas: %s e importa los archivos a la biblioteca de medios."
+
+#: includes/MediaSync.class.php:129
+msgid "Sync - uploads directory"
+msgstr "Sincronizar - directorio de subidas"
+
+#: includes/MediaSync.class.php:557
+msgid "In Trash"
+msgstr "En la papelera"
+
+#: includes/MediaSync.class.php:555
+msgid "Already in"
+msgstr "Ya está en"
+
+#: includes/MediaSync.class.php:551
+msgid "items"
+msgstr "elementos"
+
+#: includes/MediaSync.class.php:551
+msgid "item"
+msgstr "elemento"
+
+#: includes/MediaSync.class.php:471 includes/MediaSync.class.php:522
+msgid "File"
+msgstr "Archivo"
+
+#: includes/MediaSync.class.php:467
+msgid "Select All"
+msgstr "Seleccionar todos"
+
+#: includes/MediaSync.class.php:274
+msgid "Everything seems fine here, there are no files that are not already in your Media Library."
+msgstr "Todo parece correcto, no existen archivos que no se encuentran ya en tu biblioteca multimedia."
+
+#: includes/MediaSync.class.php:223
+msgid "Files already in Media Library will be skipped during import"
+msgstr "Los archivos que ya se encuentran en la biblioteca multimedia se saltarán durante la importación"
+
+#: includes/MediaSync.class.php:219
+msgid "selected items"
+msgstr "elementos seleccionados"
+
+#: includes/MediaSync.class.php:214
+msgid "out of"
+msgstr "de"
+
+#: includes/MediaSync.class.php:210
+msgid "Imported"
+msgstr "Importados"
+
+#: includes/MediaSync.class.php:172
+msgid "Dry Run (test without making database changes)"
+msgstr "Simulacro (probar sin realizar cambios en la base de datos)"
+
+#: includes/MediaSync.class.php:164
+msgid "Import Selected"
+msgstr "Importar seleccionados"
+
+#: includes/MediaSync.class.php:133
+msgid "Scan Files"
+msgstr "Explorar archivos"
+
+#: includes/MediaSync.class.php:117 includes/MediaSync.class.php:159
+msgid "Re-scan"
+msgstr "Volver a explorar"
+
+#: includes/MediaSync.class.php:116
+msgid "Done! Highlighted files were successfully imported. %s to see changes."
+msgstr "¡Hecho! Los archivos resaltados se han importado correctamente. %s para ver los cambios."
+
+#: includes/MediaSync.class.php:113
+msgid "Please backup your database! This plugin makes database changes."
+msgstr "Por favor, ¡haz una copia de seguridad de tu base de datos! Este plugin hace cambios en la base de datos."
+
+#: includes/MediaSync.class.php:58 includes/MediaSync.class.php:581
+msgid "You do not have sufficient permissions to access this page."
+msgstr "No tienes suficientes permisos para acceder a esta página."
+
+#. Author URI of the plugin
+msgid "https://github.com/erolsk8"
+msgstr "https://github.com/erolsk8"
+
+#. Author of the plugin
+msgid "Erol Živina"
+msgstr "Erol Živina"
+
+#. Description of the plugin
+msgid "Simple plugin to scan uploads directory and bring files to Media Library."
+msgstr "Plugin sencillo para explorar el directorio de subidas e incluir archivos en la biblioteca de medios."
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/media-sync/"
+msgstr "https://es.wordpress.org/plugins/media-sync/"
+
+#. Plugin Name of the plugin
+#: includes/MediaSync.class.php:105 media-sync.php:30 media-sync.php:46
+msgid "Media Sync"
+msgstr "Media Sync"
