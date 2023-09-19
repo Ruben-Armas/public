@@ -45,6 +45,7 @@ function carrusel_category_dynamic() {
 
 }
 add_action( 'init', 'carrusel_category_dynamic' );
+//add_action( 'enqueue_block_editor_assets', 'carrusel_category_dynamic' );
 
 
 function getFormattedDate($date) {

@@ -1,9 +1,9 @@
-//const { withSelect, select } = wp.data;
+//const { withSelect, list_select } = wp.data;
 
 class ListCategoryEdit extends wp.element.Component {
   render() {
     const { attributes, setAttributes, categories } = this.props;
-    const {/*maxPosts, maxWords, */selectedCategory, isEditingBlock} = attributes;
+    const {selectedCategory, isEditingBlock} = attributes;
 
 		//console.log('isEditingBlock-> '+isEditingBlock);
 		//console.log(this.props);
@@ -21,12 +21,6 @@ class ListCategoryEdit extends wp.element.Component {
       choices.push({ value: 0, label: 'Cargando...' })
     }
 
-    /*var setMaxPosts = function(newMaxPosts) {
-      setAttributes({ maxPosts: newMaxPosts });
-    };
-    var setMaxWords = function(newMaxWords) {
-      setAttributes({ maxWords: newMaxWords });
-    };*/
     var setSelectedCategory = function(newSelectedCategory) {
       setAttributes({ selectedCategory: parseInt(newSelectedCategory) });
     };
@@ -50,9 +44,7 @@ class ListCategoryEdit extends wp.element.Component {
         {
           block: this.props.name,
           attributes:
-            { 
-              /*maxPosts: maxPosts,
-              maxWords: maxWords,*/
+            {
               selectedCategory: selectedCategory,
             },
         }
@@ -70,34 +62,6 @@ class ListCategoryEdit extends wp.element.Component {
           title: 'Lista de Entradas/Categorías (Dinámico)',
           initialOpen: true,
         },
-        /*wp.element.createElement(
-          wp.components.RangeControl,
-          {
-            label: 'Nº máximo de entradas',
-            type: 'number',
-            value: maxPosts,
-            initialPosition: postsVal,
-            onChange: setMaxPosts,
-            min: '0',
-            max: '15',
-            allowReset: true,
-            railColor: 'red'
-          },
-        ),
-        wp.element.createElement(
-          wp.components.RangeControl,
-          {
-            label: 'Nº máximo de palabras por entrada',
-            type: 'number',
-            value: maxWords,
-            initialPosition: wordsVal,
-            onChange: setMaxWords,
-            min: '0',
-            max: '100',
-            allowReset: true,
-            railColor: 'red'
-          },
-        ),*/
         wp.element.createElement(
           wp.components.SelectControl,
           {
@@ -197,15 +161,15 @@ wp.blocks.registerBlockType('listcategory-block/my-block', {
     )    
   }*/
   
-  edit: withSelect(select => {
-    const currentPostId = select('core/editor').getCurrentPostId();
+  edit: withSelect(list_select => {
+    const currentPostId = list_select('core/editor').getCurrentPostId();
     const query = {
       per_page: -1,
       exclude: currentPostId
     }
     return {
       //posts: select('core').getEntityRecords('postType', 'post', query) // Obtener los post
-      categories: select('core').getEntityRecords('taxonomy', 'category', query), // Obtener las categorías
+      categories: list_select('core').getEntityRecords('taxonomy', 'category', query), // Obtener las categorías
     }
   })(ListCategoryEdit),
 
