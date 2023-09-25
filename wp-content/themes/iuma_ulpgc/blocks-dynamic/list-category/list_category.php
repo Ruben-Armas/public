@@ -2,6 +2,7 @@
 
 function list_category_dynamic() {
   $blockPath = '/blocks-dynamic/list-category/list_category';
+  $blockPath_phoneview = $blockPath . '_phone_view';
 
   // Registra el script
   wp_register_script(
@@ -10,11 +11,23 @@ function list_category_dynamic() {
     ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-data'], // Required dependencies for blocks
     filemtime(get_template_directory() . $blockPath . '.js') // Version of last time file was saved
   );
+  // Registra el script para vista móvil
+  wp_register_script(
+    'listcategory-phoneview-js',
+    get_template_directory_uri() . $blockPath_phoneview . '.js',
+    ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-data'],
+    filemtime(get_template_directory() . $blockPath_phoneview . '.js')
+  );
+
   // Registra el bloque
   register_block_type( 'listcategory-block/my-block', [
     'editor_script' => 'listcategory-block-js',
     'render_callback' => 'listcategory_render',
     'attributes' => [
+			'maxWords' => [
+        'type' => 'number',
+        'default' => 35
+      ],
 			'selectedCategory' => [
         'type' => 'int',
         'default' => 0,
@@ -42,7 +55,12 @@ add_action( 'init', 'list_category_dynamic' );
 
 function getFormattedDate_List($date) {
   if ($date) {
-    $tmpFormattedDate = date_i18n('d M Y', strtotime($date));
+    $day = date_i18n('d', strtotime($date));  // 'j' representa el día sin ceros iniciales
+    $moth = ucfirst(date_i18n('F', strtotime($date))); // 'F' representa el nombre completo del mes
+    $year = date_i18n('Y', strtotime($date)); // 'Y' representa el año con 4 dígitos
+    $tmpFormattedDate = $day . ' de ' . $moth . ' de ' . $year;
+
+    //$tmpFormattedDate = date_i18n('j \d\e F \d\e Y', $date);  // De una vez (Mes en minúscula)
     return $tmpFormattedDate;
   } else {
     return '';
@@ -194,21 +212,21 @@ function listcategory_render($attributes, $content) {
   if ( empty( $recent_posts ) ) {
     return "<div style='background-color:#f0f07f'>Categoría vacía, seleccione otra o haga alguna entrada</div>";
   }
-  $output = "<div class='row list_category'><ul>";
+
+  $numMaxWords = $attributes['maxWords'];
+
+  /*// Modo lista como la ULPGC
+  $output = "<div class='row list_category'>
+    <ul class='ulpgcds-list'>";*/
+  $output = "<div class='row list_category'>";
 
   foreach ( $recent_posts as $recent_post ) {
     $recent_post_title = $recent_post['post_title'];
     $recent_post_excerpt = $recent_post['post_excerpt'];
-    $recent_post_date = getFormattedDate($recent_post['post_date']);
-    //$recent_post_date_gmt = getFormattedDate($recent_post['post_date_gmt']);  //Hora global
+    $recent_post_date = getFormattedDate_List($recent_post['post_date']);
+    //$recent_post_date_gmt = getFormattedDate_List($recent_post['post_date_gmt']);  //Hora global
     $recent_post_content = $recent_post['post_content'];  //Todo el contenido
     $recent_post_permalink = get_permalink( $recent_post['ID'] );
-
-    $recent_post_person_name = $recent_post['person_name'];  //
-    $recent_post_job_name = $recent_post['job_name'];  //
-    $recent_post_phone = $recent_post['phone'];  //
-    $recent_post_email = $recent_post['email'];  //
-    $recent_post_office = $recent_post['office'];  //
 
     // Obtener la URL de la imagen destacada
     $recent_post_image_url = get_the_post_thumbnail_url( $recent_post['ID']/*, 'medium'*/);
@@ -217,23 +235,37 @@ function listcategory_render($attributes, $content) {
     
     if ($recent_post_image_url && $recent_post_image_alt == '') $recent_post_image_alt = 'Imagen destacada de ('. $recent_post_title. ')';
 
-    
-    /*$output .= "
+    // Si no hay extracto, obtener una versión truncada del contenido para mostrar como extracto
+    if ( empty($recent_post_excerpt) ) {
+      $recent_post_excerpt = wp_trim_words( $recent_post_content, $numMaxWords );
+    } else {
+      $recent_post_excerpt = wp_trim_words( $recent_post_excerpt, $numMaxWords );
+    }
+
+    $output .= "
       <div class='col-12'>
-        <div class='row card_custom'>
-          <div class='col-3 card_col_img'>    
-              <img class='card_img' src='$recent_post_image_url' alt='$recent_post_image_alt'>
-          </div>
-          <div class='col-9 card_info'>
-              <div class='card_person_name'>$recent_post_person_name</div>
-              <h2 class='card_job_name'>$recent_post_job_name</h2>
-              <div>Teléfono: $recent_post_phone</div>
-              <span>Correo:<a label='Correo' href='mailto:'$recent_post_email>$recent_post_email</a></span>
-              <div class='card_info'>Despacho: $recent_post_office</div>
-          </div>
+        <div class='row'>
+          <article class='ulpgcds-article ulpgcds-article--short row' style='max-width: 100%; max-height: 100%'>
+            <div class='col-4 card_col_img'>
+              <a href='$recent_post_permalink'>
+    ";
+    $output .= $recent_post_image_url ? 
+                "<img alt='$recent_post_image_alt' src='$recent_post_image_url' />"
+              : "<img src='$defaultImage' alt='Imagen por defecto'>";
+    $output .= "
+              </a>
+            </div>
+            <div class='col-8 card_info'>
+              <a href='$recent_post_permalink'>
+                <h3>$recent_post_title</h3>
+                <div class='ulpgcds-article__date'>$recent_post_date</div>
+              </a>
+              <p>$recent_post_excerpt</p>
+            </div>
+          </article>
         </div>
       </div>
-    ";*/
+    ";
     
 
     /*$output .= "
@@ -257,17 +289,17 @@ function listcategory_render($attributes, $content) {
       </article>
     ";*/
 
+    /* // Modo lista como la ULPGC
     $output .= "
       <li>
-        <span class='date'>$recent_post_date</span>
-        <a href='$recent_post_permalink'>
-          <h3>Título de un artículo</h3>
-        </a>
-      </li>
-      
-    ";
+        <div class='date'>$recent_post_date</div>
+        <a href='$recent_post_permalink'>$recent_post_title</a>
+      </li>      
+    ";*/
   }
-  $output .= "</ul></div>";
+  $output .= "</div>";
+  // Modo lista como la ULPGC
+  //$output .= "</ul></div>";
 
 	return $output;
 }
