@@ -244,26 +244,24 @@ function listcategory_render($attributes, $content) {
 
     $output .= "
       <div class='col-12'>
-        <div class='row'>
-          <article class='ulpgcds-article ulpgcds-article--short row' style='max-width: 100%; max-height: 100%'>
-            <div class='col-4 card_col_img'>
-              <a href='$recent_post_permalink'>
+        <article class='ulpgcds-article ulpgcds-article--short row' style='max-width: 100%; max-height: 100%'>
+          <div class='col-4'>
+            <a class='list_link' href='$recent_post_permalink'>
     ";
     $output .= $recent_post_image_url ? 
-                "<img alt='$recent_post_image_alt' src='$recent_post_image_url' />"
-              : "<img src='$defaultImage' alt='Imagen por defecto'>";
+              "<img class='list_img' alt='$recent_post_image_alt' src='$recent_post_image_url' />"
+            : "<img class='list_img' src='$defaultImage' alt='Imagen por defecto'>";
     $output .= "
-              </a>
-            </div>
-            <div class='col-8 card_info'>
-              <a href='$recent_post_permalink'>
-                <h3>$recent_post_title</h3>
-                <div class='ulpgcds-article__date'>$recent_post_date</div>
-              </a>
-              <p>$recent_post_excerpt</p>
-            </div>
-          </article>
-        </div>
+            </a>
+          </div>
+          <div class='col-8'>
+            <a class='list_link' href='$recent_post_permalink'>
+              <h3 class='list_title'>$recent_post_title</h3>
+              <div class='ulpgcds-article__date list_date'>$recent_post_date</div>
+            </a>
+            <p class='list_content'>$recent_post_excerpt</p>
+          </div>
+        </article>
       </div>
     ";
     
