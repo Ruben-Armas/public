@@ -1,18 +1,22 @@
-// Variable de estado para almacenar el estado anterior de isMobileWidth
+// Variable de estado para almacenar el estado anterior de isMobileWidth y isPortraitWidth
 let wasMobile = false;
+let wasPortrait = false;
 
 // Función para verificar si la pantalla es de ancho móvil
 function isMobileWidth() {
-  return window.innerWidth <= 768; // Aquí puedes ajustar el ancho de pantalla que consideras móvil.
+  return window.innerWidth <= 768;
 }
 
 // Función para aplicar las transformaciones según el ancho de pantalla
 function adjustContent() {
   console.log('adjustContent');
   const isCurrentlyMobile = isMobileWidth();
+  const isCurrentlyPortrait = !isMobileWidth();
+  //console.log('Mobil ->'+isCurrentlyMobile);
+  //console.log('Portrait ->'+isCurrentlyPortrait);
 
   if (isCurrentlyMobile  && !wasMobile) {
-    console.log('---isMobileWidth---');
+    console.log('---Mobile---');
     // Selecciona todos los elementos con la clase .ulpgcds-article
     $(".ulpgcds-article").each(function() {
       /*
@@ -42,8 +46,8 @@ function adjustContent() {
       }*/
 
       // Encuentra los elementos .col-4 y .col-8 dentro de .ulpgcds-article
-      var col4 = $(this).find(".col-4");
-      var col8 = $(this).find(".col-8");
+      var col4 = $(this).find(".col-img");
+      var col8 = $(this).find(".col-content");
 
       // Si ambos elementos existen
       if (col4.length && col8.length) {
@@ -68,15 +72,17 @@ function adjustContent() {
         col8.remove();
 
         // Modifica las clases de .ulpgcds-article
-        $(this).removeClass('row');
+        $(this).removeClass('row resize_article_row');
         //$(this).addClass('ulpgcds-article--modified');
         // Elimina el atributo style
-        $(this).removeAttr('style');
+        //$(this).removeAttr('style');
 
         // Construye el nuevo HTML y lo reemplaza en .ulpgcds-article
         $(this).html(`
           <a class='list_link' href='${listLink}'>
-            <figure><img class='list_img' alt='${imgAlt}' src='${imgSrc}' /></figure>
+            <figure class='figure_img'>
+              <img class='list_img' alt='${imgAlt}' src='${imgSrc}' />
+            </figure>
             <h3 class='list_title'>${title}</h3>
             <div class="ulpgcds-article__date">${date}</div>
           </a>
@@ -86,8 +92,69 @@ function adjustContent() {
     })
   }
 
+  if (isCurrentlyPortrait  && !wasPortrait) {
+    console.log('---Portrait---');
+    // Selecciona todos los elementos con la clase .ulpgcds-article
+    $(".ulpgcds-article").each(function() {
+
+      // Encuentra los elementos .col-4 y .col-8 dentro de .ulpgcds-article
+      var col4 = $(this).find(".col-img");
+      var col8 = $(this).find(".col-content");
+
+      // Si ambos elementos existen
+      if (!col4.length && !col8.length) {
+        // Contenedor <a>
+        var containerA = $(this).find(".list_link");
+        // Contenedor <p> del contenido
+        var containerP = $(this).find(".list_content");
+
+        // Encuentra el link
+        var listLink = containerA.find(".list_link").attr("href");
+
+        // Encuentra la imagen dentro de .col-4 y extrae la URL de la imagen y el alt
+        var imgFigure = containerA.find(".figure");
+        var imgSrc = containerA.find(".list_img").attr("src");
+        var imgAlt = containerA.find(".list_img").attr("alt");
+
+        // Encuentra el título
+        var title = containerA.find(".list_title").html();
+        // Encuentra la fecha
+        var date = containerA.find(".ulpgcds-article__date").html();
+
+        // Encuentra el contenido
+        var content = $(this).find(".list_content").html();
+
+        // Elimina el <a> y su contenido
+        containerA.remove();
+        // Elimina el <p> y su contenido
+        containerP.remove();
+
+        // Modifica las clases de .ulpgcds-article
+        $(this).addClass('row resize_article_row');
+
+        // Construye el nuevo HTML y lo reemplaza en .ulpgcds-article
+        $(this).html(`
+          <div class='col-4 col-img'>
+            <a class='list_link' href='${listLink}'>
+              <figure>
+                <img class='list_img' alt='${imgAlt}' src='${imgSrc}' />
+              </figure>
+          </div>
+          <div class='col-8 col-content'>
+            <a class='list_link' href='${listLink}'>
+              <h3 class='list_title'>${title}</h3>
+              <div class="ulpgcds-article__date">${date}</div>
+            </a>
+            <p class='list_content'>${content}</p>
+          </div>
+        `);
+      }
+    })
+  }
+
   // Actualiza el estado anterior
   wasMobile = isCurrentlyMobile;
+  wasPortrait = isCurrentlyPortrait;
 }
 
 // Llama a la función cuando el documento esté completamente cargado
