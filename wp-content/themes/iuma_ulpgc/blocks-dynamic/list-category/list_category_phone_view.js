@@ -4,7 +4,7 @@ let wasPortrait = false;
 
 // Función para verificar si la pantalla es de ancho móvil
 function isMobileWidth() {
-  return window.innerWidth <= 768;
+  return window.innerWidth <= 716;
 }
 
 // Función para aplicar las transformaciones según el ancho de pantalla
@@ -12,39 +12,11 @@ function adjustContent() {
   console.log('adjustContent');
   const isCurrentlyMobile = isMobileWidth();
   const isCurrentlyPortrait = !isMobileWidth();
-  //console.log('Mobil ->'+isCurrentlyMobile);
-  //console.log('Portrait ->'+isCurrentlyPortrait);
 
   if (isCurrentlyMobile  && !wasMobile) {
     console.log('---Mobile---');
     // Selecciona todos los elementos con la clase .ulpgcds-article
     $(".ulpgcds-article").each(function() {
-      /*
-      // Verifica si col-4 existe
-      var col4 = $(this).find(".col-4");
-
-      if (col4.length) {
-        // Encuentra el contenido del <a> dentro de .col-4
-        var col4Content = col4.find("a").html();
-      
-        // Verifica si col-8 existe
-        var col8 = $(this).find(".col-8");
-
-        if (col8.length) {
-          // Encuentra el elemento .col-8 dentro de .ulpgcds-article y extrae su contenido
-          var col8Content = col8.html();
-        
-          // Elimina .col-4
-          $(this).find(".col-4").remove();  
-          // Elimina .col-8
-          $(this).find(".col-8").remove();
-          
-          // Agrega el contenido de col-8 con la imagen a .ulpgcds-article
-          //$(this).append("<a href='#'>" + col4Content/*.prop('outerHTML')*//* + col8Content + "</a>");
-          $(this).append(col4Content/*.prop('outerHTML')*//* + col8Content );
-        }
-      }*/
-
       // Encuentra los elementos .col-4 y .col-8 dentro de .ulpgcds-article
       var col4 = $(this).find(".col-img");
       var col8 = $(this).find(".col-content");
@@ -73,7 +45,6 @@ function adjustContent() {
 
         // Modifica las clases de .ulpgcds-article
         $(this).removeClass('row resize_article_row');
-        //$(this).addClass('ulpgcds-article--modified');
         // Elimina el atributo style
         //$(this).removeAttr('style');
 
@@ -93,7 +64,6 @@ function adjustContent() {
   }
 
   if (isCurrentlyPortrait  && !wasPortrait) {
-    console.log('---Portrait---');
     // Selecciona todos los elementos con la clase .ulpgcds-article
     $(".ulpgcds-article").each(function() {
 
