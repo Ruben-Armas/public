@@ -1,8 +1,20 @@
-.resize_article_row {
-    max-width: 100%;
-    max-height: 100%;
+.container_row {
+    margin-bottom: 32px !important;
 }
 
-.figure_img {
+.resize_article_row {
+    max-width: 100% !important;
+    max-height: 100%;
+    max-height: 200px;
+}
+
+.mobile_figure_img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
     max-height: 70px;
 }
+
+/*.list_img {
+    margin: 0 auto !important;
+}*/

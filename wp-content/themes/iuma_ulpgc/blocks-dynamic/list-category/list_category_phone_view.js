@@ -4,7 +4,7 @@ let wasPortrait = false;
 
 // Función para verificar si la pantalla es de ancho móvil
 function isMobileWidth() {
-  return window.innerWidth <= 716;
+  return window.innerWidth <= 719;
 }
 
 // Función para aplicar las transformaciones según el ancho de pantalla
@@ -15,8 +15,8 @@ function adjustContent() {
 
   if (isCurrentlyMobile  && !wasMobile) {
     console.log('---Mobile---');
-    // Selecciona todos los elementos con la clase .ulpgcds-article
-    $(".ulpgcds-article").each(function() {
+    // Selecciona todos los elementos con la clase .list_category_item
+    $(".list_category_item").each(function() {
       // Encuentra los elementos .col-4 y .col-8 dentro de .ulpgcds-article
       var col4 = $(this).find(".col-img");
       var col8 = $(this).find(".col-content");
@@ -44,28 +44,30 @@ function adjustContent() {
         col8.remove();
 
         // Modifica las clases de .ulpgcds-article
-        $(this).removeClass('row resize_article_row');
+        $(this).removeClass('container_row');
         // Elimina el atributo style
         //$(this).removeAttr('style');
 
         // Construye el nuevo HTML y lo reemplaza en .ulpgcds-article
         $(this).html(`
-          <a class='list_link' href='${listLink}'>
-            <figure class='figure_img'>
-              <img class='list_img' alt='${imgAlt}' src='${imgSrc}' />
-            </figure>
-            <h3 class='list_title'>${title}</h3>
-            <div class="ulpgcds-article__date">${date}</div>
-          </a>
-          <p class='list_content'>${content}</p>
+          <article class='ulpgcds-article ulpgcds-article--short'>
+            <a class='list_link' href='${listLink}'>
+              <figure class='mobile_figure_img'>
+                <img class='list_img' alt='${imgAlt}' src='${imgSrc}' />
+              </figure>
+              <h3 class='list_title'>${title}</h3>
+              <div class="ulpgcds-article__date">${date}</div>
+            </a>
+            <p class='list_content'>${content}</p>
+          </article>
         `);
       }
     })
-  }
+  }  
 
   if (isCurrentlyPortrait  && !wasPortrait) {
-    // Selecciona todos los elementos con la clase .ulpgcds-article
-    $(".ulpgcds-article").each(function() {
+    // Selecciona todos los elementos con la clase .list_category_item
+    $(".list_category_item").each(function() {
 
       // Encuentra los elementos .col-4 y .col-8 dentro de .ulpgcds-article
       var col4 = $(this).find(".col-img");
@@ -100,23 +102,26 @@ function adjustContent() {
         containerP.remove();
 
         // Modifica las clases de .ulpgcds-article
-        $(this).addClass('row resize_article_row');
+        $(this).addClass('container_row');
+        //$(this).addClass('row resize_article_row');
 
         // Construye el nuevo HTML y lo reemplaza en .ulpgcds-article
         $(this).html(`
-          <div class='col-4 col-img'>
-            <a class='list_link' href='${listLink}'>
-              <figure>
-                <img class='list_img' alt='${imgAlt}' src='${imgSrc}' />
-              </figure>
-          </div>
-          <div class='col-8 col-content'>
-            <a class='list_link' href='${listLink}'>
-              <h3 class='list_title'>${title}</h3>
-              <div class="ulpgcds-article__date">${date}</div>
-            </a>
-            <p class='list_content'>${content}</p>
-          </div>
+          <article class='ulpgcds-article ulpgcds-article--short row resize_article_row'>
+            <div class='col-4 col-img'>
+              <a class='list_link' href='${listLink}'>
+                <figure>
+                  <img class='list_img' alt='${imgAlt}' src='${imgSrc}' />
+                </figure>
+            </div>
+            <div class='col-8 col-content'>
+              <a class='list_link' href='${listLink}'>
+                <h3 class='list_title'>${title}</h3>
+                <div class="ulpgcds-article__date">${date}</div>
+              </a>
+              <p class='list_content'>${content}</p>
+            </div>
+          </article>
         `);
       }
     })

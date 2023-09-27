@@ -120,7 +120,7 @@ function listcategory_render($attributes, $content) {
     }
 
     $output .= "
-      <div class='col-12'>
+      <div class='col-12 list_category_item container_row'>
         <article class='ulpgcds-article ulpgcds-article--short row resize_article_row'>
           <div class='col-4 col-img'>
             <a class='list_link' href='$recent_post_permalink'>
