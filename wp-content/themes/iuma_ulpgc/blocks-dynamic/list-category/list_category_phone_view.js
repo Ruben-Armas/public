@@ -9,12 +9,10 @@ function isMobileWidth() {
 
 // Función para aplicar las transformaciones según el ancho de pantalla
 function adjustContent() {
-  console.log('adjustContent');
   const isCurrentlyMobile = isMobileWidth();
   const isCurrentlyPortrait = !isMobileWidth();
 
   if (isCurrentlyMobile  && !wasMobile) {
-    console.log('---Mobile---');
     // Selecciona todos los elementos con la clase .list_category_item
     $(".list_category_item").each(function() {
       // Encuentra los elementos .col-4 y .col-8 dentro de .ulpgcds-article
@@ -68,7 +66,6 @@ function adjustContent() {
   if (isCurrentlyPortrait  && !wasPortrait) {
     // Selecciona todos los elementos con la clase .list_category_item
     $(".list_category_item").each(function() {
-
       // Encuentra los elementos .col-4 y .col-8 dentro de .ulpgcds-article
       var col4 = $(this).find(".col-img");
       var col8 = $(this).find(".col-content");

@@ -150,7 +150,11 @@ function carruselcategory_render($attributes, $content) {
 
   // Agregar "..." en el sexto artículo si se están mostrando más de 5 en la vista pública
   if ( !$webView && count($recent_posts) > $maxPostEditToShow ) {
-    $output .= "<div class='col-4 col-sm-4'><article class='ulpgcds-article'><h3>...</h3></article></div>";
+    $output .= "
+    <div class='col-4 col-sm-4'>
+      <h2 class='title-l'>Preview</h2>
+      <h3 class='title-xl'>". $counter-1 ." de ". count($recent_posts) ." ...</h3>
+    </div>";
   }
   $output .= $webView ? '</ul>' : '</div>';  
 

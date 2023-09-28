@@ -41,10 +41,6 @@ function list_category_dynamic() {
         'type' => 'int',
         'default' => 0,
       ],
-      /*'imgHighlightCheck' => [
-        'type' => 'boolean',
-        'default' => false,
-      ],*/
       'isEditingBlock' => [
         'type' => 'boolean',
         'default' => false,
@@ -90,7 +86,12 @@ function listcategory_render($attributes, $content) {
     return "<div style='background-color:#f0f07f'>Categoría vacía, seleccione otra o haga alguna entrada</div>";
   }
 
+  // Verificar si el bloque está siendo mostrado en la vista pública (frontend)
+  $webView = $attributes['isWebView'];
   $numMaxWords = $attributes['maxWords'];
+
+  $maxPostEditToShow = 5; // Número de artículos a mostrar en el editor
+  $counter = 0; // Contador para contar los artículos mostrados
 
   /*// Modo lista como la ULPGC
   $output = "<div class='row list_category'>
@@ -98,6 +99,7 @@ function listcategory_render($attributes, $content) {
   $output = "<div class='row list_category'>";
 
   foreach ( $recent_posts as $recent_post ) {
+    $counter++;
     $recent_post_title = $recent_post['post_title'];
     $recent_post_excerpt = $recent_post['post_excerpt'];
     $recent_post_date = getFormattedDate_List($recent_post['post_date']);
@@ -118,6 +120,11 @@ function listcategory_render($attributes, $content) {
     } else {
       $recent_post_excerpt = wp_trim_words( $recent_post_excerpt, $numMaxWords );
     }
+
+    // Mostrar solo 5 artículos en el editor
+    if ( !$webView && $counter > $maxPostEditToShow ) {
+      break;
+    } 
 
     $output .= "
       <div class='col-12 list_category_item container_row'>
@@ -150,6 +157,22 @@ function listcategory_render($attributes, $content) {
       </li>      
     ";*/
   }
+
+  // Agregar "..." en el sexto artículo si se están mostrando más de 5 en la vista pública
+  if ( !$webView && count($recent_posts) > $maxPostEditToShow ) {
+    $output .= "
+      <div class='col-12'>
+        <h2 class='title-l'>Preview
+          <span class='title-xl'>". $counter-1 ." de ". count($recent_posts) ." ...</span>
+        </h2>
+      </div>
+    ";
+    /*$output .= "
+    <div class='col-12'>
+        <h3>...</h3>
+    </div>";*/
+  }
+
   $output .= "</div>";
   // Modo lista como la ULPGC
   //$output .= "</ul></div>";

@@ -5,10 +5,6 @@ class ListCategoryEdit extends wp.element.Component {
     const { attributes, setAttributes, categories } = this.props;
     const {maxWords, selectedCategory, isEditingBlock} = attributes;
 
-		//console.log('isEditingBlock-> '+isEditingBlock);
-		//console.log(this.props);
-		//console.log(this.props.posts);
-
     //Guarda las categorías obtenidas en el edit
     let choices = [];
     if (categories) {
@@ -125,10 +121,6 @@ wp.blocks.registerBlockType('listcategory-block/my-block', {
   category: 'ulpgc',
   example: {},
   attributes: {
-    /*maxPosts: {
-      type: 'number',
-      default: postsVal
-    },*/
     maxWords: {
       type: 'number',
       default: wordsVal
@@ -147,37 +139,6 @@ wp.blocks.registerBlockType('listcategory-block/my-block', {
       default: false,
     }
   },
-  
-  /*edit: function(props) {
-    console.log('edit');
-    return wp.element.createElement(
-      wp.components.PanelBody,
-      {
-        title: 'List Category',
-        initialOpen: true,
-      },
-      wp.element.createElement(
-        wp.components.TextControl,
-        {
-          label: 'Título',
-          value: 'List Category'
-        }
-      )
-    )
-  },
-  save: function(props) {
-    console.log('save');
-    return wp.element.createElement(
-      'div',
-      {
-        className: ''
-      },
-      wp.element.createElement(
-        'h3', null,
-        'List Category'
-      )
-    )    
-  }*/
   
   edit: withSelect(list_select => {
     const currentPostId = list_select('core/editor').getCurrentPostId();
