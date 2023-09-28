@@ -8,8 +8,8 @@
   <!--Navegacion_Lateral-->
   <?php
     get_ulpgc_submenu_sidebar(
-        get_post_meta(get_the_ID(), 'slug_menu', true),
-        get_post_meta(get_the_ID(), 'title_menu', true)
+      get_post_meta(get_the_ID(), 'slug_menu', true),
+      get_post_meta(get_the_ID(), 'title_menu', true)
     );
   ?>
 

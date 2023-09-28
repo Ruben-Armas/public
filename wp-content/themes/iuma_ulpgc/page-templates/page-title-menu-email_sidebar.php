@@ -8,8 +8,8 @@
   <!--Menú de Navegacion_Lateral y Panel_de_Suscripción-->
   <?php
     get_submenu_suscriptionPanel_sidebar(
-        get_post_meta(get_the_ID(), 'slug_menu', true),
-        get_post_meta(get_the_ID(), 'title_menu', true)
+      get_post_meta(get_the_ID(), 'slug_menu', true),
+      get_post_meta(get_the_ID(), 'title_menu', true)
     );
   ?>
 
