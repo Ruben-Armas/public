@@ -68,6 +68,11 @@ require_once get_template_directory() . '/blocks-modified/column_mod.php';
 
 
 //Pruebas--------------------
+function theme_styles_scss()  { 
+    // Cargar hoja de estilo 
+    wp_enqueue_style( 'style_scss', get_template_directory_uri() . '/style.scss'); 
+}
+add_action('wp_enqueue_scripts', 'theme_styles_scss');
 //--------------------Pruebas
 
 // Añade las librerias en el editor (para ver las vistas previas estilizadas)
@@ -290,7 +295,8 @@ function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
 	<div class="sidebar-left">
 		<div class="sidebar-left__block">
 			<ul class="menu">
-				<li><span class="nolink"><?php echo $menu_title ?></span>
+				<li>
+                    <span class="nolink"><?php echo $menu_title ?></span>
 					<ul>
 						<?php //wp_nav_menu( array( 'theme_location' => 'AboutMenu' ) ); ?>
 						<?php
@@ -313,6 +319,49 @@ function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
 	<?php
 }
 
+/**
+ * Muestra el panel de suscripción
+ *
+ * @param string $menu_slug Slug del menú que se quiere mostrar (referencia al menú creado en Wordpress) Ej: 'AboutMenu'
+ * @param string $menu_title Título que se mostrará en el menú. Ej: 'Sobre el IUMA'
+ *
+ * @return void
+ */
+function get_submenu_suscriptionPanel_sidebar($menu_slug, $menu_title) {
+	?>
+	<!--<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>-->
+
+	<div class="sidebar-left">
+		<div class="sidebar-left__block">
+            <ul class="menu">
+                <li>
+                    <span class="nolink"><?php echo $menu_title ?></span>
+                    <ul class="menu">
+                        <?php
+							$menu_items = wp_get_nav_menu_items($menu_slug);
+							foreach ($menu_items as $menu_item) {
+								$url = $menu_item->url;
+								$title = $menu_item->title;
+								$active = '';
+								if (is_page($menu_item->object_id)) {
+									$active = 'active';
+								}
+								echo '<li class="' . $active . '"><a href="' . $url . '">' . $title . '</a></li>';
+							}
+						?>
+                    </ul>
+                </li>
+                <li class="not-first">
+                    <span class="nolink"><?php echo 'Suscripción' ?></span>
+                    <ul class="menu">
+                        <?php echo do_shortcode('[email-subscribers-form id="1"]'); ?>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+	</div>
+	<?php
+}
 
 // Añade la opción de seleccionar el submenu_sidebar en el editor
 function add_sidebar_custom_meta_boxes() {

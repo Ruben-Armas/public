@@ -1,13 +1,13 @@
-<?php /* Template Name: Título y menú de navegación lateral */ ?>
+<?php /* Template Name: Título, Menú de navegación y Panel de suscripción lateral */ ?>
 
 <?php get_header(); ?>
 
 <main class="main-content-web">
   <!--Migas_De_Pan-->
-  <?php get_ulpgc_breadcrumb(); ?>  
-  <!--Navegacion_Lateral-->
+  <?php get_ulpgc_breadcrumb(); ?>
+  <!--Menú de Navegacion_Lateral y Panel_de_Suscripción-->
   <?php
-    get_ulpgc_submenu_sidebar(
+    get_submenu_suscriptionPanel_sidebar(
         get_post_meta(get_the_ID(), 'slug_menu', true),
         get_post_meta(get_the_ID(), 'title_menu', true)
     );

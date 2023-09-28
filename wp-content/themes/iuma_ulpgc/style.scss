@@ -1,0 +1,13 @@
+/* 
+Theme Name: iuma_ulpgc
+Template Theme URI: https://prueba-ulpgc.com/
+Author: Rubén
+Description: Tema que aplica los estilos de la ULPGC
+Version: 1.0
+*/
+@import "iuma_ulpgc/css/scss/utils/_variables.scss";
+
+ul.menu.container-menu li:not(.first){     
+    margin-top: 40px;           
+    //margin-top: $layout-l;                                    
+}
