@@ -279,6 +279,67 @@ function get_ulpgc_breadcrumb() {
   <?php
 }
 
+// SideBar
+$subMenu = `
+  <li>
+    <span class="nolink"><?php echo $menu_title ?></span>
+    <ul class="menu">
+    <?php //wp_nav_menu( array( 'theme_location' => 'AboutMenu' ) ); ?>
+      <?php
+        $menu_items = wp_get_nav_menu_items($menu_slug);
+        foreach ($menu_items as $menu_item) {
+          $url = $menu_item->url;
+          $title = $menu_item->title;
+          $active = '';
+          if (is_page($menu_item->object_id)) {
+            $active = 'active';
+          }
+          echo '<li class="' . $active . '"><a href="' . $url . '">' . $title . '</a></li>';
+        }
+      ?>
+    </ul>
+  </li>
+`;
+$suscriptionPanel = `
+  <li class="not-first">
+    <span class="nolink"><?php echo 'Suscripción' ?></span>
+    <ul class="menu">
+      <?php echo do_shortcode('[email-subscribers-form id="1"]'); ?>
+    </ul>
+  </li>
+`;
+$social_facebook = `
+  <li class="not-first">
+    <span class="nolink"><?php echo 'Suscripción' ?></span>
+    <ul class="menu">      
+      
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0"></script>
+    <div class="fb-page" data-href="https://www.facebook.com/IUMA.ulpgc" data-tabs="timeline" data-width="" data-height="600" 
+      data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+      <blockquote class="fb-xfbml-parse-ignore" cite="https://www.facebook.com/IUMA.ulpgc">
+        <a href="https://www.facebook.com/IUMA.ulpgc">
+          IUMA - ULPGC
+        </a>
+      </blockquote>
+    </div>        
+
+    </ul>
+  </li>
+`;
+$social_X_twitter = `
+  <li class="not-first">
+    <span class="nolink"><?php echo 'Suscripción' ?></span>
+    <ul class="menu">
+    
+      <a class="twitter-timeline" data-height="810" data-theme="light" href="https://twitter.com/IUMAnews?ref_src=twsrc%5Etfw">
+        Tweets by IUMAnews
+      </a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    </ul>
+  </li>
+`;
+
 /**
  * Muestra el sub-menú de navegación lateral y marca como activa la página actual
  *
@@ -288,30 +349,14 @@ function get_ulpgc_breadcrumb() {
  * @return void
  */
 function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
+  global $subMenu;
 	?>
 	<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>
 
 	<div class="sidebar-left">
 		<div class="sidebar-left__block">
 			<ul class="menu">
-				<li>
-          <span class="nolink"><?php echo $menu_title ?></span>
-					<ul>
-						<?php //wp_nav_menu( array( 'theme_location' => 'AboutMenu' ) ); ?>
-						<?php
-							$menu_items = wp_get_nav_menu_items($menu_slug);
-							foreach ($menu_items as $menu_item) {
-								$url = $menu_item->url;
-								$title = $menu_item->title;
-								$active = '';
-								if (is_page($menu_item->object_id)) {
-									$active = 'active';
-								}
-								echo '<li class="' . $active . '"><a href="' . $url . '">' . $title . '</a></li>';
-							}
-						?>
-					</ul>
-				</li>
+        <?php echo $subMenu ?>
 			</ul>
 		</div>
 	</div>
@@ -319,7 +364,7 @@ function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
 }
 
 /**
- * Muestra el panel de suscripción
+ * Muestra el Menú de navegación lateral y el Panel de suscripción
  *
  * @param string $menu_slug Slug del menú que se quiere mostrar (referencia al menú creado en Wordpress) Ej: 'AboutMenu'
  * @param string $menu_title Título que se mostrará en el menú. Ej: 'Sobre el IUMA'
@@ -327,35 +372,45 @@ function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
  * @return void
  */
 function get_submenu_suscriptionPanel_sidebar($menu_slug, $menu_title) {
+  global $subMenu;
+  global $suscriptionPanel;
 	?>
 	<!--<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>-->
 
 	<div class="sidebar-left">
 		<div class="sidebar-left__block">
       <ul class="menu">
-        <li>
-          <span class="nolink"><?php echo $menu_title ?></span>
-          <ul class="menu">
-            <?php
-							$menu_items = wp_get_nav_menu_items($menu_slug);
-							foreach ($menu_items as $menu_item) {
-								$url = $menu_item->url;
-								$title = $menu_item->title;
-								$active = '';
-								if (is_page($menu_item->object_id)) {
-									$active = 'active';
-								}
-								echo '<li class="' . $active . '"><a href="' . $url . '">' . $title . '</a></li>';
-							}
-						?>
-          </ul>
-        </li>
-        <li class="not-first">
-            <span class="nolink"><?php echo 'Suscripción' ?></span>
-            <ul class="menu">
-                <?php echo do_shortcode('[email-subscribers-form id="1"]'); ?>
-            </ul>
-        </li>
+        <?php echo $subMenu ?>
+        <?php echo $suscriptionPanel ?>
+      </ul>
+    </div>
+	</div>
+	<?php
+}
+
+/**
+ * Muestra el Menú de navegación lateral, el Panel de suscripción y las redes sociales
+ *
+ * @param string $menu_slug Slug del menú que se quiere mostrar (referencia al menú creado en Wordpress) Ej: 'AboutMenu'
+ * @param string $menu_title Título que se mostrará en el menú. Ej: 'Sobre el IUMA'
+ *
+ * @return void
+ */
+function get_submenu_suscriptionPanel_socialMedia_sidebar($menu_slug, $menu_title) {
+  global $subMenu;
+  global $suscriptionPanel;
+  global $social_facebook;
+  global $social_X_twitter;
+	?>
+	<!--<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>-->
+
+	<div class="sidebar-left">
+		<div class="sidebar-left__block">
+      <ul class="menu">
+        <?php echo $subMenu ?>
+        <?php echo $suscriptionPanel ?>
+        <?php echo $social_facebook ?>
+        <?php echo $social_X_twitter ?>
       </ul>
     </div>
 	</div>
