@@ -10,6 +10,16 @@ function carrusel_category_dynamic() {
     ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-data'], // Required dependencies for blocks
     filemtime(get_template_directory() . $blockPath . '.js') // Version of last time file was saved
   );
+  
+  // Registra los estilos backend y frontend del bloque
+  wp_register_style(
+    'carruselcategory-style',
+    get_template_directory_uri() . $blockPath . '.scss',
+    array(),
+    filemtime( get_template_directory() . $blockPath . '.scss' )
+  );
+  wp_enqueue_style( 'carruselcategory-style' );
+
   // Registra el bloque
   register_block_type( 'carruselcategory-block/my-block', [
     'editor_script' => 'carruselcategory-block-js',
@@ -133,11 +143,11 @@ function carruselcategory_render($attributes, $content) {
         (
           $isImgHighlighted ?
             "<span class='ulpgcds-carrusel--medium__img'>
-              <img src='$recent_post_image_url' alt='$recent_post_image_alt'>
+              <img class='carrusel_img' src='$recent_post_image_url' alt='$recent_post_image_alt'>
             </span>"
-          : "<img src='$recent_post_image_url' alt='$recent_post_image_alt'>"
+          : "<img class='carrusel_img' src='$recent_post_image_url' alt='$recent_post_image_alt'>"
         )
-      : "<img src='$defaultImage' alt='Imagen por defecto'>";
+      : "<img class='carrusel_img' src='$defaultImage' alt='Imagen por defecto'>";
       $output .= "
             <div class='ulpgcds-article__date'>$recent_post_date</div>
             <h3>$recent_post_title</h3>
