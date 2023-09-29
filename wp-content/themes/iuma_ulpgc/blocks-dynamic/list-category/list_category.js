@@ -117,7 +117,7 @@ wp.blocks.registerBlockType('listcategory-block/my-block', {
   title: 'Lista de Entradas / Categorías',
   description: '(Bloque dinámico) Lista de Entradas/Categorías en forma de Tarjeta/Card con el estilo de la ULPGC',
 
-  icon: 'excerpt-view',
+  icon: 'list-view',
   category: 'ulpgc',
   example: {},
   attributes: {
