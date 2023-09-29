@@ -279,66 +279,85 @@ function get_ulpgc_breadcrumb() {
   <?php
 }
 
-// SideBar
-$subMenu = `
-  <li>
-    <span class="nolink"><?php echo $menu_title ?></span>
-    <ul class="menu">
-    <?php //wp_nav_menu( array( 'theme_location' => 'AboutMenu' ) ); ?>
-      <?php
-        $menu_items = wp_get_nav_menu_items($menu_slug);
-        foreach ($menu_items as $menu_item) {
-          $url = $menu_item->url;
-          $title = $menu_item->title;
-          $active = '';
-          if (is_page($menu_item->object_id)) {
-            $active = 'active';
-          }
-          echo '<li class="' . $active . '"><a href="' . $url . '">' . $title . '</a></li>';
-        }
-      ?>
-    </ul>
-  </li>
-`;
-$suscriptionPanel = `
-  <li class="not-first">
-    <span class="nolink"><?php echo 'Suscripción' ?></span>
-    <ul class="menu">
-      <?php echo do_shortcode('[email-subscribers-form id="1"]'); ?>
-    </ul>
-  </li>
-`;
-$social_facebook = `
-  <li class="not-first">
-    <span class="nolink"><?php echo 'Suscripción' ?></span>
-    <ul class="menu">      
-      
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0"></script>
-    <div class="fb-page" data-href="https://www.facebook.com/IUMA.ulpgc" data-tabs="timeline" data-width="" data-height="600" 
-      data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-      <blockquote class="fb-xfbml-parse-ignore" cite="https://www.facebook.com/IUMA.ulpgc">
-        <a href="https://www.facebook.com/IUMA.ulpgc">
-          IUMA - ULPGC
-        </a>
-      </blockquote>
-    </div>        
 
-    </ul>
-  </li>
-`;
-$social_X_twitter = `
-  <li class="not-first">
-    <span class="nolink"><?php echo 'Suscripción' ?></span>
-    <ul class="menu">
-    
-      <a class="twitter-timeline" data-height="810" data-theme="light" href="https://twitter.com/IUMAnews?ref_src=twsrc%5Etfw">
+// SideBar
+function subMenu($menu_slug, $menu_title) {
+  $subMenu = "
+    <li>
+      <span class='nolink'>{$menu_title}</span>
+      <ul class='menu'>
+  ";
+
+  $menu_items = wp_get_nav_menu_items($menu_slug);
+  foreach ($menu_items as $menu_item) {
+    $url = $menu_item->url;
+    $title = $menu_item->title;
+    $active = '';
+    if (is_page($menu_item->object_id)) {
+      $active = 'active';
+    }
+    $subMenu .= "
+      <li class='{$active}'><a href='{$url}'>{$title}</a></li>
+    ";
+  }  
+  
+  $subMenu .= "
+      </ul>
+    </li>
+  ";
+  return $subMenu;
+}
+function suscriptionPanel($menu_slug, $menu_title) {
+  $suscription = "
+    <li class='not-first'>
+      <span class='nolink'> Suscripción </span>
+      <ul class='menu'>
+
+      ". do_shortcode('[email-subscribers-form id="1"]') ."
+      
+      </ul>
+    </li>
+  ";
+  return $suscription;
+}
+function social_facebook() {
+  $facebook = "
+    <li class='not-first'>
+      <span class='nolink'> Facebook </span>
+      <ul class='menu'>      
+        
+        <script async defer crossorigin='anonymous' src='https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0'></script>
+
+        <div class='fb-page' data-href='https://www.facebook.com/IUMA.ulpgc' data-tabs='timeline' data-width='' data-height='600' 
+          data-small-header='true' data-adapt-container-width='true' data-hide-cover='false' data-show-facepile='true'>
+          
+          <blockquote class='fb-xfbml-parse-ignore' cite='https://www.facebook.com/IUMA.ulpgc'>
+            <a href='https://www.facebook.com/IUMA.ulpgc'>
+              IUMA - ULPGC
+            </a>
+          </blockquote>
+        </div>
+      </ul>
+    </li>
+  ";
+  return $facebook;
+}
+function social_X_twitter() {
+  $twitterX = "
+    <li class='not-first'>
+      <span class='nolink'> Twitter / X </span>
+      <ul class='menu'>      
+        
+      <a class='twitter-timeline' data-height='810' data-theme='light' href='https://twitter.com/IUMAnews?ref_src=twsrc%5Etfw'>
         Tweets by IUMAnews
       </a>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-    </ul>
-  </li>
-`;
+      <script async src='https://platform.twitter.com/widgets.js' charset='utf-8'></script>
+      
+      </ul>
+    </li>
+  ";
+  return $twitterX;
+}
 
 /**
  * Muestra el sub-menú de navegación lateral y marca como activa la página actual
@@ -349,20 +368,18 @@ $social_X_twitter = `
  * @return void
  */
 function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
-  global $subMenu;
 	?>
 	<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>
 
 	<div class="sidebar-left">
 		<div class="sidebar-left__block">
 			<ul class="menu">
-        <?php echo $subMenu ?>
+        <?php echo subMenu($menu_slug, $menu_title) ?>        
 			</ul>
 		</div>
 	</div>
 	<?php
 }
-
 /**
  * Muestra el Menú de navegación lateral y el Panel de suscripción
  *
@@ -372,22 +389,19 @@ function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
  * @return void
  */
 function get_submenu_suscriptionPanel_sidebar($menu_slug, $menu_title) {
-  global $subMenu;
-  global $suscriptionPanel;
 	?>
 	<!--<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>-->
 
 	<div class="sidebar-left">
 		<div class="sidebar-left__block">
       <ul class="menu">
-        <?php echo $subMenu ?>
-        <?php echo $suscriptionPanel ?>
+        <?php echo subMenu($menu_slug, $menu_title) ?>
+        <?php echo suscriptionPanel($menu_slug, $menu_title) ?>  
       </ul>
     </div>
 	</div>
 	<?php
 }
-
 /**
  * Muestra el Menú de navegación lateral, el Panel de suscripción y las redes sociales
  *
@@ -397,27 +411,24 @@ function get_submenu_suscriptionPanel_sidebar($menu_slug, $menu_title) {
  * @return void
  */
 function get_submenu_suscriptionPanel_socialMedia_sidebar($menu_slug, $menu_title) {
-  global $subMenu;
-  global $suscriptionPanel;
-  global $social_facebook;
-  global $social_X_twitter;
 	?>
 	<!--<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>-->
 
 	<div class="sidebar-left">
 		<div class="sidebar-left__block">
       <ul class="menu">
-        <?php echo $subMenu ?>
-        <?php echo $suscriptionPanel ?>
-        <?php echo $social_facebook ?>
-        <?php echo $social_X_twitter ?>
+        <?php echo subMenu($menu_slug, $menu_title) ?>
+        <?php echo suscriptionPanel($menu_slug, $menu_title) ?>  
+        <?php echo social_facebook() ?>
+        <?php echo social_X_twitter() ?>  
       </ul>
     </div>
 	</div>
 	<?php
 }
 
-// Añade la opción de seleccionar el submenu_sidebar en el editor
+
+// Añade la opción de seleccionar el submenu/ Menú de navegación lateral en el editor
 function add_sidebar_custom_meta_boxes() {
 	/*$template_slug = get_page_template_slug();
 	print($template_slug);
