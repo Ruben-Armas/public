@@ -131,6 +131,7 @@
     );
   }
 }*/
+const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg';
 
 ( function ( blocks, element, blockEditor ) {
   var el = element.createElement;
@@ -212,9 +213,10 @@
             wp.components.PanelBody,
             {
               title: 'Carrusel',              
-              initialOpen: true,
+              initialOpen: false,
             },
             helpElement,
+            selector,
             el( 
               'div',
               blockProps,
@@ -262,9 +264,53 @@
       );*/    
     },
 
-    save: function () {
+    save: function (props) {
+      const { selectedType } = props.attributes;
       var blockProps = useBlockProps.save();
       var innerBlocksProps = useInnerBlocksProps.save();
+
+      var hijos = props.innerBlocks;
+
+      /*// Dependiendo de la opción seleccionada, mostramos diferentes elementos
+      let content = null;
+      if (selectedType === 'large') {
+        content = el('div', innerBlocksProps);
+      } else if (selectedType === 'medium') {
+        content = el('div', null, innerBlocksProps.innerBlocks.slice(0, 2));
+      } else if (selectedType === 'small') {
+        content = el('div', null, innerBlocksProps.innerBlocks.slice(0, 1));
+      }*/
+      // Dependiendo de la opción seleccionada, mostramos diferentes elementos
+      //const hijos = wp.data.select('core/block-editor').getBlocks(props.clientId);
+      console.log('props');
+      console.log(props);
+      console.log('hijos');
+      console.log(hijos);
+      console.log('cantidad ->'+ hijos.length);
+      
+      for (let i=0; i<hijos.length; i++){
+        console.log('[i]');
+        console.log(hijos[i]);
+        console.log('attributes');
+        console.log(hijos[i].attributes.image);
+        console.log(hijos[i].attributes.altImage);
+        console.log(hijos[i].attributes.url);
+        console.log(hijos[i].attributes.txtButton);
+        console.log('[i].innerBlocks[1].content');
+        console.log(hijos[i].innerBlocks[1].attributes.content);
+        //console.log('slice');
+        //console.log(hijos[i].innerBlocks[1].slice(0, 2));
+      }
+
+  //  
+      /*let filteredBlocks;
+      if (selectedType === 'large') {
+        filteredBlocks = props.innerBlocks;
+      } else if (selectedType === 'medium') {
+        filteredBlocks = props.innerBlocks.slice(0, 2);
+      } else if (selectedType === 'small') {
+        filteredBlocks = props.innerBlocks.slice(0, 1);
+      }*/
 
       /*return el(
         'div',
@@ -273,7 +319,12 @@
       );
       return el( 'div', blockProps, el( 'div', innerBlocksProps ) );*/
       
-      return el( 'div', innerBlocksProps ); // Sin div envolvente      
+      return el( 'div', innerBlocksProps ); // Sin div envolvente
+      /*return el(
+        'div',
+        blockProps,
+        //filteredBlocks
+      );*/
     }
   });
 
@@ -282,17 +333,82 @@
     icon: 'analytics',
     category: 'ulpgc',
     parent: ['carrusel-block/my-block'],
-    attributes: {},
+    attributes: {
+      isInitialOpen: {
+        type: 'boolean',
+        default: '',
+      },
+      image: {
+        type: 'string',
+        default: '',
+      },
+      altImage: {
+        type: 'string',
+        default: '',
+      },
+      url: {
+        type: 'string',
+        default: '',
+      },
+      txtButton: {
+        type: 'string',
+        default: '',
+      }
+    },
   
     edit: function(props) {
-      //const { attributes, setAttributes } = props;
+      const { attributes, setAttributes } = props;
+      const { isInitialOpen, image, altImage, url, txtButton } = attributes;
+
+      // UseEffect para actualizar el atributo isInitialOpen solo una vez al cargar la página
+      React.useEffect(() => {
+        if (isInitialOpen === '') {
+          setAttributes({ isInitialOpen: true });
+        } else {
+          setAttributes({ isInitialOpen: false });
+        }
+      }, []);
+
+      var setAltImage = function(newAltImage) {
+        props.setAttributes({ altImage: newAltImage });
+      };
+      const setImage = (newImage) => {
+        props.setAttributes({ image: newImage.url });
+      };
+      const removeImage = () => {
+        props.setAttributes({ image: '' });
+      };
+      const openMediaLibrary = () => {
+        const mediaFrame = wp.media({
+          title: 'Seleccionar imagen',
+          library: { type: 'image' },
+          multiple: false,
+          button: { text: 'Seleccionar' },
+        });
+    
+        mediaFrame.on('select', function() {
+          const media = mediaFrame.state().get('selection').first().toJSON();
+          if (media.url) {
+            setImage(media); // Llamar a la función setImage con la imagen seleccionada
+          }
+        });
+    
+        mediaFrame.open();
+      };
+
+      var setUrl = function(newUrl) {
+        props.setAttributes({ url: newUrl });
+      };
+      var setTxtButton = function(newTxtButton) {
+        props.setAttributes({ txtButton: newTxtButton });
+      };
 
       var blockProps = useBlockProps();
       //Personalizando las opciones disponibles
       const innerBlocksProps = useInnerBlocksProps( blockProps, {
         allowedBlocks: ['core/image', 'core/heading', 'core/paragraph'],
-        template: [['core/image'], ['core/heading'], ['core/paragraph']], 
-        templateLock: false,
+        template: [/*['core/image'], */['core/heading'], ['core/paragraph', {placeholder:'Contenido'}]], 
+        templateLock: true,
       })
 
       /*return el( 
@@ -310,8 +426,64 @@
           wp.components.PanelBody,
           {
             title: 'Item',              
-            initialOpen: true,
+            initialOpen: isInitialOpen,
           },
+          el( 'h3', {className: 'title-xl' }, 'Para todos los tipos de Carrusel' ),
+          //Alt img
+          el(
+            wp.components.TextControl,
+            {
+              label: 'Descripción de la imagen (Alt))',
+              type: 'text',
+              value: altImage,
+              onChange: setAltImage
+            }
+          ),
+          //img
+          el(
+            wp.components.Placeholder,
+            {
+              icon: 'format-image',
+              label: 'Imagen (Obligatoria)'
+            },
+            image ? 
+              [
+                el(
+                  'img',
+                  { src: image }
+                ),
+                el(
+                  wp.components.Button,
+                  {
+                    isSecondary: true,
+                    isDestructive: true,
+                    onClick: removeImage,
+                  },
+                  'Eliminar imagen'
+                )
+              ]
+              : 
+              el(
+                wp.components.Button,
+                {
+                  isPrimary: true,
+                  onClick: openMediaLibrary,
+                },
+                'Seleccionar imagen'
+              )            
+          ),
+          el( 'h3', {className: 'title-xl' }, 'Para los tipos Mediano y Grande' ),
+          //Url
+          el(
+            wp.blockEditor.URLInput,
+            {
+              placeholder: 'Dirección (Url) del artículo /noticia',
+              value: url,
+              onChange: setUrl
+            }
+          ),
+
+          //innerBlocks
           el( 
             'div',
             blockProps,
@@ -319,24 +491,36 @@
               'div',
               innerBlocksProps
             )
-          )
-        )
+          ),
+          
+          el( 'h3', {className: 'title-xl' }, 'Solo para el tipo Grande' ),
+          //Button
+          el(
+            wp.components.TextControl,
+            {
+              label: 'Texto del botón',
+              type: 'text',
+              value: txtButton,
+              onChange: setTxtButton
+            }
+          ),
+        ),        
       )
     },
 
     save: function(props) {
-      const { rowName, tagName, divCheck } = props.attributes;
+      const { image, altImage } = props.attributes;
 
       var blockProps = useBlockProps.save();
       var innerBlocksProps = useInnerBlocksProps.save();
 
       return el(
         wp.element.Fragment, null,  //Quita la envoltura del bloque hijo (div adicional)
-        el(
+        /*el(
           'h3',
           null,
           'Carusel'
-        ),
+        ),*/
         innerBlocksProps.children //Quita la envoltura del div adicional
         //el(
         //  'div',
