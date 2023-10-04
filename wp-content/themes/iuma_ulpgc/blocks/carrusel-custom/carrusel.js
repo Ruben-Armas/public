@@ -18,24 +18,40 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
       selectedType: {
         type: 'int',
         default: 0,
+      },
+      items: {
+        type: 'array',
+        default: []
       }
     },
     
     edit: function(props) {
-      const { selectedType } = props.attributes;
+      const { selectedType, items } = props.attributes;
       console.log('selectedType-> '+selectedType);
 
       var setSelectedType = function(newSelectedType) {
         props.setAttributes({ selectedType: newSelectedType });
       };
 
-      const helpElement = element.createElement(
-        wp.components.Notice,
-        {
-          status: 'success',
-          isDismissible: false
-        },
-        'Para añadir más bloques hijos seleccione su bloque padre y pulse +'
+      const helpElement = wp.element.createElement(
+        'div', null,
+        wp.element.createElement(
+          wp.components.Notice,
+          {
+            status: 'success',
+            isDismissible: false
+          },
+          'Para añadir más bloques hijos seleccione su bloque padre y pulse +'
+        ),
+        wp.element.createElement(
+          wp.components.Button,
+          { 
+            isPrimary: true,
+            onClick: updateData,
+            style: { marginLeft: '15px' }
+          },
+          'Guardar / Actualizar Bloque'
+        )
       );
       const selector = el(
         wp.components.SelectControl,
@@ -50,6 +66,35 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
           onChange: setSelectedType
         }
       );
+
+      // Actualiza los atributos obtenidos de los hijos
+      function updateData(){
+        const hijos = wp.data.select('core/block-editor').getBlocks(props.clientId);
+        console.log('----------------------');
+        console.log(hijos);
+
+        const atributosHijos = hijos.map((block) => {
+          if (block.name === 'carrusel-block/item' && block.attributes.itemTitle !== '') {
+            return {
+              itemUrlImg: block.attributes.itemUrlImage || defaultImage_carrusel,
+              itemAltImg: block.attributes.itemAltImage || '',
+              itemUrl: block.attributes.itemUrl || '#',
+              itemTitle: block.attributes.itemTitle,
+              itemText: block.attributes.itemText || '',
+              itemTxtButton: block.attributes.itemTxtButton || '',
+            };
+          }
+          return null; // Si no es el bloque esperado o no cumple la condición, retorna null
+        }).filter((atributo) => atributo !== null); // filter para eliminar los elementos null del resultado.
+
+        // Actualizar los atributos items en el bloque padre solo una vez
+        props.setAttributes({ items: atributosHijos });
+      }
+      //updateData();
+      // UseEffect para actualizar los atributos solo una vez al cargar la página
+      React.useEffect(() => {
+        updateData();
+      }, []);
 
       return [
         //Block inspector
@@ -70,7 +115,7 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
           element.createElement(
             wp.components.PanelBody,
             {
-              title: 'Carrusel',              
+              itemTitle: 'Carrusel',              
               initialOpen: false,
             },
             helpElement,
@@ -87,7 +132,7 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
               wp.blockEditor.InnerBlocks,
               {
                 allowedBlocks: ['carrusel-block/item'],
-              template: [ [ 'carrusel-block/item' ] ],
+                template: [ [ 'carrusel-block/item' ] ],
                 templateLock: false,
               }
             ),
@@ -106,60 +151,81 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
     },
 
     save: function (props) {
-      const { selectedType } = props.attributes;
+      const { selectedType, items } = props.attributes;
 
-      var hijos = props.innerBlocks;
+      var hijosInner = props.innerBlocks;
+      //const hijosArray = Array.from(hijosInner);
 
       console.log('props');
       console.log(props);
-      console.log('hijos');
-      console.log(hijos);
-      console.log('cantidad ->'+ hijos.length);
+      console.log('items');
+      console.log(items);
+      /*console.log('hijosInner');
+      console.log(hijosInner);
+      console.log('hijosArray');
+      console.log(hijosArray);*/
+      console.log('cantidad ->'+ hijosInner.length);
+
+      const generateHTML = (type, data) => {
+        switch (type) {
+          case 'small':
+            console.log('small');
+            return generateSmall(data);
+          case 'medium':
+            console.log('medium');
+            return generateMedium(data);
+          case 'large':
+            console.log('large');
+            return generateLarge(data);
+          default:
+            return '';
+        }
+      };
 
       const generateSmall = (url_img, alt_img) => {
-        return element.createElement(
+        return wp.element.createElement(
           'li', null,
-          element.createElement(
+          wp.element.createElement(
             'img',
             {
               src: url_img,
               alt: alt_img,
             }
           )
-        );
+        )
       }
-      const generateMedium = (url, url_img, alt_img, title) => {
-        return element.createElement(
+      const generateMedium = (itemUrl, url_img, alt_img, itemTitle) => {
+        return wp.element.createElement(
           'li', null,
           element.createElement(
             'a',
-            { href: url },
-            element.createElement(
+            { href: itemUrl },
+            wp.element.createElement(
               'span',
               { className: 'ulpgcds-carrusel--medium__img' },
-              element.createElement(
+              wp.element.createElement(
                 'img',
                 {
                   src: url_img,
                   alt: alt_img,
                 }
               ),
-              element.createElement(
+              wp.element.createElement(
                 'span',
                 { className: 'ulpgcds-carrusel--medium__txt' },
-                title
+                itemTitle
               )
             )
           )
         );
       }
-      const generateLarge = (url_img, alt_img, title, text, txtButton, url) => {
+      const generateLarge = (url_img, alt_img, itemTitle, itemText, itemTxtButton, itemUrl) => {
         return wp.element.createElement(
           'li', null,
-          wp.element.createElement(
+          element.createElement(
             'span',
             { className: 'ulpgcds-carrusel--large__img' },
-            element.createElement(
+            wp.element.createElement(
               'img',
               {
                 src: url_img,
@@ -172,14 +238,8 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
               wp.element.createElement(
                 'span',
                 { className: 'ulpgcds-carrusel__center' },
-                wp.element.createElement(
-                  'h2', null,
-                  title
-                ),
-                element.createElement(
-                  'p', null,
-                  text
-                ),
+                wp.element.createElement('h2', null, itemTitle),
+                wp.element.createElement('p', null, itemText),
                 /*wp.element.createElement(
                   wp.blockEditor.InnerBlocks.Content,
                   null
@@ -187,10 +247,10 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
                 wp.element.createElement(
                   'a', 
                   {
-                    href: url,
+                    href: itemUrl,
                     className: 'ulpgcds-btn ulpgcds-btn--primary',
                   },
-                  txtButton
+                  itemTxtButton
                 )
               )
             )
@@ -198,56 +258,53 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
         );
       }
       
-      const type = selectedType;
+      /*const type = selectedType;
       const htmlItems = '';
       for (let i=0; i<hijos.length; i++){
         console.log('[i]');
         console.log(hijos[i]);
         /*console.log('attributes');
-        console.log('img '+ hijos[i].attributes.image);           //img
-        console.log('alt '+ hijos[i].attributes.altImage);        //alt_img
-        console.log('url '+ hijos[i].attributes.url);             //url
-        console.log('txtButton '+ hijos[i].attributes.txtButton); //txtButton
+        console.log('img '+ hijos[i].attributes.itemUrlImage);           //img
+        console.log('alt '+ hijos[i].attributes.itemAltImage);        //alt_img
+        console.log('itemUrl '+ hijos[i].attributes.itemUrl);             //itemUrl
+        console.log('itemTxtButton '+ hijos[i].attributes.itemTxtButton); //itemTxtButton
         //InnerBlocks
         //console.log('[i].innerBlocks[1].content');
         //console.log(hijos[i].innerBlocks[0].attributes.content);  //img
-        console.log('title '+ hijos[i].innerBlocks[0].attributes.content);  //title
-        console.log('text '+ hijos[i].innerBlocks[1].attributes.content);   //text
+        console.log('itemTitle '+ hijos[i].innerBlocks[0].attributes.content);  //itemTitle
+        console.log('itemText '+ hijos[i].innerBlocks[1].attributes.content);   //itemText
         */
         
-        let url_img = hijos[i].attributes.image;
-        let alt_img = hijos[i].attributes.altImage;
-        let url = hijos[i].attributes.url;
-        let txtButton = hijos[i].attributes.txtButton;
-        let title = hijos[i].attributes.title;
-        let text = hijos[i].attributes.text;
+        /*let url_img = hijos[i].attributes.itemUrlImage;
+        let alt_img = hijos[i].attributes.itemAltImage;
+        let itemUrl = hijos[i].attributes.itemUrl;
+        let itemTxtButton = hijos[i].attributes.itemTxtButton;
+        let itemTitle = hijos[i].attributes.itemTitle;
+        let itemText = hijos[i].attributes.itemText;
 
-        //let title = hijos[i].innerBlocks[0].attributes.content;
-        //let text = hijos[i].innerBlocks[1].attributes.content;
+        //let itemTitle = hijos[i].innerBlocks[0].attributes.content;
+        //let itemText = hijos[i].innerBlocks[1].attributes.content;
 
         switch (selectedType) {
-          case 'small':wp.element.createElement(
-            wp.blockEditor.InnerBlocks.Content,
-            null
-          )
+          case 'small':
             console.log('small');
-            htmlItems += generateSmall(url_img, alt_img);
+            //htmlItems += generateSmall(url_img, alt_img);
           break;
       
           case 'medium':
             console.log('medium');
-            htmlItems += generateMedium(url, url_img, alt_img, title);
+            //htmlItems += generateMedium(itemUrl, url_img, alt_img, itemTitle);
           break;
       
           case 'large':
             console.log('large');
-            htmlItems += generateLarge(url_img, alt_img, title, text, txtButton, url);
+            //htmlItems += generateLarge(url_img, alt_img, itemTitle, itemText, itemTxtButton, itemUrl);
           break;
       
           default:
             console.log('Opción (tipo de carrusel) inválida');
         }
-      }
+      }*/
 
       /*return wp.element.createElement(
         'div', null,
@@ -261,15 +318,37 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
       //);      
       
       //return element.createElement( 'div', innerBlocksProps ); // Sin div envolvente
+      
       return wp.element.createElement(
         'div',null,
-        wp.element.createElement(
-          'p', null, selectedType,
-        ),    
+        wp.element.createElement('p', null, selectedType,),    
         wp.element.createElement(
           'ul',
-          { className: 'ulpgcds-carrusel ulpgcds-carrusel--' + selectedType },
-          htmlItems
+          { className: 'ulpgcds-carrusel ulpgcds-carrusel--' + selectedType },          
+          //htmlItems
+          //wp.element.createElement( 'p', null, 'length ->'+ hijosArray.length ),
+          //wp.element.createElement( 'p', null, 'array ->'+ hijosArray[0] ),
+          //wp.element.createElement( 'p', null, 'attributes ->'+ hijosArray.attributes ),
+          wp.element.createElement( 'p', null, 'items ->'+ items ),
+
+
+          items.map((itemObj, index) => (
+            wp.element.createElement(
+              'li', null,
+              index +' --> '+ itemObj.itemTitle
+            )
+          ))
+          /*items.map((child) => {
+            const data = {
+              url_img: child.attributes.itemUrlImage,
+              alt_img: child.attributes.itemAltImage,
+              itemUrl: child.attributes.itemUrl,
+              itemTxtButton: child.attributes.itemTxtButton,
+              itemTitle: child.attributes.itemTitle,
+              itemText: child.attributes.itemText,
+            };
+            return generateHTML(selectedType, data);
+          })*/
         ),
         wp.element.createElement(
           wp.blockEditor.InnerBlocks.Content,
@@ -290,27 +369,27 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
         type: 'boolean',
         default: '',
       },
-      image: {
+      itemUrlImage: {
         type: 'string',
         default: '',
       },
-      altImage: {
+      itemAltImage: {
         type: 'string',
         default: '',
       },
-      url: {
+      itemUrl: {
         type: 'string',
         default: '',
       },
-      title: {
+      itemTitle: {
         type: 'string',
         default: '',
       },
-      text: {
+      itemText: {
         type: 'string',
         default: '',
       },
-      txtButton: {
+      itemTxtButton: {
         type: 'string',
         default: '',
       }
@@ -318,7 +397,7 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
   
     edit: function(props) {
       const { attributes, setAttributes } = props;
-      const { isInitialOpen, image, altImage, url, title, text, txtButton } = attributes;
+      const { isInitialOpen, itemUrlImage, itemAltImage, itemUrl, itemTitle, itemText, itemTxtButton } = attributes;
 
       // UseEffect para actualizar el atributo isInitialOpen solo una vez al cargar la página
       React.useEffect(() => {
@@ -330,25 +409,25 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
       }, []);
 
       var setAltImage = function(newAltImage) {
-        props.setAttributes({ altImage: newAltImage });
+        props.setAttributes({ itemAltImage: newAltImage });
       };
       const setImage = (newImage) => {
-        props.setAttributes({ image: newImage.url });
+        props.setAttributes({ itemUrlImage: newImage.itemUrl });
       };
       const removeImage = () => {
-        props.setAttributes({ image: '' });
+        props.setAttributes({ itemUrlImage: '' });
       };
       const openMediaLibrary = () => {
         const mediaFrame = wp.media({
-          title: 'Seleccionar imagen',
-          library: { type: 'image' },
+          itemTitle: 'Seleccionar imagen',
+          library: { type: 'itemUrlImage' },
           multiple: false,
-          button: { text: 'Seleccionar' },
+          button: { itemText: 'Seleccionar' },
         });
     
         mediaFrame.on('select', function() {
           const media = mediaFrame.state().get('selection').first().toJSON();
-          if (media.url) {
+          if (media.itemUrl) {
             setImage(media); // Llamar a la función setImage con la imagen seleccionada
           }
         });
@@ -357,16 +436,16 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
       };
 
       var setUrl = function(newUrl) {
-        props.setAttributes({ url: newUrl });
+        props.setAttributes({ itemUrl: newUrl });
       };
       var setTitle = function(newTitle) {
-        props.setAttributes({ title: newTitle });
+        props.setAttributes({ itemTitle: newTitle });
       };
       var setText = function(newText) {
-        props.setAttributes({ text: newText });
+        props.setAttributes({ itemText: newText });
       };
       var setTxtButton = function(newTxtButton) {
-        props.setAttributes({ txtButton: newTxtButton });
+        props.setAttributes({ itemTxtButton: newTxtButton });
       };
       
       return wp.element.createElement(
@@ -375,17 +454,17 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
         wp.element.createElement(
           wp.components.PanelBody,
           {
-            title: 'Item',              
+            itemTitle: 'Item',              
             initialOpen: isInitialOpen,
           },
-          wp.element.createElement( 'h3', {className: 'title-xl' }, 'Para todos los tipos de Carrusel' ),
+          wp.element.createElement( 'h3', {className: 'itemTitle-xl' }, 'Para todos los tipos de Carrusel' ),
           //Alt img
           wp.element.createElement(
             wp.components.TextControl,
             {
               label: 'Descripción de la imagen (Alt))',
-              type: 'text',
-              value: altImage,
+              type: 'itemText',
+              value: itemAltImage,
               onChange: setAltImage
             }
           ),
@@ -393,14 +472,14 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
           wp.element.createElement(
             wp.components.Placeholder,
             {
-              icon: 'format-image',
+              icon: 'format-itemUrlImage',
               label: 'Imagen (Obligatoria)'
             },
-            image ? 
+            itemUrlImage ? 
               [
                 el(
                   'img',
-                  { src: image }
+                  { src: itemUrlImage }
                 ),
                 el(
                   wp.components.Button,
@@ -422,55 +501,55 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
                 'Seleccionar imagen'
               )            
           ),
-          wp.element.createElement( 'h3', {className: 'title-xl' }, 'Para los tipos Mediano y Grande' ),
-          //Url
+          wp.element.createElement( 'h3', {className: 'itemTitle-xl' }, 'Para los tipos Mediano y Grande' ),
+          //itemUrl
           wp.element.createElement(
             wp.blockEditor.URLInput,
             {
-              placeholder: 'Dirección (Url) del artículo /noticia',
-              value: url,
+              placeholder: 'Dirección (itemUrl) del artículo /noticia',
+              value: itemUrl,
               onChange: setUrl
             }
           ),
-          //title
+          //itemTitle
           wp.element.createElement(
             wp.components.TextControl,
             {
               label: 'Encabezado / Título',
-              type: 'text',
-              value: title,
+              type: 'itemText',
+              value: itemTitle,
               onChange: setTitle
             }
           ),
 
-          //Content text (paragraph)
+          //Content itemText (paragraph)
           wp.element.createElement(
             wp.components.TextControl,
             {
               label: 'Contenido',
-              type: 'text',
-              value: text,
+              type: 'itemText',
+              value: itemText,
               onChange: setText
             }
           ),
-          //innerBlocks - Content text (paragraph)
+          //innerBlocks - Content itemText (paragraph)
           /*wp.element.createElement(
             wp.blockEditor.InnerBlocks,
             {
-              allowedBlocks: [/*'core/image', 'core/heading', *//*'core/paragraph'],
-              template: [/*['core/image'], ['core/heading'], *//*['core/paragraph', {placeholder:'Contenido'}]], 
+              allowedBlocks: [/*'core/itemUrlImage', 'core/heading', *//*'core/paragraph'],
+              template: [/*['core/itemUrlImage'], ['core/heading'], *//*['core/paragraph', {placeholder:'Contenido'}]], 
               templateLock: true
             }
           ),*/
           
-          wp.element.createElement( 'h3', {className: 'title-xl' }, 'Solo para el tipo Grande' ),
+          wp.element.createElement( 'h3', {className: 'itemTitle-xl' }, 'Solo para el tipo Grande' ),
           //Button
           wp.element.createElement(
             wp.components.TextControl,
             {
               label: 'Texto del botón',
-              type: 'text',
-              value: txtButton,
+              type: 'itemText',
+              value: itemTxtButton,
               onChange: setTxtButton
             }
           ),
@@ -479,7 +558,7 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
     },
 
     save: function(props) {
-      const { image, altImage } = props.attributes;
+      const { itemUrlImage, itemAltImage } = props.attributes;
 
       return el(
         wp.element.Fragment, null,  //Quita la envoltura del bloque hijo (div adicional)
@@ -488,10 +567,10 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.jpg'
           null,
           'Carusel'
         ),
-        /*wp.element.createElement(
+        wp.element.createElement(
           wp.blockEditor.InnerBlocks.Content,
           null
-        )*/
+        )
       );
     }
   });
