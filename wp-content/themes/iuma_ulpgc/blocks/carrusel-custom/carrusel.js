@@ -3,7 +3,7 @@ const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.png'
 // Registro del bloque
 wp.blocks.registerBlockType('carrusel-block/my-block', {
   title: 'Carrusel',
-  description: 'Carrusel con el estilo de la ULPGC',
+  description: 'Carrusel con el estilo de la ULPGC (Bloque Estático)',
 
   icon: 'slides',
   category: 'ulpgc',
@@ -21,31 +21,51 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
   
   edit: function(props) {
     const { selectedType, items } = props.attributes;
+    const [showSavedMessage, setShowSavedMessage] = React.useState(false);
+
+    function showMessage() {
+      setShowSavedMessage(true);
+
+      // Después de 2 segundos, ocultar el mensaje de "guardado"
+      setTimeout(() => {
+        setShowSavedMessage(false);
+      }, 2000);
+    }
+    // Actualiza los atributos obtenidos de los hijos
+    function updateData(){
+      const hijos = wp.data.select('core/block-editor').getBlocks(props.clientId);
+
+      const atributosHijos = hijos.map((block) => {
+        if (block.name === 'carrusel-block/item' && block.attributes.itemTitle !== '') {
+          return {
+            itemUrlImg: block.attributes.itemUrlImg || defaultImage_carrusel,
+            itemAltImg: block.attributes.itemAltImg || '',
+            itemUrl: block.attributes.itemUrl || '#',
+            itemTitle: block.attributes.itemTitle,
+            itemText: block.attributes.itemText || '',
+            itemTxtButton: block.attributes.itemTxtButton || 'Accede',
+          };
+        }
+        return null; // Si no es el bloque esperado o no cumple la condición, retorna null
+      }).filter((atributo) => atributo !== null); // filter para eliminar los elementos null del resultado.
+
+      // Actualizar los atributos items en el bloque padre solo una vez
+      props.setAttributes({ items: atributosHijos });
+    }
+    function handleSaveButtonClick() {
+      showMessage();
+      updateData();
+    };
+
+    // UseEffect para actualizar los atributos solo una vez al cargar la página
+    React.useEffect(() => {
+      updateData();
+    }, []);
 
     var setSelectedType = function(newSelectedType) {
       props.setAttributes({ selectedType: newSelectedType });
     };
 
-    const helpElement = wp.element.createElement(
-      'div', null,
-      wp.element.createElement(
-        wp.components.Notice,
-        {
-          status: 'success',
-          isDismissible: false
-        },
-        'Para añadir más bloques hijos seleccione su bloque padre y pulse +'
-      ),
-      wp.element.createElement(
-        wp.components.Button,
-        { 
-          isPrimary: true,
-          onClick: updateData,
-          style: { marginLeft: '15px' }
-        },
-        'Guardar / Actualizar Bloque'
-      ),
-    );
     const selector = wp.element.createElement(
       wp.components.SelectControl,
       {
@@ -59,43 +79,72 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
         onChange: setSelectedType
       }
     );
-
-    // Actualiza los atributos obtenidos de los hijos
-    function updateData(){
-      const hijos = wp.data.select('core/block-editor').getBlocks(props.clientId);
-
-      const atributosHijos = hijos.map((block) => {
-        if (block.name === 'carrusel-block/item' && block.attributes.itemTitle !== '') {
-          return {
-            itemUrlImg: block.attributes.itemUrlImg || defaultImage_carrusel,
-            itemAltImg: block.attributes.itemAltImg || '',
-            itemUrl: block.attributes.itemUrl || '#',
-            itemTitle: block.attributes.itemTitle,
-            itemText: block.attributes.itemText || '',
-            itemTxtButton: block.attributes.itemTxtButton || 'Acceder',
-          };
-        }
-        return null; // Si no es el bloque esperado o no cumple la condición, retorna null
-      }).filter((atributo) => atributo !== null); // filter para eliminar los elementos null del resultado.
-
-      // Actualizar los atributos items en el bloque padre solo una vez
-      props.setAttributes({ items: atributosHijos });
-    }
-    // UseEffect para actualizar los atributos solo una vez al cargar la página
-    React.useEffect(() => {
-      updateData();
-    }, []);
+    const savedMessageElement = showSavedMessage && wp.element.createElement(
+      wp.components.Notice,
+      {
+        status: 'success',
+        isDismissible: false
+      },
+      'Guardado'
+    );
+    const helpElement = wp.element.createElement(
+      'div', null,
+      wp.element.createElement(
+        wp.components.Notice,
+        {
+          status: 'success',
+          isDismissible: false
+        },
+        'Para añadir más bloques hijos seleccione su bloque padre y pulse +'
+      )
+    );
+    const saveElements = [
+      wp.element.createElement(
+        wp.components.Flex,
+        { direction: 'row', wrap: 'wrap' },
+        wp.element.createElement(
+          wp.components.FlexItem,
+          { style: { flexGrow: 2 } },
+          // Warning message
+          wp.element.createElement(
+            wp.components.Notice,
+            {
+              status: 'warning',
+              isDismissible: false
+            },
+            'Recuerde Guardar / Actualizar el Bloque'
+          )
+        ),
+        wp.element.createElement(
+          wp.components.FlexItem,
+          { style: { flexGrow: 1 } },
+          // Button
+          wp.element.createElement(
+            wp.components.Button,
+            { 
+              isPrimary: true,
+              onClick: handleSaveButtonClick,
+              style: { marginLeft: '15px' }
+            },
+            'Guardar / Actualizar Bloque'
+          )
+        )
+      ),
+      // Show saved message
+      savedMessageElement
+    ];
 
     return [
       //Block inspector
       wp.element.createElement(
         wp.blockEditor.InspectorControls,
         null,
-        helpElement,
+        helpElement,  // Help message
+        saveElements, // Save message and button
         wp.element.createElement(
           wp.components.PanelBody,
           null,
-          selector
+          selector  // Carrusel type selector
         ),
       ),
       // Create Carrusel
@@ -108,7 +157,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
             title: 'Carrusel',              
             initialOpen: false,
           },
-          helpElement,
+          saveElements,
           selector,
           wp.element.createElement(
             wp.blockEditor.InnerBlocks,
@@ -121,15 +170,6 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
         )
       )
     ];
-    
-    /*return element.createElement( 
-      'div',
-      blockProps,
-      element.createElement(
-        'div',
-        innerBlocksProps
-      )
-    );*/
   },
 
   save: function (props) {
@@ -225,10 +265,9 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
     
     return wp.element.createElement(
       'div',null,
-      wp.element.createElement('p', null, selectedType),
       wp.element.createElement(
         'ul',
-        { className: 'ulpgcds-carrusel ulpgcds-carrusel--' + selectedType },
+        { className: 'ulpgcds-carrusel ulpgcds-carrusel--'+ selectedType  +' slick-dotted' },
 
         items.map((itemObj) => (
           generateHTML(selectedType, itemObj)
