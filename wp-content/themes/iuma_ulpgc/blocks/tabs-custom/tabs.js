@@ -329,7 +329,7 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
             itemObj.tabIcon && wp.element.createElement(
               'span',
               { className: `icon ${itemObj.tabIcon}` }
-              ),
+            ),
             itemObj.tabName
           )
         ))
