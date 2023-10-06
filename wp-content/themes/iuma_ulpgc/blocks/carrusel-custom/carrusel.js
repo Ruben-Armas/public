@@ -1,5 +1,96 @@
 const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.png';
 
+const generateCarruselHTML = (isEditor, type, data) => {
+  switch (type) {
+    case 'small':
+      return generateCarruselSmall(isEditor, data);
+    case 'medium':
+      return generateCarruselMedium(isEditor, data);
+    case 'large':
+      return generateCarruselLarge(isEditor, data);
+    default:
+      return '';
+  }
+};
+const generateCarruselSmall = (isEditor, data) => {
+  return wp.element.createElement(
+    isEditor ? 'div' : 'li',
+    isEditor ? {className: 'col-3 col-sm-3'} : null,
+    wp.element.createElement(
+      'img',
+      {
+        src: data.itemUrlImg,
+        alt: data.itemAltImg,
+      }
+    )
+  )
+}
+const generateCarruselMedium = (isEditor, data) => {
+  return wp.element.createElement(
+    isEditor ? 'div' : 'li',
+    isEditor ? {className: 'col-3 col-sm-3'} : null,
+    wp.element.createElement(
+      'a',
+      { href: data.itemUrl },
+      wp.element.createElement(
+        'span',
+        { className: 'ulpgcds-carrusel--medium__img' },
+        wp.element.createElement(
+          'img',
+          {
+            src: data.itemUrlImg,
+            alt: data.itemAltImg,
+          }
+        )
+      ),
+      wp.element.createElement(
+        'span',
+        { className: 'ulpgcds-carrusel--medium__txt' },
+        data.itemTitle
+      )
+    )
+  );
+}
+const generateCarruselLarge = (isEditor, data) => {
+  return wp.element.createElement(
+    isEditor ? 'div' : 'li',
+    isEditor ? {className: 'col-3 col-sm-3'} : null,
+    wp.element.createElement(
+      'span',
+      { className: 'ulpgcds-carrusel--large__img' },
+      wp.element.createElement(
+        'img',
+        {
+          src: data.itemUrlImg,
+          alt: data.itemAltImg,
+        }
+      )
+    ),
+    wp.element.createElement(
+      'span',
+      { className: 'ulpgcds-carrusel--large__box' },
+      wp.element.createElement(
+        'span',
+        { className: 'ulpgcds-carrusel__center' },
+        wp.element.createElement('h2', null, data.itemTitle),
+        wp.element.createElement('p', null, data.itemText),
+        /*wp.element.createElement(
+          wp.blockEditor.InnerBlocks.Content,
+          null
+        ),*/
+        wp.element.createElement(
+          'a', 
+          {
+            href: data.itemUrl,
+            className: 'ulpgcds-btn ulpgcds-btn--primary',
+          },
+          data.itemTxtButton
+        )
+      )
+    )
+  );
+}
+
 // Registro del bloque
 wp.blocks.registerBlockType('carrusel-block/my-block', {
   title: 'Carrusel',
@@ -22,6 +113,9 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
   edit: function(props) {
     const { selectedType, items } = props.attributes;
     const [showSavedMessage, setShowSavedMessage] = React.useState(false);
+    const [isEditing, setIsEditing] = wp.element.useState(false);
+    console.log(items);
+    console.log(items.length);
 
     function showMessage() {
       setShowSavedMessage(true);
@@ -56,7 +150,6 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
       showMessage();
       updateData();
     };
-
     // UseEffect para actualizar los atributos solo una vez al cargar la página
     React.useEffect(() => {
       updateData();
@@ -65,6 +158,14 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
     var setSelectedType = function(newSelectedType) {
       props.setAttributes({ selectedType: newSelectedType });
     };
+
+    const handleEdit = () => {
+      setIsEditing(true);
+    };  
+    const handlePreview = () => {
+      handleSaveButtonClick();
+      setIsEditing(false);
+    };  
 
     const selector = wp.element.createElement(
       wp.components.SelectControl,
@@ -104,7 +205,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
         { direction: 'row', wrap: 'wrap' },
         wp.element.createElement(
           wp.components.FlexItem,
-          { style: { flexGrow: 2 } },
+          { style: { flexGrow: 4 } },
           // Warning message
           wp.element.createElement(
             wp.components.Notice,
@@ -118,7 +219,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
         wp.element.createElement(
           wp.components.FlexItem,
           { style: { flexGrow: 1 } },
-          // Button
+          // Button Save
           wp.element.createElement(
             wp.components.Button,
             { 
@@ -128,19 +229,126 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
             },
             'Guardar / Actualizar Bloque'
           )
-        )
+        ),
+        wp.element.createElement(
+          wp.components.FlexItem,
+          { style: { flexGrow: 1 } },
+          // Botón para salir de la edición
+          wp.element.createElement(
+            wp.components.Button,
+            {
+              isPrimary: true,
+              onClick: handlePreview,
+              style: { marginLeft: '15px' }
+            },
+            'Vista previa'
+          )
+        ),
       ),
       // Show saved message
       savedMessageElement
     ];
 
-    return [
+    const previewDefault = [
+      wp.element.createElement(
+        'div',
+        {className: 'col-3 col-sm-3'},
+        wp.element.createElement(
+          'img',
+          {
+            src: defaultImage_carrusel,
+            alt: 'Alt img',
+          },
+        ),
+        wp.element.createElement(
+          'span',
+          { style: { color: '#0066a1' } },
+          'Título 1'
+        )
+      ),
+      wp.element.createElement(
+        'div',
+        {className: 'col-3 col-sm-3'},
+        wp.element.createElement(
+          'img',
+          {
+            src: defaultImage_carrusel,
+            alt: 'Alt img',
+          },
+        ),
+        wp.element.createElement(
+          'span',
+          { style: { color: '#0066a1' } },
+          'Título 2'
+        )
+      ),
+      wp.element.createElement(
+        'div',
+        {className: 'col-3 col-sm-3'},
+        wp.element.createElement(
+          'img',
+          {
+            src: defaultImage_carrusel,
+            alt: 'Alt img',
+          },
+        ),
+        wp.element.createElement(
+          'span',
+          { style: { color: '#0066a1' } },
+          'Título 3'
+        )
+      ),
+      wp.element.createElement(
+        'div',
+        {className: 'col-3 col-sm-3'},
+        wp.element.createElement(
+          'span',
+          { className: 'title-xl' },
+          '...'
+        )
+      )
+    ];
+    // Preview
+    previewContent = wp.element.createElement(
+      wp.components.PanelBody,
+      {
+        title: 'Carrusel',              
+        initialOpen: true,
+      },
+      // Muestra el mensaje de guardado
+      savedMessageElement,
+      wp.element.createElement(
+        'div',
+        { className: 'row' },
+        items.length > 0 ?
+          (
+            items.slice(0, 4).map((itemObj, index) => (
+              index < 3 ? generateCarruselHTML(true, selectedType, itemObj)
+              : wp.element.createElement(
+                'div',
+                {className: 'col-3 col-sm-3'},
+                wp.element.createElement(
+                  'span',
+                  { className: 'title-xl' },
+                  '...'
+                )
+              )
+            ))
+          )
+        : previewDefault
+      )
+    );
+
+    // Edit
+    const editContent = wp.element.createElement(
+      'div',
+      null,
       //Block inspector
       wp.element.createElement(
         wp.blockEditor.InspectorControls,
         null,
         helpElement,  // Help message
-        saveElements, // Save message and button
+        saveElements, // Save message and button, and preview
         wp.element.createElement(
           wp.components.PanelBody,
           null,
@@ -155,7 +363,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
           wp.components.PanelBody,
           {
             title: 'Carrusel',              
-            initialOpen: false,
+            initialOpen: true,
           },
           saveElements,
           selector,
@@ -167,102 +375,37 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
               templateLock: false,
             }
           ),
+
+          // Botón para salir de la edición
+          wp.element.createElement(
+            wp.components.Button,
+            { isPrimary: true, onClick: handlePreview },
+            'Vista previa'
+          ),
         )
       )
-    ];
+    );
+
+    return wp.element.createElement(
+      'div',
+      null,
+      // Muestra la vista previa o el editor
+      isEditing ? editContent : previewContent,
+      // Botón editar
+      !isEditing && wp.element.createElement(
+        wp.components.Button,
+        {
+          isPrimary: true,
+          onClick: handleEdit
+        },
+        'Editar'
+      )
+    );
   },
 
   save: function (props) {
     const { selectedType, items } = props.attributes;
 
-    const generateHTML = (type, data) => {
-      switch (type) {
-        case 'small':
-          return generateSmall(data);
-        case 'medium':
-          return generateMedium(data);
-        case 'large':
-          return generateLarge(data);
-        default:
-          return '';
-      }
-    };
-    const generateSmall = (data) => {
-      return wp.element.createElement(
-        'li', null,
-        wp.element.createElement(
-          'img',
-          {
-            src: data.itemUrlImg,
-            alt: data.itemAltImg,
-          }
-        )
-      )
-    }
-    const generateMedium = (data) => {
-      return wp.element.createElement(
-        'li', null,
-        wp.element.createElement(
-          'a',
-          { href: data.itemUrl },
-          wp.element.createElement(
-            'span',
-            { className: 'ulpgcds-carrusel--medium__img' },
-            wp.element.createElement(
-              'img',
-              {
-                src: data.itemUrlImg,
-                alt: data.itemAltImg,
-              }
-            )
-          ),
-          wp.element.createElement(
-            'span',
-            { className: 'ulpgcds-carrusel--medium__txt' },
-            data.itemTitle
-          )
-        )
-      );
-    }
-    const generateLarge = (data) => {
-      return wp.element.createElement(
-        'li', null,
-        wp.element.createElement(
-          'span',
-          { className: 'ulpgcds-carrusel--large__img' },
-          wp.element.createElement(
-            'img',
-            {
-              src: data.itemUrlImg,
-              alt: data.itemAltImg,
-            }
-          )
-        ),
-        wp.element.createElement(
-          'span',
-          { className: 'ulpgcds-carrusel--large__box' },
-          wp.element.createElement(
-            'span',
-            { className: 'ulpgcds-carrusel__center' },
-            wp.element.createElement('h2', null, data.itemTitle),
-            wp.element.createElement('p', null, data.itemText),
-            /*wp.element.createElement(
-              wp.blockEditor.InnerBlocks.Content,
-              null
-            ),*/
-            wp.element.createElement(
-              'a', 
-              {
-                href: data.itemUrl,
-                className: 'ulpgcds-btn ulpgcds-btn--primary',
-              },
-              data.itemTxtButton
-            )
-          )
-        )
-      );
-    }
-    
     return wp.element.createElement(
       'div',null,
       wp.element.createElement(
@@ -270,7 +413,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
         { className: 'ulpgcds-carrusel ulpgcds-carrusel--'+ selectedType  +' slick-dotted' },
 
         items.map((itemObj) => (
-          generateHTML(selectedType, itemObj)
+          generateCarruselHTML(false, selectedType, itemObj)
         )),
       ),
       //Obtener datos del hijo
