@@ -1,5 +1,12 @@
 const defaultImage_carrusel = '/wp-content/themes/iuma_ulpgc/images/default.png';
 
+function carruselTruncateString(str, maxLength) {
+  if (str.length <= maxLength) {
+    return str;
+  }
+  return str.substring(0, maxLength) + '...';
+}
+
 const generateCarruselHTML = (isEditor, type, data) => {
   switch (type) {
     case 'small':
@@ -15,7 +22,7 @@ const generateCarruselHTML = (isEditor, type, data) => {
 const generateCarruselSmall = (isEditor, data) => {
   return wp.element.createElement(
     isEditor ? 'div' : 'li',
-    isEditor ? {className: 'col-3 col-sm-3'} : null,
+    isEditor ? {className: 'col-4 col-sm-4'} : null,
     wp.element.createElement(
       'img',
       {
@@ -28,7 +35,7 @@ const generateCarruselSmall = (isEditor, data) => {
 const generateCarruselMedium = (isEditor, data) => {
   return wp.element.createElement(
     isEditor ? 'div' : 'li',
-    isEditor ? {className: 'col-3 col-sm-3'} : null,
+    isEditor ? {className: 'col-4 col-sm-4'} : null,
     wp.element.createElement(
       'a',
       { href: data.itemUrl },
@@ -54,7 +61,7 @@ const generateCarruselMedium = (isEditor, data) => {
 const generateCarruselLarge = (isEditor, data) => {
   return wp.element.createElement(
     isEditor ? 'div' : 'li',
-    isEditor ? {className: 'col-3 col-sm-3'} : null,
+    isEditor ? {className: 'col-4 col-sm-4'} : null,
     wp.element.createElement(
       'span',
       { className: 'ulpgcds-carrusel--large__img' },
@@ -72,8 +79,14 @@ const generateCarruselLarge = (isEditor, data) => {
       wp.element.createElement(
         'span',
         { className: 'ulpgcds-carrusel__center' },
-        wp.element.createElement('h2', null, data.itemTitle),
-        wp.element.createElement('p', null, data.itemText),
+        wp.element.createElement(
+          'h2', null,
+          isEditor ? carruselTruncateString(data.itemTitle, 20) : data.itemTitle 
+        ),
+        wp.element.createElement(
+          'p', null,
+          isEditor ? carruselTruncateString(data.itemText, 30) : data.itemText
+        ),
         /*wp.element.createElement(
           wp.blockEditor.InnerBlocks.Content,
           null
@@ -114,8 +127,6 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
     const { selectedType, items } = props.attributes;
     const [showSavedMessage, setShowSavedMessage] = React.useState(false);
     const [isEditing, setIsEditing] = wp.element.useState(false);
-    console.log(items);
-    console.log(items.length);
 
     function showMessage() {
       setShowSavedMessage(true);
@@ -252,7 +263,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
     const previewDefault = [
       wp.element.createElement(
         'div',
-        {className: 'col-3 col-sm-3'},
+        {className: 'col-4 col-sm-4'},
         wp.element.createElement(
           'img',
           {
@@ -268,7 +279,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
       ),
       wp.element.createElement(
         'div',
-        {className: 'col-3 col-sm-3'},
+        {className: 'col-4 col-sm-4'},
         wp.element.createElement(
           'img',
           {
@@ -284,7 +295,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
       ),
       wp.element.createElement(
         'div',
-        {className: 'col-3 col-sm-3'},
+        {className: 'col-4 col-sm-4'},
         wp.element.createElement(
           'img',
           {
@@ -300,7 +311,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
       ),
       wp.element.createElement(
         'div',
-        {className: 'col-3 col-sm-3'},
+        {className: 'col-4 col-sm-4'},
         wp.element.createElement(
           'span',
           { className: 'title-xl' },
@@ -312,7 +323,7 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
     previewContent = wp.element.createElement(
       wp.components.PanelBody,
       {
-        title: 'Carrusel',              
+        title: 'Carrusel --> ' +selectedType,              
         initialOpen: true,
       },
       // Muestra el mensaje de guardado
@@ -326,11 +337,16 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
               index < 3 ? generateCarruselHTML(true, selectedType, itemObj)
               : wp.element.createElement(
                 'div',
-                {className: 'col-3 col-sm-3'},
+                {className: 'col-4 col-sm-4'},
+                wp.element.createElement(
+                  'span',
+                  { className: 'title-l' },
+                  'Preview '
+                ),
                 wp.element.createElement(
                   'span',
                   { className: 'title-xl' },
-                  '...'
+                  index+ ' de '+ items.length +' ...'
                 )
               )
             ))
