@@ -258,7 +258,6 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
       wp.element.createElement(
         wp.blockEditor.InspectorControls,
         null,
-        saveElements,
         wp.element.createElement(
           wp.components.Notice,
           {
@@ -267,28 +266,33 @@ wp.blocks.registerBlockType('tabs-block/my-block', {
           },
           'Para añadir más bloques hijos seleccione su bloque padre y pulse +'
         ),
+        saveElements,
       ),
       // Create Tabs
       wp.element.createElement(
-        wp.components.PanelBody,
-        {
-          title: 'Pestañas / Tabs',
-          initialOpen: true,
-        },
-        saveElements,
+        'div',
+        { style: { border: '2px solid #0066a1' } },
         wp.element.createElement(
-          wp.blockEditor.InnerBlocks,
+          wp.components.PanelBody,
           {
-            allowedBlocks: ['tabs-block/tab-item'],
-            template: [['tabs-block/tab-item', {isActive: true}]],
-            templateLock: false,
-          }
-        ),
-        // Botón para salir de la edición
-        wp.element.createElement(
-          wp.components.Button,
-          { isPrimary: true, onClick: handlePreview },
-          'Vista previa'
+            title: 'Pestañas / Tabs',
+            initialOpen: true,
+          },
+          saveElements,
+          wp.element.createElement(
+            wp.blockEditor.InnerBlocks,
+            {
+              allowedBlocks: ['tabs-block/tab-item'],
+              template: [['tabs-block/tab-item', {isActive: true}]],
+              templateLock: false,
+            }
+          ),
+          // Botón para salir de la edición
+          wp.element.createElement(
+            wp.components.Button,
+            { isPrimary: true, onClick: handlePreview },
+            'Vista previa'
+          )
         )
       )
     );
@@ -413,41 +417,45 @@ wp.blocks.registerBlockType('tabs-block/tab-item', {
     }, []);
 
     return wp.element.createElement(
-      wp.components.PanelBody,
-      {
-        title: `Pestaña --> ${tabName}`,
-        initialOpen: isInitialOpen,
-      },
+      'div',
+      { style: { border: '2px solid #ffa100' } },
       wp.element.createElement(
-        wp.components.TextControl,
+        wp.components.PanelBody,
         {
-          label: 'Nombre de la etiqueta',
-          type: 'text',
-          value: tabName,
-          onChange: setTabName
+          title: `Pestaña --> ${tabName}`,
+          initialOpen: isInitialOpen,
         },
-      ),
-      wp.element.createElement(
-        wp.components.TextControl,
-        {
-          label: 'Icono de la etiqueta (Opcional)',
-          type: 'text',
-          help: 'Iconos de la ULPGC --> https://designsystem.ulpgc.es/iconos',
-          value: tabIcon,
-          onChange: setTabIcon
-        },
-      ),
-      'Contenido: (Puede añadir todos los bloques que necesite)',
-      wp.element.createElement(
-        wp.blockEditor.InnerBlocks,
-        {
-          template: [
-            [ 'core/heading', { level: 3, value: tabName, placeholder: 'Título (Opcional)' } ],
-            ['core/paragraph']
-          ],
-          templateLock: false
-        }
-      ),
+        wp.element.createElement(
+          wp.components.TextControl,
+          {
+            label: 'Nombre de la etiqueta',
+            type: 'text',
+            value: tabName,
+            onChange: setTabName
+          },
+        ),
+        wp.element.createElement(
+          wp.components.TextControl,
+          {
+            label: 'Icono de la etiqueta (Opcional)',
+            type: 'text',
+            help: 'Iconos de la ULPGC --> https://designsystem.ulpgc.es/iconos',
+            value: tabIcon,
+            onChange: setTabIcon
+          },
+        ),
+        'Contenido: (Puede añadir todos los bloques que necesite)',
+        wp.element.createElement(
+          wp.blockEditor.InnerBlocks,
+          {
+            template: [
+              [ 'core/heading', { level: 3, value: tabName, placeholder: 'Título (Opcional)' } ],
+              ['core/paragraph']
+            ],
+            templateLock: false
+          }
+        ),
+      )
     );
   },
   save: function(props) {
