@@ -75,33 +75,16 @@ function getFormattedDate_List($date) {
 function listcategory_render($attributes, $content) {
   $defaultImage = '/wp-content/themes/iuma_ulpgc/images/default.png';
 
-  // Obtén el número de página actual (page de la url)
-  $page = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-
-  // Establece el número de elementos por página
-  $elements_per_page = 2;
-
-  // Calcula el offset
-  $offset = ($page - 1) * $elements_per_page;
-
-  // Realiza la consulta para obtener los elementos
-  $args = array(
+  $recent_posts = wp_get_recent_posts( array(
     //'numberposts' => $attributes['maxPosts'],
     'category'    => $attributes['selectedCategory'],
     'post_status' => 'publish',
-    'post_type' => 'post',  // Cambia 'post' por el tipo de contenido que desees mostrar
-    'posts_per_page' => $elements_per_page,
-    'offset' => $offset,
-  );
+    'post_type'   => 'post',
+  ) );
 
-  $the_query = new WP_Query($args);
-
-  if (!$the_query->have_posts()) {
+  if ( empty( $recent_posts ) ) {
     return "<div style='background-color:#f0f07f'>Categoría vacía, seleccione otra o haga alguna entrada</div>";
   }
-
-  $total_posts = $the_query->found_posts;
 
   // Verificar si el bloque está siendo mostrado en la vista pública (frontend)
   $webView = $attributes['isWebView'];
@@ -113,28 +96,23 @@ function listcategory_render($attributes, $content) {
   /*// Modo lista como la ULPGC
   $output = "<div class='row list_category'>
     <ul class='ulpgcds-list'>";*/
-  $output = $page. "<div class='row list_category'>";
-  $pagination = '';
-  
-  while ($the_query->have_posts()) {
+  $output = "<div class='row list_category'>";
+
+  foreach ( $recent_posts as $recent_post ) {
     $counter++;
-    $the_query->the_post();
+    $recent_post_title = $recent_post['post_title'];
+    $recent_post_excerpt = $recent_post['post_excerpt'];
+    $recent_post_date = getFormattedDate_List($recent_post['post_date']);
+    //$recent_post_date_gmt = getFormattedDate_List($recent_post['post_date_gmt']);  //Hora global
+    $recent_post_content = $recent_post['post_content'];  //Todo el contenido
+    $recent_post_permalink = get_permalink( $recent_post['ID'] );
 
-    $recent_post_title = get_the_title();
-    $recent_post_excerpt = get_the_excerpt();   //Resumen
-    $recent_post_date = getFormattedDate_List(get_the_date());
-    $recent_post_content = get_the_content();   //Todo el contenido
-    $recent_post_permalink = get_post_permalink();
-
-    // Obtén la imagen destacada
-    $thumbnail_id = get_post_thumbnail_id();
     // Obtener la URL de la imagen destacada
-    $recent_post_image_url = get_the_post_thumbnail_url( $thumbnail_id/*, 'medium'*/);
+    $recent_post_image_url = get_the_post_thumbnail_url( $recent_post['ID']/*, 'medium'*/);
     // Obtener la descripción de la imagen destacada (texto alternativo)
-    $recent_post_image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-    //$recent_post_image_alt = get_post_meta( get_post_thumbnail_id( $thumbnail_id ), '_wp_attachment_recent_post_image_alt', true );
+    $recent_post_image_alt = get_post_meta( get_post_thumbnail_id( $recent_post['ID'] ), '_wp_attachment_recent_post_image_alt', true );
     
-    if ($recent_post_image_url && $recent_post_image_alt == '') $recent_post_image_alt = 'Imagen destacada de ('. $recent_post_title .')';
+    if ($recent_post_image_url && $recent_post_image_alt == '') $recent_post_image_alt = 'Imagen destacada de ('. $recent_post_title. ')';
 
     // Si no hay extracto, obtener una versión truncada del contenido para mostrar como extracto
     if ( empty($recent_post_excerpt) ) {
@@ -146,10 +124,8 @@ function listcategory_render($attributes, $content) {
     // Mostrar solo 5 artículos en el editor
     if ( !$webView && $counter > $maxPostEditToShow ) {
       break;
-    }
+    } 
 
-    // Aquí muestra cada elemento
-    //echo '<h2>' . get_the_title() . '</h2>';
     $output .= "
       <div class='col-12 list_category_item container_row'>
         <article class='ulpgcds-article ulpgcds-article--short row resize_article_row'>
@@ -172,6 +148,7 @@ function listcategory_render($attributes, $content) {
         </article>
       </div>
     ";
+
     /* // Modo lista como la ULPGC
     $output .= "
       <li>
@@ -179,102 +156,27 @@ function listcategory_render($attributes, $content) {
         <a href='$recent_post_permalink'>$recent_post_title</a>
       </li>      
     ";*/
-
-    /*$pagination .= "
-      <li class='ulpgcds-pager__item'>
-        <a class='pagination__link' href='#' title='Ir a la página 2'>
-          2
-        </a>
-      </li>
-      <li class='ulpgcds-pager__item ulpgcds-pager__item--is-active'>
-        <a class='pagination__link' href='#' title='Ir a la página 3'>
-          3
-        </a>
-      </li>
-      <li class='ulpgcds-pager__item'>
-        <a class='pagination__link' href='#' title='Ir a la página 4'>
-          4
-        </a>
-      </li>
-    ";*/
   }
 
   // Agregar "..." en el sexto artículo si se están mostrando más de 5 en la vista pública
-  if ( !$webView && $total_posts > $maxPostEditToShow ) {
+  if ( !$webView && count($recent_posts) > $maxPostEditToShow ) {
     $output .= "
       <div class='col-12'>
         <h2 class='title-l'>Preview
-          <span class='title-xl'>". $counter ." de ". $total_posts ." ...</span>
+          <span class='title-xl'>". $counter-1 ." de ". count($recent_posts) ." ...</span>
         </h2>
       </div>
     ";
+    /*$output .= "
+    <div class='col-12'>
+        <h3>...</h3>
+    </div>";*/
   }
 
   $output .= "</div>";
   // Modo lista como la ULPGC
   //$output .= "</ul></div>";
-  
-  // Muestra la paginación
-  if ( $webView ){
-    /*$total_pages = ceil($the_query->found_posts / $elements_per_page);
-    $output .= paginate_links(array(
-      'total' => $total_pages,
-      'current' => $page,
-      'prev_text' => '«',
-      'next_text' => '»',
-    ));*/
 
-    //$output .=
-    // Calcular el total de páginas
-    $total_pages = ceil($the_query->found_posts / $elements_per_page);
-
-    // Obtener el número de la página anterior y siguiente
-    $prev_page = $page > 1 ? $page - 1 : 1;
-    $next_page = $page < $total_pages ? $page + 1 : $total_pages;
-
-    // Mostrar los resultados y estado de la paginación
-    $pagination .= "
-      <div class='ulpgcds-pager__results'>
-        Mostrando $offset de ". $elements_per_page * $page ." de un total de $the_query->found_posts registros
-      </div>
-    ";
-    // Mostrar la paginación
-    $pagination .= "
-      <nav aria-label='Paginación' class='ulpgcds-pager'>
-        <ul>
-          <li class='ulpgcds-pager__item ulpgcds-pager__item--prev'>
-            <a class='pagination__link' href='?pagina=$prev_page' title='Ir a la página anterior'>
-              <span class='visually-hidden'>Anterior</span>
-            </a>
-          </li>
-    ";
-
-    // Mostrar las páginas
-    for ($i = 1; $i <= $total_pages; $i++) {
-      $active_class = $i == $page ? 'ulpgcds-pager__item--is-active' : '';
-      $pagination .= "
-        <li class='ulpgcds-pager__item' $active_class>
-          <a class='pagination__link' href='?pagina=$i' title='Ir a la página $i'>
-            $i
-          </a>
-        </li>
-      ";
-    }
-
-    $pagination .= "
-          <li class='ulpgcds-pager__item ulpgcds-pager__item--next'>
-            <a class='pagination__link' href='?pagina=$next_page' title='Ir a la página siguiente'>
-            <span class='visually-hidden'>Siguiente</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    ";
-  }
-  $res = $output . $pagination;
-	return $res;
-  
-  // Restaura las consultas originales de WordPress
-  wp_reset_postdata();
+	return $output;
 }
 ?>
