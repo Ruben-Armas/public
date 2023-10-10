@@ -63,8 +63,7 @@ function list_category_dynamic() {
         'default' => true,
       ]
 		]
-  ]);
-
+  ]);  
 }
 //add_action( 'enqueue_block_editor_assets', 'list_category_dynamic' );
 add_action( 'init', 'list_category_dynamic' );
@@ -119,6 +118,11 @@ function listcategory_render($attributes, $content) {
   // Verificar si el bloque está siendo mostrado en la vista pública (frontend)
   $webView = $attributes['isWebView'];
   $numMaxWords = $attributes['maxWords'];
+  $pagination = $attributes['pagination'];
+  $pagIndicator = $attributes['pagIndicator'];
+  $maxElementsPerPage = $attributes['maxElementsPerPage'];
+  
+  
 
   $maxPostEditToShow = 5; // Número de artículos a mostrar en el editor
   $counter = 0; // Contador para contar los artículos mostrados
@@ -127,7 +131,7 @@ function listcategory_render($attributes, $content) {
   $output = "<div class='row list_category'>
     <ul class='ulpgcds-list'>";*/
   $output = $page. "<div class='row list_category'>";
-  $pagination = '';
+  $paginationHtml = '';
   
   while ($the_query->have_posts()) {
     $counter++;
@@ -235,7 +239,7 @@ function listcategory_render($attributes, $content) {
       : ''
     ;
     // Mostrar la paginación
-    $pagination .= "
+    $paginationHtml .= "
       <nav aria-label='Paginación' class='ulpgcds-pager'>
         $indicator
         <ul>
@@ -252,14 +256,14 @@ function listcategory_render($attributes, $content) {
       // Comprueba si es grande
       if ($total_pages >= 10) {
         if ($i == 1) {
-          $pagination .= "
+          $paginationHtml .= "
             <li class='ulpgcds-pager__item' $active_class>
               <a class='pagination__link' href='?pagina=$i' title='Ir a la página de inicio'>$i</a>
             </li>
             <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
           ";
         } else if ($i == $total_pages) {
-          $pagination .= "
+          $paginationHtml .= "
             <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
             <li class='ulpgcds-pager__item' $active_class>
               <a class='pagination__link' href='?pagina=$i' title='Ir a la página final'>$i</a>
@@ -267,7 +271,7 @@ function listcategory_render($attributes, $content) {
           ";
         }
       }
-      $pagination .= "
+      $paginationHtml .= "
         <li class='ulpgcds-pager__item $active_class'>
           <a class='pagination__link' href='$url_base"."page/$i/' title='Ir a la página $i'>
             $i
@@ -277,7 +281,7 @@ function listcategory_render($attributes, $content) {
     }
 
     // Siguiente
-    $pagination .= "
+    $paginationHtml .= "
           <li class='ulpgcds-pager__item ulpgcds-pager__item--next'>
             <a class='pagination__link' href='$url_base"."page/$next_page/' title='Ir a la página siguiente'>
             <span class='visually-hidden'>Siguiente</span>
@@ -287,7 +291,7 @@ function listcategory_render($attributes, $content) {
       </nav>
     ";
   }
-  $res = $output . $pagination;
+  $res = $output . $paginationHtml;
 	return $res;
   
   // Restaura las consultas originales de WordPress
