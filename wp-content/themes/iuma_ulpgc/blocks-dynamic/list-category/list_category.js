@@ -1,9 +1,11 @@
 //const { withSelect, list_select } = wp.data;
+const listCatWordsVal = 35;
+const listCatElPerPage = 7;
 
 class ListCategoryEdit extends wp.element.Component {
   render() {
     const { attributes, setAttributes, categories } = this.props;
-    const {maxWords, selectedCategory, isEditingBlock} = attributes;
+    const {maxWords, selectedCategory, pagination, pagIndicator, maxElementsPerPage, isEditingBlock} = attributes;
 
     //Guarda las categorías obtenidas en el edit
     let choices = [];
@@ -22,6 +24,16 @@ class ListCategoryEdit extends wp.element.Component {
     };
     var setSelectedCategory = function(newSelectedCategory) {
       setAttributes({ selectedCategory: parseInt(newSelectedCategory) });
+    };
+
+    var setPagination = function() {
+      setAttributes({ pagination: !pagination });
+    }
+    var setPagIndicator = function() {
+      setAttributes({ pagIndicator: !pagIndicator });
+    }
+    var setMaxElementsPerPage = function(newMaxElementsPerPage) {
+      setAttributes({ maxElementsPerPage: newMaxElementsPerPage });
     };
   
     const handleEdit = () => {
@@ -68,7 +80,7 @@ class ListCategoryEdit extends wp.element.Component {
             label: 'Nº máximo de palabras por entrada',
             type: 'number',
             value: maxWords,
-            initialPosition: wordsVal,
+            initialPosition: listCatWordsVal,
             onChange: setMaxWords,
             min: '0',
             max: '100',
@@ -76,6 +88,38 @@ class ListCategoryEdit extends wp.element.Component {
             railColor: 'red'
           },
         ),
+        wp.element.createElement(
+          wp.components.ToggleControl,
+          {
+            label: 'Añadir paginación',
+            checked: pagination,
+            onChange: setPagination
+          }
+        ),
+        pagination && [
+          wp.element.createElement(
+            wp.components.RangeControl,
+            {
+              label: 'Nº máximo de elementos por página',
+              type: 'number',
+              value: maxElementsPerPage,
+              initialPosition: listCatElPerPage,
+              onChange: setMaxElementsPerPage,
+              min: '1',
+              max: '20',
+              allowReset: true,
+              railColor: 'red'
+            },
+          ),
+          wp.element.createElement(
+            wp.components.ToggleControl,
+            {
+              label: 'Añadir indicador de resultados y estado',
+              checked: pagIndicator,
+              onChange: setPagIndicator
+            }
+          )
+        ],
         wp.element.createElement(
           wp.components.SelectControl,
           {
@@ -123,11 +167,23 @@ wp.blocks.registerBlockType('listcategory-block/my-block', {
   attributes: {
     maxWords: {
       type: 'number',
-      default: wordsVal
+      default: listCatWordsVal
     },
     selectedCategory: {
       type: 'int',
       default: 0,
+    },
+    pagination: {
+      type: 'boolean',
+      default: false,
+    },
+    pagIndicator: {
+      type: 'boolean',
+      default: false,
+    },
+    maxElementsPerPage: {
+      type: 'number',
+      default: listCatElPerPage
     },
     isEditingBlock: {
       type: 'boolean',
