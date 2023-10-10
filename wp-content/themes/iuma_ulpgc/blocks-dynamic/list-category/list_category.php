@@ -102,6 +102,7 @@ function listcategory_render($attributes, $content) {
   }
 
   $total_posts = $the_query->found_posts;
+  $url_base = get_permalink();
 
   // Verificar si el bloque está siendo mostrado en la vista pública (frontend)
   $webView = $attributes['isWebView'];
@@ -179,27 +180,9 @@ function listcategory_render($attributes, $content) {
         <a href='$recent_post_permalink'>$recent_post_title</a>
       </li>      
     ";*/
-
-    /*$pagination .= "
-      <li class='ulpgcds-pager__item'>
-        <a class='pagination__link' href='#' title='Ir a la página 2'>
-          2
-        </a>
-      </li>
-      <li class='ulpgcds-pager__item ulpgcds-pager__item--is-active'>
-        <a class='pagination__link' href='#' title='Ir a la página 3'>
-          3
-        </a>
-      </li>
-      <li class='ulpgcds-pager__item'>
-        <a class='pagination__link' href='#' title='Ir a la página 4'>
-          4
-        </a>
-      </li>
-    ";*/
   }
 
-  // Agregar "..." en el sexto artículo si se están mostrando más de 5 en la vista pública
+  // Agregar "..." en el sexto artículo si se están mostrando más de 5 en la vista de edición
   if ( !$webView && $total_posts > $maxPostEditToShow ) {
     $output .= "
       <div class='col-12'>
@@ -224,7 +207,7 @@ function listcategory_render($attributes, $content) {
       'next_text' => '»',
     ));*/
 
-    //$output .=
+
     // Calcular el total de páginas
     $total_pages = ceil($the_query->found_posts / $elements_per_page);
 
@@ -233,17 +216,20 @@ function listcategory_render($attributes, $content) {
     $next_page = $page < $total_pages ? $page + 1 : $total_pages;
 
     // Mostrar los resultados y estado de la paginación
-    $pagination .= "
+    // Status and results indicator
+    $indicator = 1==1 ? "
       <div class='ulpgcds-pager__results'>
-        Mostrando $offset de ". $elements_per_page * $page ." de un total de $the_query->found_posts registros
-      </div>
-    ";
+        Mostrando $counter de ". $elements_per_page * $page ." de un total de $total_posts registros
+      </div>"
+      : ''
+    ;
     // Mostrar la paginación
     $pagination .= "
       <nav aria-label='Paginación' class='ulpgcds-pager'>
+        $indicator
         <ul>
           <li class='ulpgcds-pager__item ulpgcds-pager__item--prev'>
-            <a class='pagination__link' href='?pagina=$prev_page' title='Ir a la página anterior'>
+            <a class='pagination__link' href='$url_base/page/$prev_page/' title='Ir a la página anterior'>
               <span class='visually-hidden'>Anterior</span>
             </a>
           </li>
@@ -252,18 +238,38 @@ function listcategory_render($attributes, $content) {
     // Mostrar las páginas
     for ($i = 1; $i <= $total_pages; $i++) {
       $active_class = $i == $page ? 'ulpgcds-pager__item--is-active' : '';
-      $pagination .= "
-        <li class='ulpgcds-pager__item' $active_class>
-          <a class='pagination__link' href='?pagina=$i' title='Ir a la página $i'>
-            $i
-          </a>
-        </li>
-      ";
+      // Comprueba si es grande
+      /*if ($total_pages >= 8) {
+        if ($i == 1) {
+          $pagination .= "
+            <li class='ulpgcds-pager__item' $active_class>
+              <a class='pagination__link' href='?pagina=$i' title='Ir a la página de inicio'>$i</a>
+            </li>
+            <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
+          ";
+        } else if ($i == $total_pages) {
+          $pagination .= "
+            <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
+            <li class='ulpgcds-pager__item' $active_class>
+              <a class='pagination__link' href='?pagina=$i' title='Ir a la página final'>$i</a>
+            </li>
+          ";
+        }
+      } else {*/
+        $pagination .= "
+          <li class='ulpgcds-pager__item' $active_class>
+            <a class='pagination__link' href='$url_base/page/$i/' title='Ir a la página $i'>
+              $i
+            </a>
+          </li>
+        ";
+      //}      
     }
 
+    // Siguiente
     $pagination .= "
           <li class='ulpgcds-pager__item ulpgcds-pager__item--next'>
-            <a class='pagination__link' href='?pagina=$next_page' title='Ir a la página siguiente'>
+            <a class='pagination__link' href='$url_base/page/$next_page/' title='Ir a la página siguiente'>
             <span class='visually-hidden'>Siguiente</span>
             </a>
           </li>
