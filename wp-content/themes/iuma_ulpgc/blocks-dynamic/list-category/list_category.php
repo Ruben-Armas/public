@@ -1,5 +1,6 @@
 <?php
-function display_pagination_movement($elementsPerLargePagination, $url_base, $page, $total_pages) {
+
+function display_pagination_large($elementsPerLargePagination, $url_base, $page, $total_pages) {
   $num_pages_to_show = $elementsPerLargePagination -2;  // Número total de páginas a mostrar
   $half_page_range = floor($num_pages_to_show / 2);
   $first_shown_page = max(1, $page - $half_page_range);
@@ -295,17 +296,23 @@ function listcategory_render($attributes, $content) {
       ";
 
       if ($total_pages > 5) {
-        $paginationHtml .= display_pagination_movement($elementsPerLargePagination, $url_base, $page, $total_pages);
+        $paginationHtml .= display_pagination_large($elementsPerLargePagination, $url_base, $page, $total_pages);
       } else {
         // Mostrar las páginas
         for ($i = 1; $i <= $total_pages; $i++) {
-          $active_class = $i == $page ? 'ulpgcds-pager__item--is-active' : '';
+          if ($i == $page){
+            $active_class = 'ulpgcds-pager__item--is-active';
+            $active_style = 'style=color:#ffffff;';
+          } else {
+            $active_class = '';
+            $active_style = '';
+          }
           // Comprueba si es grande
           if ($total_pages >= 10) {
             if ($i == 1) {
               $paginationHtml .= "
                 <li class='ulpgcds-pager__item' $active_class>
-                  <a class='pagination__link' href='$url_base"."page/$i/' title='Ir a la página de inicio'>$i</a>
+                  <a class='pagination__link' $active_style href='$url_base"."page/$i/' title='Ir a la página de inicio'>$i</a>
                 </li>
                 <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
               ";
