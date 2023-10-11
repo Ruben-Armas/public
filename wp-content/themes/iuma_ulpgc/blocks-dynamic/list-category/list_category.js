@@ -1,11 +1,13 @@
 //const { withSelect, list_select } = wp.data;
 const listCatWordsVal = 35;
 const listCatElPerPage = 7;
+const listCatElPerLargePagination = 5;
+
 
 class ListCategoryEdit extends wp.element.Component {
   render() {
     const { attributes, setAttributes, categories } = this.props;
-    const {maxWords, selectedCategory, pagination, pagIndicator, maxElementsPerPage, isEditingBlock} = attributes;
+    const {maxWords, selectedCategory, pagination, pagIndicator, maxElementsPerPage, elementsPerLargePagination, isEditingBlock} = attributes;
 
     //Guarda las categorías obtenidas en el edit
     let choices = [];
@@ -34,6 +36,9 @@ class ListCategoryEdit extends wp.element.Component {
     }
     var setMaxElementsPerPage = function(newMaxElementsPerPage) {
       setAttributes({ maxElementsPerPage: newMaxElementsPerPage });
+    };
+    var setElementsPerLargePagination = function(newElementsPerLargePagination) {
+      setAttributes({ elementsPerLargePagination: newElementsPerLargePagination });
     };
   
     const handleEdit = () => {
@@ -74,6 +79,15 @@ class ListCategoryEdit extends wp.element.Component {
           title: 'Lista de Entradas/Categorías (Dinámico)',
           initialOpen: true,
         },
+        wp.element.createElement(
+          wp.components.SelectControl,
+          {
+            label: 'Seleccione una categoría a mostrar (si no, se mostrarán todas)',
+            options: choices,
+            value: attributes.selectedCategory,
+            onChange: setSelectedCategory
+          }
+        ),
         wp.element.createElement(
           wp.components.RangeControl,
           {
@@ -118,17 +132,22 @@ class ListCategoryEdit extends wp.element.Component {
               checked: pagIndicator,
               onChange: setPagIndicator
             }
+          ),
+          pagIndicator && wp.element.createElement(
+            wp.components.RangeControl,
+            {
+              label: 'Nº máximo de páginas a mostrar en la línea de paginación grande',
+              type: 'number',
+              value: elementsPerLargePagination,
+              initialPosition: listCatElPerLargePagination,
+              onChange: setElementsPerLargePagination,
+              min: '5',
+              max: '20',
+              allowReset: true,
+              railColor: 'red'
+            },
           )
-        ],
-        wp.element.createElement(
-          wp.components.SelectControl,
-          {
-            label: 'Seleccione una categoría a mostrar (si no, se mostrarán todas)',
-            options: choices,
-            value: attributes.selectedCategory,
-            onChange: setSelectedCategory
-          }
-        ),
+        ]
       ),
       // Botón para salir de la edición
       wp.element.createElement(
@@ -184,6 +203,10 @@ wp.blocks.registerBlockType('listcategory-block/my-block', {
     maxElementsPerPage: {
       type: 'number',
       default: listCatElPerPage
+    },
+    elementsPerLargePagination: {
+      type: 'number',
+      default: listCatElPerLargePagination
     },
     isEditingBlock: {
       type: 'boolean',

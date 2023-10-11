@@ -1,4 +1,49 @@
 <?php
+function display_pagination_movement($elementsPerLargePagination, $url_base, $page, $total_pages) {
+  $num_pages_to_show = $elementsPerLargePagination -2;  // Número total de páginas a mostrar
+  $half_page_range = floor($num_pages_to_show / 2);
+  $first_shown_page = max(1, $page - $half_page_range);
+  $last_shown_page = min($total_pages, $first_shown_page + $num_pages_to_show - 1);
+  $pag = '';
+
+  // Mostrar el botón "inicio"
+  if ($first_shown_page > 1) {
+    $pag .= "
+      <li class='ulpgcds-pager__item'>
+        <a class='pagination__link' href='$url_base"."page/1/' title='Ir a la página de inicio'>1</a>
+      </li>
+    ";
+    if ($first_shown_page > 2) {
+      $pag .= "<li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>";
+    }
+  }
+
+  // Mostrar las páginas
+  for ($i = $first_shown_page; $i <= $last_shown_page; $i++) {
+    $active_class = $i == $page ? 'ulpgcds-pager__item--is-active' : '';
+    $pag .= "
+      <li class='ulpgcds-pager__item $active_class'>
+        <a class='pagination__link' href='$url_base"."page/$i/' title='Ir a la página $i'>
+          $i
+        </a>
+      </li>
+    ";
+  }
+
+  // Mostrar el botón "final"
+  if ($last_shown_page < $total_pages) {
+      if ($last_shown_page < $total_pages - 1) {
+          $pag .= "<li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>";
+      }
+      $pag .= "
+        <li class='ulpgcds-pager__item'>
+          <a class='pagination__link' href='$url_base"."page/$total_pages/' title='Ir a la página final'>$total_pages</a>
+        </li>
+      ";
+  }  
+
+  return $pag;
+}
 
 function list_category_dynamic() {
   $blockPath = '/blocks-dynamic/list-category/list_category';
@@ -53,6 +98,10 @@ function list_category_dynamic() {
         'type' => 'number',
         'default' => 7
       ],
+			'elementsPerLargePagination' => [
+        'type' => 'number',
+        'default' => 5
+      ],
       'isEditingBlock' => [
         'type' => 'boolean',
         'default' => false,
@@ -86,15 +135,18 @@ function getFormattedDate_List($date) {
 function listcategory_render($attributes, $content) {
   $defaultImage = '/wp-content/themes/iuma_ulpgc/images/default.png';
 
+  $webView = $attributes['isWebView'];
+  $numMaxWords = $attributes['maxWords'];
+  $pagination = $attributes['pagination'];
+  $pagIndicator = $attributes['pagIndicator'];
+  $maxElementsPerPage = $attributes['maxElementsPerPage'];
+  $elementsPerLargePagination = $attributes['elementsPerLargePagination'];
+
   // Obtén el número de página actual (page de la url)
   $page = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
-
-  // Establece el número de elementos por página
-  $elements_per_page = 1;
-
   // Calcula el offset
-  $offset = ($page - 1) * $elements_per_page;
+  $offset = ($page - 1) * $maxElementsPerPage;
 
   // Realiza la consulta para obtener los elementos
   $args = array(
@@ -102,7 +154,7 @@ function listcategory_render($attributes, $content) {
     'category'    => $attributes['selectedCategory'],
     'post_status' => 'publish',
     'post_type' => 'post',  // Cambia 'post' por el tipo de contenido que desees mostrar
-    'posts_per_page' => $elements_per_page,
+    'posts_per_page' => $maxElementsPerPage,
     'offset' => $offset,
   );
 
@@ -115,22 +167,13 @@ function listcategory_render($attributes, $content) {
   $total_posts = $the_query->found_posts;
   $url_base = get_permalink();
 
-  // Verificar si el bloque está siendo mostrado en la vista pública (frontend)
-  $webView = $attributes['isWebView'];
-  $numMaxWords = $attributes['maxWords'];
-  $pagination = $attributes['pagination'];
-  $pagIndicator = $attributes['pagIndicator'];
-  $maxElementsPerPage = $attributes['maxElementsPerPage'];
-  
-  
-
   $maxPostEditToShow = 5; // Número de artículos a mostrar en el editor
   $counter = 0; // Contador para contar los artículos mostrados
 
   /*// Modo lista como la ULPGC
   $output = "<div class='row list_category'>
     <ul class='ulpgcds-list'>";*/
-  $output = $page. "<div class='row list_category'>";
+  $output = "<div class='row list_category'>";
   $paginationHtml = '';
   
   while ($the_query->have_posts()) {
@@ -138,7 +181,7 @@ function listcategory_render($attributes, $content) {
     $the_query->the_post();
 
     // Calcular el total de páginas
-    $total_pages = ceil($the_query->found_posts / $elements_per_page);
+    $total_pages = ceil($the_query->found_posts / $maxElementsPerPage);
 
     $recent_post_title = get_the_title();
     $recent_post_excerpt = get_the_excerpt();   //Resumen
@@ -218,7 +261,8 @@ function listcategory_render($attributes, $content) {
   
   // Muestra la paginación
   if ( $webView ){
-    /*$total_pages = ceil($the_query->found_posts / $elements_per_page);
+    /*//Por defecto
+    $total_pages = ceil($the_query->found_posts / $maxElementsPerPage);
     $output .= paginate_links(array(
       'total' => $total_pages,
       'current' => $page,
@@ -226,73 +270,80 @@ function listcategory_render($attributes, $content) {
       'next_text' => '»',
     ));*/
     
+    if ($pagination) {
+      // Obtener el número de la página anterior y siguiente
+      $prev_page = $page > 1 ? $page - 1 : 1;
+      $next_page = $page < $total_pages ? $page + 1 : $total_pages;
 
-    // Obtener el número de la página anterior y siguiente
-    $prev_page = $page > 1 ? $page - 1 : 1;
-    $next_page = $page < $total_pages ? $page + 1 : $total_pages;
-
-    // Status and results indicator
-    $indicator = 1==1 ? "
-      <div class='ulpgcds-pager__results'>
-        Mostrando $counter de ". $elements_per_page * $page ." de un total de $total_posts registros pages($total_pages)
-      </div>"
-      : ''
-    ;
-    // Mostrar la paginación
-    $paginationHtml .= "
-      <nav aria-label='Paginación' class='ulpgcds-pager'>
-        $indicator
-        <ul>
-          <li class='ulpgcds-pager__item ulpgcds-pager__item--prev'>
-            <a class='pagination__link' href='$url_base"."page/$prev_page/' title='Ir a la página anterior'>
-              <span class='visually-hidden'>Anterior</span>
-            </a>
-          </li>
-    ";
-
-    // Mostrar las páginas
-    for ($i = 1; $i <= $total_pages; $i++) {
-      $active_class = $i == $page ? 'ulpgcds-pager__item--is-active' : '';
-      // Comprueba si es grande
-      if ($total_pages >= 10) {
-        if ($i == 1) {
-          $paginationHtml .= "
-            <li class='ulpgcds-pager__item' $active_class>
-              <a class='pagination__link' href='?pagina=$i' title='Ir a la página de inicio'>$i</a>
+      // Mostrar el botón "anterior"
+      $indicator = $pagIndicator ? "
+        <div class='ulpgcds-pager__results'>
+          Mostrando $counter de $total_posts, en un total de ".ceil($total_posts / $maxElementsPerPage)." páginas.
+        </div>"
+        : ''
+      ;
+      $disabledFirst = $page == 1 ?  "aria-disabled='true'" : '';
+      $paginationHtml = "
+        <nav aria-label='Paginación' class='ulpgcds-pager'>
+          $indicator
+          <ul>
+            <li class='ulpgcds-pager__item ulpgcds-pager__item--prev'>
+              <a class='pagination__link' href='$url_base"."page/$prev_page/' title='Ir a la página anterior' $disabledFirst>
+                <span class='visually-hidden'>Anterior</span>
+              </a>
             </li>
-            <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
-          ";
-        } else if ($i == $total_pages) {
+      ";
+
+      if ($total_pages > 5) {
+        $paginationHtml .= display_pagination_movement($elementsPerLargePagination, $url_base, $page, $total_pages);
+      } else {
+        // Mostrar las páginas
+        for ($i = 1; $i <= $total_pages; $i++) {
+          $active_class = $i == $page ? 'ulpgcds-pager__item--is-active' : '';
+          // Comprueba si es grande
+          if ($total_pages >= 10) {
+            if ($i == 1) {
+              $paginationHtml .= "
+                <li class='ulpgcds-pager__item' $active_class>
+                  <a class='pagination__link' href='$url_base"."page/$i/' title='Ir a la página de inicio'>$i</a>
+                </li>
+                <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
+              ";
+            } else if ($i == $total_pages) {
+              $paginationHtml .= "
+                <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
+                <li class='ulpgcds-pager__item' $active_class>
+                  <a class='pagination__link' href='$url_base"."page/$i/' title='Ir a la página final'>$i</a>
+                </li>
+              ";
+            }
+          }
           $paginationHtml .= "
-            <li class='ulpgcds-pager__item ulpgcds-pager__item--ellipsis' role='presentation'>...</li>
-            <li class='ulpgcds-pager__item' $active_class>
-              <a class='pagination__link' href='?pagina=$i' title='Ir a la página final'>$i</a>
+            <li class='ulpgcds-pager__item $active_class'>
+              <a class='pagination__link' href='$url_base"."page/$i/' title='Ir a la página $i'>
+                $i
+              </a>
             </li>
           ";
         }
       }
-      $paginationHtml .= "
-        <li class='ulpgcds-pager__item $active_class'>
-          <a class='pagination__link' href='$url_base"."page/$i/' title='Ir a la página $i'>
-            $i
-          </a>
-        </li>
-      ";
-    }
 
-    // Siguiente
-    $paginationHtml .= "
-          <li class='ulpgcds-pager__item ulpgcds-pager__item--next'>
-            <a class='pagination__link' href='$url_base"."page/$next_page/' title='Ir a la página siguiente'>
-            <span class='visually-hidden'>Siguiente</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    ";
+      // Mostrar el botón "siguiente"
+      $disabledLast = $page == $total_pages ?  "aria-disabled='true'" : '';
+      $paginationHtml .= "
+            <li class='ulpgcds-pager__item ulpgcds-pager__item--next'>
+              <a class='pagination__link' href='$url_base"."page/$next_page/' title='Ir a la página siguiente' $disabledLast>
+              <span class='visually-hidden'>Siguiente</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      ";
+    
+      return $output . $paginationHtml;
+    }
   }
-  $res = $output . $paginationHtml;
-	return $res;
+	return $output;
   
   // Restaura las consultas originales de WordPress
   wp_reset_postdata();
