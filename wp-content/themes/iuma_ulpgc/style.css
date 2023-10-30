@@ -22,3 +22,14 @@ Version: 1.0
 li.not-first {
     margin-top: 40px !important;
 }
+
+/* FIX - Soluciona el error en los colores del pagination */
+.pagination__link {
+    color: #565a5c !important;
+}
+.pagination__link:hover {
+    color: #565a5c !important;
+}
+.ulpgcds-pager__item.ulpgcds-pager__item--is-active .pagination__link {
+    color: #ffffff !important;
+}
