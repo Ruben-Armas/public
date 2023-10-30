@@ -53,6 +53,7 @@ require_once get_template_directory() . '/blocks/carrusel-custom/carrusel.php';
 require_once get_template_directory() . '/blocks/accordion/accordion.php';
 require_once get_template_directory() . '/blocks/text_area-custom/text_area.php';
 require_once get_template_directory() . '/blocks/web_view-custom/web_view.php';
+require_once get_template_directory() . '/blocks/seemore/seemore.php';
 require_once get_template_directory() . '/blocks/table-custom/table.php';
 
 require_once get_template_directory() . '/blocks/test-innerblock/test.php';
