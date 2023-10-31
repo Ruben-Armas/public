@@ -62,16 +62,14 @@ get_header();
 
 		      <div class="entry-header row">
             <div class="col-6">
-              <div class="row">
-                <!-- Muestra la fecha en el formato deseado -->
-                <div class="entry-date"><?php echo get_the_date('j ') . strtoupper(get_the_date('M ') . get_the_date('Y')); ?></div>
-                <!-- Muestra las categorías de la entrada (solo si hay) -->
-                <?php
-                if (!empty(get_the_category())) {
-                  echo '<div class="entry-categories">' . get_the_category_list(', ') . '</div>';
-                }
-                ?>
-              </div>
+              <!-- Muestra la fecha en el formato deseado -->
+              <div class="entry-date col-6"><?php echo get_the_date('j ') . strtoupper(get_the_date('M ') . get_the_date('Y')); ?></div>
+              <!-- Muestra las categorías de la entrada (solo si hay) -->
+              <?php
+              if (!empty(get_the_category())) {
+                echo '<div class="entry-categories col-6"> - ' . get_the_category_list(', ') . '</div>';
+              }
+              ?>
             </div>
             <div class="col-6">
               <!-- Muestra la sección de Compartir en Redes -->
@@ -84,18 +82,23 @@ get_header();
               ?>
               <div class="entry-social">                
                 <span>Compartir en las redes:</span>
-                <a class="ulpgcds-btn ulpgcds-btn--text" target="_blank" href="<?php echo esc_url($facebook_share_url); ?>"><i class="ulpgcds-icon-facebook"></i></a>
-                <a class="ulpgcds-btn ulpgcds-btn--text" target="_blank" href="<?php echo esc_url($twitter_share_url); ?>"><i class="ulpgcds-icon-twitter"></i></a>
-                <a class="ulpgcds-btn ulpgcds-btn--text" target="_blank" href="<?php echo esc_url($linkedin_share_url); ?>"><i class="ulpgcds-icon-linkedin"></i></a>
+                <a class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank" href="<?php echo esc_url($facebook_share_url); ?>"><i class="ulpgcds-btn__icon ulpgcds-icon-facebook"></i></a>
+                <a class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank" href="<?php echo esc_url($twitter_share_url); ?>"><i class="ulpgcds-btn__icon ulpgcds-icon-twitter"></i></a>
+                <a class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank" href="<?php echo esc_url($linkedin_share_url); ?>"><i class="ulpgcds-btn__icon ulpgcds-icon-linkedin"></i></a>
               </div>
             </div>
           </div>
+          <!--<ul style="list-style: none;">
+            <li class="facebook"><a href="<?php echo esc_url($facebook_share_url); ?>" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank"><i class="ulpgcds-btn__icon ulpgcds-icon-facebook"></i><span>Facebook</span></a></li>
+            <li class="facebook"><a href="<?php echo esc_url($facebook_share_url); ?>" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank"><i class="ulpgcds-btn__icon ulpgcds-icon-facebook"></i><span>Facebook</span></a></li>
+          </ul>
+          
           <ul class="compartir_redes" style="float: right; list-style-type: none;">
             <li class="c_lk" style="float: right; list-style-type: none;"><a class="ulpgcds-btn ulpgcds-btn--text" target="_blank" href="<?php echo esc_url($facebook_share_url); ?>"><i class="ulpgcds-icon-facebook" aria-hidden="true"></i></a></li>
             <li class="c_lk" style="float: right; list-style-type: none;"><a class="ulpgcds-btn ulpgcds-btn--text" target="_blank" href="<?php echo esc_url($twitter_share_url); ?>"><i class="ulpgcds-icon-twitter" aria-hidden="true"></i></a></li>
             <li class="c_lk" style="float: right; list-style-type: none;"><a class="ulpgcds-btn ulpgcds-btn--text" target="_blank" href="<?php echo esc_url($linkedin_share_url); ?>"><i class="ulpgcds-icon-facebook" aria-hidden="true"></i></a></li>
             <li class="titulo" style="float: right; list-style-type: none;">Compartir en las redes:</li>
-          </ul>
+          </ul>-->
 
           <div class="entry-content">
             <?php the_content(); ?>
