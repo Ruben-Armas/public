@@ -4,7 +4,7 @@
  * Plugin Name: Media Sync
  * Plugin URI: https://wordpress.org/plugins/media-sync/
  * Description: Simple plugin to scan uploads directory and bring files to Media Library.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: Erol Živina
  * Author URI: https://github.com/erolsk8
  * License: GPLv2+
@@ -67,15 +67,20 @@ include( plugin_dir_path(__FILE__) . 'includes/MediaSync.class.php');
 
 
 
-add_action( 'admin_enqueue_scripts', 'media_sync_load_admin_scripts', 100 );
+add_action( 'admin_enqueue_scripts', 'media_sync_load_admin_scripts' );
 
 /**
  * Load Admin CSS and JS files
  *
  * @since 0.1.0
+ * @param string $hook
  * @return void
  */
 function media_sync_load_admin_scripts( $hook ) {
+
+    if ( !($hook == 'media_page_media-sync-page' || $hook == 'settings_page_media-sync-options') ) {
+        return;
+    }
 
     $js_dir  = plugin_dir_url( __FILE__ ) . 'admin/js/';
     $css_dir = plugin_dir_url( __FILE__ ) . 'admin/css/';

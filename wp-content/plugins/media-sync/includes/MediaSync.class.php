@@ -606,7 +606,7 @@ if ( !class_exists( 'MediaSync' ) ) :
 
                         // This comes from JS and it's taken from checkbox value, which is $item['absolute_path'] from media_sync_get_list_of_files()
                         $absolute_path = urldecode($media_item['file']);
-                        $relative_path = self::media_sync_get_relative_path($absolute_path);
+                        $relative_path = self::media_sync_url_encode(self::media_sync_get_relative_path($absolute_path));
 
                         // It's quicker to get all files already in db and check that array, than to do this query for each file
                         // $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE guid LIKE '%{$relative_path}'";
@@ -1145,7 +1145,7 @@ if ( !class_exists( 'MediaSync' ) ) :
                 }
 
 
-                $relative_path = self::media_sync_get_relative_path($full_path);
+                $relative_path = self::media_sync_url_encode(self::media_sync_get_relative_path($full_path));
                 $file_in_db = isset($files_in_db[$relative_path]) && !empty($files_in_db[$relative_path]) ?
                     $files_in_db[$relative_path] : false;
                 $file_id = $file_in_db && !empty($file_in_db['id']) ? $file_in_db['id'] : false;
@@ -1201,7 +1201,7 @@ if ( !class_exists( 'MediaSync' ) ) :
                     $item['count_children'] = null;
                 } else {
                     // Encode just file name
-                    $item['url'] = get_site_url() . self::media_sync_url_encode($relative_path);
+                    $item['url'] = get_site_url() . $relative_path;
                     $item['file_id'] = $file_id;
                     $item['file_status'] = $file_status;
                     $item['children'] = [];
@@ -1241,6 +1241,11 @@ if ( !class_exists( 'MediaSync' ) ) :
                 'posts_per_page' => -1
             ));
 
+            $upload_dir = wp_upload_dir();
+            $baseurl_no_protocol = preg_replace("(^https?://)", "", $upload_dir['baseurl']);
+            $upload_dir_path = self::media_sync_get_uploads_basedir();
+            $upload_dir_relative_path = self::media_sync_get_relative_path($upload_dir_path);
+
             $files = array();
             foreach ($media_query->posts as $post) {
 
@@ -1256,8 +1261,13 @@ if ( !class_exists( 'MediaSync' ) ) :
                     $file_url = wp_get_attachment_url($post->ID);
                 }
 
-                // Should already have forward slashes since it's URL
-                $relative_path = parse_url($file_url, PHP_URL_PATH);
+                $file_url_no_protocol = preg_replace("(^https?://)", "", $file_url);
+
+                // e.g. /2012/03/img space.jpg
+                $short_relative_path = str_replace($baseurl_no_protocol, '', $file_url_no_protocol);
+
+                // e.g. /wp-content/uploads/2012/03/img%20space.jpg
+                $relative_path = self::media_sync_url_encode($upload_dir_relative_path . $short_relative_path);
 
                 $files[$relative_path] = array(
                     'id' => $post->ID,

@@ -3,7 +3,7 @@ Contributors: erolsk8, simonkane
 Donate link: https://www.paypal.me/erolsk8
 Tags: media, uploads, import, ftp, server
 Requires at least: 3.0.1
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 5.5
 Stable tag: trunk
 License: GPLv2+
@@ -13,9 +13,9 @@ Simple plugin to scan "uploads" directory and bring those files into Media Libra
 
 == Description ==
 
-You can scan all files that are in `uploads` directory and see which ones are actually in Media Library and which ones are just sitting there. Then you can select files you want to import to the database and therefore make them available in Media Library.
+You can scan all files that are in `uploads` directory and see which ones are actually in Media Library and which ones are just sitting there. Then you can select files you want to import to the database and therefore make them available in Media Library.
 
-You can also use FTP to upload your files to `uploads` directory and bring those files into Media Library. 
+You can also use FTP to upload your files to `uploads` directory and bring those files into Media Library. 
 
 
 = Disclaimers =
@@ -23,16 +23,16 @@ You can also use FTP to upload your files to `uploads` directory and bring thos
 Please read before adding a support topic. Reviews are not intended for support or suggestions.
 
 1.  "For developers"
-    This plugin makes database changes (`wp_posts` and `wp_postmeta` tables), and it was primarily developed to help other developers that are aware of the consequences.
+    This plugin makes database changes (`wp_posts` and `wp_postmeta` tables), and it was primarily developed to help other developers that are aware of the consequences.
 
 2.  "1 file first"
-    Please be careful and try to import only one file first, to see if it works.
+    Please be careful and try to import only one file first, to see if it works.
 
 3.  "All at once"
-    This plugin is focused on scanning, selecting, and importing all files at once. So it might not be great for huge amounts of files, since it can use up a lot of memory. Future versions will hopefully solve that problem. For now, you can try to go to Settings -> Media Sync and set it to scan only a specific directory.
+    This plugin is focused on scanning, selecting, and importing all files at once. So it might not be great for huge amounts of files, since it can use up a lot of memory. Future versions will hopefully solve that problem. For now, you can try to go to Settings -> Media Sync and set it to scan only a specific directory.
 
 4.  "Your setup is unique"
-    Please keep in mind that each WordPress installation is unique, so it's quite possible this plugin will not work in your case. If that happens, please turn on debugging in settings of this plugin, try to figure out why you have that problem, and then describe what you found in the Support section. The more details we have - it's more likely the problem will be solved.
+    Please keep in mind that each WordPress installation is unique, so it's quite possible this plugin will not work in your case. If that happens, please turn on debugging in settings of this plugin, try to figure out why you have that problem, and then describe what you found in the Support section. The more details we have - it's more likely the problem will be solved.
 
 
 = Ignored files =
@@ -75,6 +75,9 @@ Please first try to turn on debugging in Settings -> Media Sync and check [Netwo
 
 == Changelog ==
 
+= 1.3.2 =
+* Fix handling file names with even rarer special characters that might have resulted in duplicate imports.
+
 = 1.3.1 =
 * Ignore optimized .webp versions of original images (e.g. .jpg.webp) and retina thumbnails (e.g. -100x100@2x.jpg) by default. It's still possible to customize it with `media_sync_filter_is_scan_object_ignored` hook.
 
@@ -87,7 +90,7 @@ Please first try to turn on debugging in Settings -> Media Sync and check [Netwo
 * Update supported WordPress version to 6.2.
 
 = 1.2.8 =
-* Create a custom `_msc` record in `wp_postmeta` table to be able to differentiate files imported using this plugin. Could be useful to clean up the database later on.
+* Create a custom `_msc` record in `wp_postmeta` table to be able to differentiate files imported using this plugin. Could be useful to clean up the database later on.
 
 = 1.2.7 =
 * Extend plugin access to "Editor" and "Author" roles.
@@ -136,7 +139,7 @@ Please first try to turn on debugging in Settings -> Media Sync and check [Netwo
 
 = 1.1.3 =
 * New option to set "Scan directory" in settings which will allow checking only certain sub directory.
-* New hook function `media_sync_filter_is_scan_object_ignored` which can be used to overwrite which files are ignored by default or to just skip additional files.
+* New hook function `media_sync_filter_is_scan_object_ignored` which can be used to overwrite which files are ignored by default or to just skip additional files.
 
 = 1.1.2 =
 * Fix Smart File Time on Windows server
