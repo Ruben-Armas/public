@@ -141,12 +141,12 @@ wp.blocks.registerBlockType('carrusel-block/my-block', {
       const hijos = wp.data.select('core/block-editor').getBlocks(props.clientId);
 
       const atributosHijos = hijos.map((block) => {
-        if (block.name === 'carrusel-block/item' && block.attributes.itemTitle !== '') {
+        if (block.name === 'carrusel-block/item' && block.attributes.itemUrlImg !== '') {
           return {
-            itemUrlImg: block.attributes.itemUrlImg || defaultImage_carrusel,
+            itemUrlImg: block.attributes.itemUrlImg,
             itemAltImg: block.attributes.itemAltImg || '',
             itemUrl: block.attributes.itemUrl || '#',
-            itemTitle: block.attributes.itemTitle,
+            itemTitle: block.attributes.itemTitle || '',
             itemText: block.attributes.itemText || '',
             itemTxtButton: block.attributes.itemTxtButton || 'Accede',
           };
