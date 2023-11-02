@@ -1,0 +1,178 @@
+/* ------------------------------- ateigh.com ------------------------------- 
+ *
+ * noticia: styles for an specific node type noticia
+ *
+ * ------------------------------- ateigh.com -------------------------------
+ */
+
+/*Modificado*/
+/*@import "utils/_variables.scss";*/
+
+.entry-new{
+    .news-separator{
+        padding-top:32px;/*$spacing-xl;*/
+    }
+    h1{
+        margin-bottom:24px;/*$layout-s;*/
+    }
+
+    #contenido{
+        .cabecera{ 
+            font-family:$font-1;/*"Rubik", sans-serif;*/
+            font-weight:$medium;/*500;*/
+            .fecha{
+                float:left;
+                line-height:$line-height-xxl;/*3rem;*/
+                text-transform:uppercase; 
+            }
+            .categoria{
+                float:left;            
+                padding-top:$spacing-xs;/*8px;*/
+            }
+            .compartir_redes{
+                float:right;
+                
+            }
+
+            ul{
+                list-style-type:none;
+                li{
+                    list-style-type:none;
+                    float:right;
+                    line-height:3rem;/*$line-height-xxl;*/
+                    margin-right:0;
+                    font-family:"Rubik", sans-serif;/*$font-1;*/
+                    font-weight:500;/*$medium;*/
+                    font-size:1rem;/*$font-size-s;*/
+                    span{
+                        @include visually-hidden;
+                    }
+                    a{
+                        margin:0;
+                        font-family:"Rubik", sans-serif;/*$font-1;*/
+                        font-weight:500;/*$medium;*/
+                        margin-right:0;
+                        &:before{
+                            content: none;
+                            display:none;
+                        }
+                    }
+                    &:after{
+                        content: none;
+                    }
+                }
+
+            }
+            @include mq('m-screen'){
+            /*@media screen and (max-width: 768px) {*/
+                .fecha{
+                    width:100px;
+                    line-height: 2rem;
+                }
+                .compartir_redes{
+                    width: 178px;
+                    padding-left: 0;
+                    text-align: right;
+                    li{
+                        padding-bottom:0;
+                    }
+                    .titulo{
+                        padding:0;
+                        margin:0;
+                        line-height:1rem;
+                    }
+                    ul{
+                        margin-top: 0.875rem;
+                        li{
+                            padding-bottom: 0;
+                            line-height: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #contenedor_principal{
+        #contenido{
+            .cuerpo{
+                clear:both;
+                @include mq('m-screen'){
+                    img{
+                        &.flotante_izq{
+                            margin-right:$layout-xs;/*16px;*/
+                        }
+                        &.flotante_dcha{
+                            margin-left:$layout-xs;/*16px;*/
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .titulo_listado_noticias{
+        font-size:$font-size-m;/*1.125rem;*/
+        font-weight:$bold;/*700;*/
+        font-family:$font-1;/*'Rubik',sans-serif;*/
+        padding-bottom:$spacing-m;/*16px;*/
+    }
+    .listado_noticias{
+        a{
+            font-size:$font-size-m;/*1.125rem;*/
+            font-weight:$bold;/*700;*/
+            font-family:$font-1;/*'Rubik',sans-serif;*/
+            text-decoration: none;
+        }
+        
+    }
+    .views-field-field-noticia-fecha-publicacion{
+        color:$color-blue;/*#0066a1;*/
+        font-family:$font-1;/*'Rubik',sans-serif;*/
+        text-transform: uppercase;
+        
+    }
+    .imagenes{
+        .img_primera{
+            float:left;
+            width:50%;
+            padding-right:$spacing-xxs;/*4px;*/
+        }
+        .img_segunda{
+            float:left;
+            width:50%;
+            padding-left:$spacing-xxs;/*4px;*/
+        }
+    }
+    .noticias_todas{
+        text-align:right;
+        padding-top:$spacing-xs;/*8px;*/
+        a{
+            text-decoration:none;
+            padding-right:$spacing-l;/*24px;*/
+            &:before{
+                @include pseudo;
+                @extend .ulpgcds-icon;
+                content: $icon-arrow-right;/*"\e908";*/
+                right: -4px;
+                top: 4px;            
+            }
+        }
+    }
+    .view-m-s-noticias{
+        .views-row{
+            padding-bottom:$spacing-s;/*12px;*/
+            padding-top:$spacing-s;/*12px;*/
+            padding-bottom:$spacing-m;/*16px;*/
+            border-bottom:1px solid $color-orange;/*#ffa100;*/
+            &:first-child{
+                padding-top:0;
+            }
+        }
+        @include mq('m-screen'){
+            margin-top:$layout-l;/*#ffa100;*/
+        }
+    }
+    .views-field-view-node{
+        display:none;
+    }
+}

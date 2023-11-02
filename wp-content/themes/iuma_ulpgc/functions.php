@@ -76,6 +76,11 @@ function theme_styles_scss()  {
   wp_enqueue_style( 'style_scss', get_template_directory_uri() . '/style.scss'); 
 }
 add_action('wp_enqueue_scripts', 'theme_styles_scss');
+
+function agregar_estilo_noticias_single() {
+  wp_enqueue_style('noticias', get_template_directory_uri() . '/css/scss/noticia.scss');
+}
+add_action('wp_enqueue_scripts', 'agregar_estilo_noticias_single');
 //--------------------Pruebas
 
 // Añade las librerias en el editor (para ver las vistas previas estilizadas)

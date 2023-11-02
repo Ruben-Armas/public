@@ -33,3 +33,20 @@ li.not-first {
 .ulpgcds-pager__item.ulpgcds-pager__item--is-active .pagination__link {
     color: #ffffff !important;
 }
+
+/* Navigation Post/Entrada */
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-size: 18px;
+}
+.post-navigation a {
+    text-decoration: none;
+}
+.post-navigation .nav-previous {
+    text-align: left;
+}
+.post-navigation .nav-next {
+    text-align: right;
+}
