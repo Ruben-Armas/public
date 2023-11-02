@@ -1916,14 +1916,14 @@ if ( ! class_exists( 'ES_Mailer' ) ) {
 		 * @since 5.6.0
 		 */
 		public function set_mailer() {
-			if ( ES_Service_Email_Sending::use_icegram_mailer() ) {
-				$mailer_class = 'ES_Icegram_Mailer';
-			} else {
-				$mailer_class = $this->get_current_mailer_class();
+			$mailer_class = $this->get_current_mailer_class();
+			 $mailer_obj = new $mailer_class();
+			if (ES_Service_Email_Sending::use_icegram_mailer()) {
+				$mailer_obj = new ES_Icegram_Mailer();
 			}
-
-			$this->mailer = new $mailer_class();
+			$this->mailer =$mailer_obj;
 		}
+		
 
 		public function get_current_mailer_account_url() {
 			$current_mailer_class = $this->get_current_mailer_class();

@@ -6,7 +6,7 @@ Tags: email marketing, subscription, autoresponder, post notification, welcome e
 Requires at least: 3.9
 Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 5.6.23
+Stable tag: 5.6.24
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -440,11 +440,21 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.6.23 =
+= 5.6.24 =
 
-* Fix: Template import issue due to special characters
+* New: Added option to export subscribers who clicked on a link from the report [MAX]
+* Fix: Prevent directory traversal vulnerability [Thanks to Wordfence team]
+* Fix: Select list error for embedded forms [MAX]
+* Fix: Gmail authentication issue when Icegram sending service is enabled
 
 == Changelog ==
+
+**5.6.24 (11.10.2023)**
+
+* New: Added option to export subscribers who clicked on a link from the report [MAX]
+* Fix: Prevent directory traversal vulnerability [Thanks to Wordfence team]
+* Fix: Select list error for embedded forms [MAX]
+* Fix: Gmail authentication issue when Icegram sending service is enabled
 
 **5.6.23 (27.09.2023)**
 

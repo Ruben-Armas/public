@@ -939,7 +939,6 @@ if ( ! class_exists( 'Email_Subscribers' ) ) {
 				'lite/includes/workflows/class-es-workflow-triggers.php',
 
 				// rest api
-				'lite/includes/rest-api/class-es-archived-campaigns-request-handler.php',
 				'lite/includes/rest-api/class-es-rest-api-handler.php',
 
 				// Icegram site's weekly email summary automation

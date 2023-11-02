@@ -216,25 +216,6 @@ $es_wp_styles->do_item( 'google-fonts' );
 		}
 		?>
 		<?php
-		if ( ! empty( $latest_newsletters ) ) {
-			?>
-			<hr class="seperator"/>
-		<div>
-			<p class="center" style="font-size: 1.2em;"><?php echo esc_html__( 'Latest from Icegram\'s Newsletter', 'email-subscribers' ); ?></p>
-			<ul>
-				<?php
-				foreach ( $latest_newsletters as $newsletter ) {
-					?>
-					<li><a href="https://www.icegram.com/?action=es-view-archive&archive=<?php echo esc_attr( $newsletter->hash ); ?>"><?php echo esc_html( $newsletter->subject ); ?></a></li>
-					<?php
-				}
-				?>
-			</ul>
-		</div>
-		<?php
-		}
-		?>
-		<?php
 		if ( ! empty( $unsubscribe_url ) ) {
 			?>
 			<hr class="seperator"/>
