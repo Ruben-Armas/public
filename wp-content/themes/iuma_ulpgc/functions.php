@@ -11,8 +11,6 @@
 // Soporte para imagenes destacadas
 add_theme_support( 'post-thumbnails' );
 
-add_theme_support('custom-header');
-
 // Carga los estilos del tema
 function theme_styles()  { 
   // Cargar hoja de estilo 
