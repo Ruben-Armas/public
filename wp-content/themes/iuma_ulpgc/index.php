@@ -1,11 +1,20 @@
+<?php /* Template Name: Página principal */ ?>
+
 <?php get_header(); ?>
 
-<main>
+<main class="main-content-web">
+
+  <?php the_content(); ?>
+
+  <p> </p>  <!--Separador provisional--> 
+</main>
+
+<!--<main>
 	<section id="destacados">
 		<h1>Destacados</h1>
 		<ul>
 			<?php 
-			$args = array(
+			/*$args = array(
 				'posts_per_page' => 3,
 				'category_name' => 'destacados'
 			);
@@ -38,8 +47,8 @@
 			the_posts_navigation();
 		else : ?>
 			<p><?php esc_html_e( 'No se encontraron entradas.' ); ?></p>
-		<?php endif; ?>
+		<?php endif; */?>
 	</section>
-</main>
+</main>-->
 
 <?php get_footer(); ?>
