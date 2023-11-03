@@ -5906,7 +5906,7 @@ table {
         padding-right: 0; } }
     .ulpgcds-header__top__logo {
       float: left;
-      background: transparent url("../images/iuma_rev_hc.svg") no-repeat 0 center;
+      background: transparent url("../images/logo_ulpgcds.svg") no-repeat 0 center;
       background-size: 236px;
       width: 236px;
       height: 40px;
@@ -5917,13 +5917,13 @@ table {
       }*/ }
       @media only screen and (max-width: 1125px) {
         .ulpgcds-header__top__logo {
-          background: transparent url("../images/iuma_rev_hmr.svg") no-repeat 0 center;
+          background: transparent url("../images/logo_ulpgcds.svg") no-repeat 0 center;
           background-size: 208px;
           margin-top: 8px;
           height: 32px; } }
       @media only screen and (max-device-width: 1199px) {
         .ulpgcds-header__top__logo {
-          background: transparent url("../images/iuma_rev_hmr.svg") no-repeat 0 center;
+          background: transparent url("../images/logo_ulpgcds.svg") no-repeat 0 center;
           background-size: 208px;
           margin-top: 8px;
           height: 32px; } }
