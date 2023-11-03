@@ -2,6 +2,7 @@
 
 <div id="primary" class="content-area">
   <main class="main-content-web">
+    
     <div class="entry-new">
       <?php
       // Start the Loop.
