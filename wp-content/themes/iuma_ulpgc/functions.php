@@ -76,11 +76,6 @@ function theme_styles_scss()  {
   wp_enqueue_style( 'style_scss', get_template_directory_uri() . '/style.scss'); 
 }
 add_action('wp_enqueue_scripts', 'theme_styles_scss');
-
-function agregar_estilo_noticias_single() {
-  wp_enqueue_style('noticias', get_template_directory_uri() . '/css/scss/noticia.scss');
-}
-add_action('wp_enqueue_scripts', 'agregar_estilo_noticias_single');
 //--------------------Pruebas
 
 // Añade las librerias en el editor (para ver las vistas previas estilizadas)
@@ -112,9 +107,15 @@ add_action( 'enqueue_block_editor_assets', 'cargar_editor_assets' );
 
 //IUMA Cards/tarjetas style Legacy
 function agregar_estilos_tarjetas_iuma_legacy() {
-  wp_enqueue_style('estilos-tarjetas_iuma', get_template_directory_uri() . '/css/card_iuma_legacy.css');
+  wp_enqueue_style('estilos-tarjetas_iuma', get_template_directory_uri() . '/css/custom_styles/card_iuma_legacy.css');
 }
 add_action('wp_enqueue_scripts', 'agregar_estilos_tarjetas_iuma_legacy');
+
+//Single Post/Entrada
+function agregar_estilo_noticias_single() {
+  wp_enqueue_style('single_noticia', get_template_directory_uri() . '/css/custom_styles/custom_single_noticia.scss');
+}
+add_action('wp_enqueue_scripts', 'agregar_estilo_noticias_single');
 
 // JS Lista Categorías --> Modo Móvil
 function agregar_list_category_phone_view() {

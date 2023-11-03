@@ -18,16 +18,16 @@
 
     #contenido{
         .cabecera{ 
-            font-family:$font-1;/*"Rubik", sans-serif;*/
-            font-weight:$medium;/*500;*/
+            font-family:"Rubik", sans-serif;/*$font-1;*/
+            font-weight:500;/*$medium;*/
             .fecha{
                 float:left;
-                line-height:$line-height-xxl;/*3rem;*/
+                line-height:3rem;/*$line-height-xxl;*/
                 text-transform:uppercase; 
             }
             .categoria{
                 float:left;            
-                padding-top:$spacing-xs;/*8px;*/
+                padding-top:8px;/*$spacing-xs;*/
             }
             .compartir_redes{
                 float:right;
