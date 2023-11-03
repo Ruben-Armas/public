@@ -2,7 +2,7 @@
     Estilos anteriores utilizados para las tarjetas / cards del IUMA
     Actualmente se sigue utilizando para las Cards de "Proyectos" y "Transferencia de tecnología"
 */
-*{
+.tarjeta-proyectos-iuma, .tarjeta-proyectos-iuma *{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
