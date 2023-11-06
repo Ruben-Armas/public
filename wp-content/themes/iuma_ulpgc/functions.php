@@ -278,18 +278,43 @@ function get_ulpgc_breadcrumb() {
     <ul>
       <li class="ulpgcds-breadcrumb__item"><a class="ulpgcds-breadcrumb__item__link first" href="<?php echo home_url(); ?>">Inicio</a></li>
       <?php
-      foreach ($ancestors as $ancestor) {
-        echo '<li class="ulpgcds-breadcrumb__item"><a class="ulpgcds-breadcrumb__item__link" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a></li>';
+
+      // Muestra el título del menú padre si lo tiene (Depende de HeaderMenu)
+      $menu_parent_id = get_menu_parent_id(get_the_ID()); //ID del menú superior
+      if ($menu_parent_id) {
+        $menu_parent_title = get_the_title($menu_parent_id);
+        echo '<li class="ulpgcds-breadcrumb__item">'. $menu_parent_title .'</li>';
       }
+
+      if ($ancestors){
+        foreach ($ancestors as $ancestor) {
+          echo '<li class="ulpgcds-breadcrumb__item"><a class="ulpgcds-breadcrumb__item__link" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a></li>';
+        }
+      }
+      
       ?>
       <li aria-current="page" class="breadcrumb__item"><?php echo $current_page; ?></li>
     </ul>
   </nav>
   <?php
 }
+function get_menu_parent_id($current_page_id) {
+  $menu_name = 'HeaderMenu';
+  $menu_items = wp_get_nav_menu_items($menu_name);
+  if ($menu_items) {
+    foreach ($menu_items as $menu_item) {
+      if ($menu_item->object_id == $current_page_id) {
+        return $menu_item->menu_item_parent;
+      }
+    }
+  } else {
+    var_dump('No se encuentra '. $menu_name);
+  }
+  
+  return 0; // Si no se encuentra un menú superior, devuelve 0
+}
 
-
-// SideBar
+// SideBar /submenu
 function subMenu($menu_slug, $menu_title) {
   $subMenu = "
     <li>
@@ -316,6 +341,7 @@ function subMenu($menu_slug, $menu_title) {
   ";
   return $subMenu;
 }
+// Sidebar Social
 function suscriptionPanel($menu_slug, $menu_title) {
   $suscription = "
     <li class='not-first'>
@@ -471,10 +497,10 @@ function render_sidebar_custom_meta_box( $post ) {
 			</select>
 		</p>
 		<p>
-			<label for="title_menu">Título del menú:</label><br>
+			<label for="title_menu">Título del menú /miga de pan faltante:</label><br>
 			<input type="text" id="title_menu" name="title_menu" value="<?php echo esc_attr( $title_menu ); ?>">
 		</p>
-		<em>Solo funcionará en la plantilla con el menú de navegación lateral</em>
+		<em>El menú solo funcionará en las plantillas con el menú de navegación lateral</em>
 	</div>    
   <?php
 }
