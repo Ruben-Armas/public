@@ -15,7 +15,7 @@
 								<p>Parque Científico Tecnológico</p>
 								<p>35017 Las Palmas de Gran Canaria</p>
 								<p>España</p>
-								<a href="https://goo.gl/maps/A6gFbe3YqAazi8MX7">Ver en Google Maps</a>
+								<p><a href="https://goo.gl/maps/A6gFbe3YqAazi8MX7">Ver en Google Maps</a></p>
 							</div>      
 						</div>                 
 						<div class="ulpgcds-footer__social">
@@ -23,57 +23,57 @@
 							<ul>
 								<li class="twitter">
 									<a href="https://twitter.com/iumanews" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-										<i class="ulpgcds-btn__icon icon-twitter"></i><span>Twitter</span></a>
+										<i class="ulpgcds-btn__icon ulpgcds-icon-twitter"></i><span>Twitter</span></a>
 								</li>
 								<li class="facebook">
 									<a href="https://www.facebook.com/IUMA.ulpgc" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-										<i class="ulpgcds-btn__icon icon-facebook"></i><span>Facebook</span></a>
+										<i class="ulpgcds-btn__icon ulpgcds-icon-facebook"></i><span>Facebook</span></a>
 								</li>
 								<li class="youtube">
 									<a href="https://www.youtube.com/channel/UC20M2ZeHe2kRCb8ltHeo2ZQ" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-										<i class="ulpgcds-btn__icon icon-youtube"></i><span>YouTube</span></a>
+										<i class="ulpgcds-btn__icon ulpgcds-icon-youtube"></i><span>YouTube</span></a>
 								</li>
 								<li class="linkedin">
 									<a href="https://www.linkedin.com/groups/1624607/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-										<i class="ulpgcds-btn__icon icon-linkedin"></i><span>LinkedIn</span></a>
+										<i class="ulpgcds-btn__icon ulpgcds-icon-linkedin"></i><span>LinkedIn</span></a>
 								</li>
 								<li class="rdd">
 									<a href="https://www.iuma.ulpgc.es/feed/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-										<i class="ulpgcds-btn__icon icon-rss"></i><span>RSS</span></a>
+										<i class="ulpgcds-btn__icon ulpgcds-icon-rss"></i><span>RSS</span></a>
 								</li>
 								<li class="git">
 									<a href="https://git.iuma.ulpgc.es:8300/explore/projects" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-										<i class="ulpgcds-btn__icon icon-git"></i><span>Git</span></a>
+										<i class="ulpgcds-btn__icon ulpgcds-icon-git"></i><span>Git</span></a>
 								</li>
 							</ul>
 						</div> 
 					</div>
 					<div class="col-6">
 						<div class="row">
-							<div class="col-4">
+							<div class="col-6">
 								<h3>Legal</h3>
 								<ul>
-									<li><a href="https://www.iuma.ulpgc.local/aviso-legal">Aviso legal</a></li>
+                  <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('aviso-legal'))); ?>">Aviso legal</a></li>
 									<!--<li><a href="https://www.ulpgc.es/">Política privacidad</a></li>-->
-									<li><a href="https://www.iuma.ulpgc.local/cookies">Cookies</a></li>
-									<li><a href="https://www.iuma.ulpgc.local/accesibilidad">Accesibilidad</a></li>
+                  <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('cookies'))); ?>">Cookies</a></li>
+                  <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('accesibilidad'))); ?>">Accesibilidad</a></li>
 								</ul>
 							</div>
-							<div class="col-4">
-								<h3>Servicios</h3>
+							<div class="col-6">
+								<h3>Servicios en línea</h3>
 								<ul>
 									<li><a href="https://webmail.iuma.ulpgc.es/">Correo IUMA</a></li>
 									<li><a href="mailto:soporte@iuma.ulpgc.es">Soporte informático</a></li>
 								</ul>    
 							</div>
-							<div class="col-4">
+							<!--<div class="col-4">
 								<h3>Otro bloque</h3>
 								<ul>
 									<li><a href="https://www.ulpgc.es/">Enlace 1</a></li>
 									<li><a href="https://www.ulpgc.es/">Enlace 2</a></li>
 									<li><a href="https://www.ulpgc.es/">Enlace 3</a></li>
 								</ul>   
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>     
