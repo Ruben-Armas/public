@@ -105,8 +105,10 @@ include_once get_template_directory() . '/functions-elements/menu_location.php';
 // JS functions
 // JS Lista Categorías --> Modo Móvil
 include_once get_template_directory() . '/functions-elements/js/list_category_phone_view.php';
-//Añade el JavaScript que hace funcionar al Carrusel
+// Añade el JavaScript que hace funcionar al Carrusel
 include_once get_template_directory() . '/functions-elements/js/carrusel.php';
+// Modifica el formulario de Icegram como el de la ULPGC
+include_once get_template_directory() . '/functions-elements/js/icegram_ulpgc.php';
 
 
 // Functional Elements
