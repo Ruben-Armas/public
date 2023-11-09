@@ -98,6 +98,8 @@ include_once get_template_directory() . '/functions-elements/category/core_colum
 // Show in Editor
 // Vista previa de las imagenes destacadas de la entrada en el panel de administración
 include_once get_template_directory() . '/functions-elements/thumbnail_preview.php';
+// Menu location (header/footer)
+include_once get_template_directory() . '/functions-elements/menu_location.php';
 
 
 // JS functions

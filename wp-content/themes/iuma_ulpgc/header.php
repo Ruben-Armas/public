@@ -64,6 +64,21 @@
         </ul>	                                                
       </div>
     </div>
-    <?php get_ulpgc_header_nav_menus('HeaderMenu'); ?>
+    <?php //get_ulpgc_header_nav_menus('HeaderMenu'); ?>
+    
+    <?php
+    if (has_nav_menu('primary')) {
+      wp_nav_menu(array(
+        'theme_location' => 'primary',
+        //'container' => 'nav',
+        //'menu_class' => 'ulpgcds-header__bottom',
+        //'menu_id' => 'header-menu',
+
+        //'container_class' => 'ulpgcds-header__bottom__menu',
+        //'container_id' => ,
+        //'items_wrap' => '<ul class="ulpgcds-header__bottom__menu"><li id="item-id"></li>%3$s</ul>', // Personaliza el contenedor de la lista
+      ));
+    }
+    ?>
 
   </header>
