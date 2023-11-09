@@ -314,6 +314,10 @@ if ( ! class_exists( 'ES_Install' ) ) {
 				'ig_es_migrate_customer_timezone_settings',
 				'ig_es_update_566_db_version'
 			),
+			'5.7.0' => array(
+				'ig_es_migrate_post_campaigns_settings',
+				'ig_es_update_570_db_version',
+			),
 		);
 
 		/**

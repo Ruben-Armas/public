@@ -988,6 +988,12 @@ if ( ! class_exists( 'Email_Subscribers' ) ) {
 				// Subscribers Query
 				'lite/includes/classes/class-ig-es-subscriber-query.php',
 
+				// Recipient rules
+				'lite/includes/recipient-rules/rules/abstracts/class-es-recipient-rule.php',
+				'lite/includes/recipient-rules/rules/abstracts/class-es-recipient-rule-boolean.php',
+				'lite/includes/recipient-rules/rules/class-es-recipient-rule-list.php',
+				'lite/includes/recipient-rules/class-es-recipient-rules.php',
+
 				// Compatibilities
 				'lite/includes/compatibilities/elementor/class-ig-es-compatibility.php',
 
@@ -1004,6 +1010,9 @@ if ( ! class_exists( 'Email_Subscribers' ) ) {
 				'lite/admin/class-es-rest-api-admin.php',
 				'lite/includes/classes/class-es-router.php',
 				'lite/includes/controllers/class-es-campaign-controller.php',
+				'lite/includes/controllers/class-es-campaigns-controller.php',
+				'lite/includes/controllers/class-es-gallery-controller.php',
+				'lite/includes/controllers/class-es-template-controller.php',
 
 				'starter/starter-class-email-subscribers.php',
 				'pro/pro-class-email-subscribers.php',

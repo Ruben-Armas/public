@@ -9,8 +9,10 @@ global $wpdb;
 
 $audience_url              = admin_url( 'admin.php?page=es_subscribers' );
 $new_contact_url           = admin_url( 'admin.php?page=es_subscribers&action=new' );
-$new_broadcast_url         = admin_url( 'admin.php?page=es_gallery&campaign-type=newsletter' );
-$new_post_notification_url = admin_url( 'admin.php?page=es_gallery&campaign-type=post_notification' );
+// $new_broadcast_url         = admin_url( 'admin.php?page=es_gallery&campaign-type=newsletter' );
+$new_broadcast_url         = admin_url( 'admin.php?page=es_campaigns#!/gallery?campaignType=newsletter' );
+// $new_post_notification_url = admin_url( 'admin.php?page=es_gallery&campaign-type=post_notification' );
+$new_post_notification_url = admin_url( 'admin.php?page=es_campaigns#!/gallery?campaignType=post_notification' );
 $new_sequence_url          = admin_url( 'admin.php?page=es_sequence&action=new' );
 $new_form_url              = admin_url( 'admin.php?page=es_forms&action=new' );
 $new_list_url              = admin_url( 'admin.php?page=es_lists&action=new' );
