@@ -41,19 +41,24 @@
       </div>    
       <div class="ulpgcds-header__top__links">              
         <ul>
+          <!--<li class="hidden-mobile">
+            <a href="https://webmail.iuma.ulpgc.es/" class="ulpgcds-btn ulpgcds-btn--text">
+              <span class="ulpgcds-btn__icon ulpgcds-icon-envelope" aria-hidden="true"></span>Correo IUMA
+            </a>
+          </li>-->
           <li class="hidden-mobile">
-            <a href="https://correo.ulpgc.es/" class="ulpgcds-btn ulpgcds-btn--text">
-              <span class="ulpgcds-btn__icon ulpgcds-icon-envelope" aria-hidden="true"></span>Link 1
+            <a href="https://www.ulpgc.es/" class="ulpgcds-btn ulpgcds-btn--text">
+              <span class="ulpgcds-btn__icon ulpgcds-icon-ulpgc" aria-hidden="true"></span>ULPGC
             </a>
           </li>
           <li class="hidden-mobile">
-            <a href="https://biblioteca.ulpgc.es" class="ulpgcds-btn ulpgcds-btn--text">
-              <span class="ulpgcds-btn__icon ulpgcds-icon-book" aria-hidden="true"></span>Link 2
+            <a href="<?php echo esc_url(get_permalink(get_page_by_path('aviso-legal'))); ?>" class="ulpgcds-btn ulpgcds-btn--text">
+              <span class="ulpgcds-btn__icon ulpgcds-icon-book" aria-hidden="true"></span>Legal
             </a>
           </li>                    
           <li>
-            <a href="/" class="ulpgcds-btn ulpgcds-btn--small ulpgcds-btn--primary">
-              <span class="ulpgcds-btn__icon ulpgcds-icon-user" aria-hidden="true"></span>Login
+            <a href="https://webmail.iuma.ulpgc.es/" class="ulpgcds-btn ulpgcds-btn--small ulpgcds-btn--primary">
+              <span class="ulpgcds-btn__icon ulpgcds-icon-envelope" aria-hidden="true"></span>Correo IUMA
             </a>
           </li>
           <li>
@@ -64,7 +69,7 @@
         </ul>	                                                
       </div>
     </div>
-    <?php //get_ulpgc_header_nav_menus('HeaderMenu'); ?>
+    <?php get_ulpgc_header_nav_menus('HeaderMenu'); ?>
     
     <?php
     if (has_nav_menu('primary')) {
