@@ -38,5 +38,8 @@ jQuery(document).ready(function($) {
       // Reemplazar el div .es_gdpr original con el nuevo div
       gdprDiv.replaceWith(newDiv);
     }
+
+    // Agregar la clase ulpgcds-btn y ulpgcds-btn--primary al input submit
+    $(this).find('input[type="submit"]').addClass('ulpgcds-btn ulpgcds-btn--primary');
   });
 });
