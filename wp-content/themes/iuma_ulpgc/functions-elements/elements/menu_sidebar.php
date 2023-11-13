@@ -35,7 +35,7 @@ function suscriptionPanel($menu_slug, $menu_title) {
       <span class='nolink'> Suscripción </span>
       <ul class='menu'>
 
-      ". do_shortcode('[email-subscribers-form id="1"]') ."
+      ". do_shortcode('[email-subscribers-form id="2"]') ."
       
       </ul>
     </li>
