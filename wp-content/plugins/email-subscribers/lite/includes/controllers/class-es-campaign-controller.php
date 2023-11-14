@@ -698,6 +698,9 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 					if ( false !== strpos( $merge_tag_key, 'cf_' ) ) {
 						$merge_tag_key_parts = explode( '_', $merge_tag_key );
 						$merge_tag_key       = $merge_tag_key_parts[2];
+						if ( is_null( $merge_tag_value ) ) {
+							$merge_tag_value = '';
+						}
 						$custom_field_values[ 'subscriber.' . $merge_tag_key ] = $merge_tag_value;
 					}
 				}

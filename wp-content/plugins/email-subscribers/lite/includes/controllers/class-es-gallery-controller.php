@@ -163,7 +163,7 @@ if ( ! class_exists( 'ES_Gallery_Controller' ) ) {
 			return $campaign_id;
 		}
 
-		public function import_local_gallery_item( $template_id, $campaign_type, $campaign_id = 0 ) {
+		public static function import_local_gallery_item( $template_id, $campaign_type, $campaign_id = 0 ) {
 			if ( ! empty( $template_id ) ) {
 				$template = get_post( $template_id );
 				if ( ! empty( $template ) ) {

@@ -337,9 +337,9 @@ if ( ! class_exists( 'Email_Subscribers' ) ) {
 			if ( $show_offer ) {
 				$args['url']     = 'https://www.icegram.com/';
 				$args['include'] = ES_PLUGIN_DIR . 'lite/includes/notices/views/ig-es-bfcm-offer.php';
-				ES_Admin_Notices::add_custom_notice( 'bfcm_offer_2022', $args );
+				ES_Admin_Notices::add_custom_notice( 'bfcm_offer_2023', $args );
 			} else {
-				ES_Admin_Notices::remove_notice( 'bfcm_offer_2022' );
+				ES_Admin_Notices::remove_notice( 'bfcm_offer_2023' );
 			}
 
 			$screen_id = $this->get_current_screen_id();
@@ -2100,8 +2100,8 @@ if ( ! class_exists( 'Email_Subscribers' ) ) {
 			$offer_start_time = 0;
 			$offer_end_time   = 0;
 			if ( 'bfcm' === $offer_name ) {
-				$offer_start_time = strtotime( '2022-11-23 12:30:00' ); // Offer start time in IST
-				$offer_end_time   = strtotime( '2022-11-30 12:30:00' ); // Offer end time in IST
+				$offer_start_time = strtotime( '2023-11-21 12:30:00' ); // Offer start time in IST
+				$offer_end_time   = strtotime( '2023-11-30 12:30:00' ); // Offer end time in IST
 			}
 
 			$is_offer_period = $current_ist_time >= $offer_start_time && $current_ist_time <= $offer_end_time;

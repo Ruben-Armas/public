@@ -212,10 +212,10 @@ $allowed_html_tags = ig_es_allowed_html_tags_in_esc();
 			<div class="flex-auto min-w-0 es-w-45 px-3">
 			<?php
 			if ( ES_Service_Email_Sending::is_onboarding_completed() ) {
-				$current_date        = ig_es_get_current_date();
+				$current_month        = ig_es_get_current_month();
 				$service_status      = ES_Service_Email_Sending::get_sending_service_status();
 				$ess_data            = get_option( 'ig_es_ess_data', array() );
-				$used_limit          = isset( $ess_data['used_limit'][$current_date] ) ? $ess_data['used_limit'][$current_date]: 0;
+				$used_limit          = isset( $ess_data['used_limit'][$current_month] ) ? $ess_data['used_limit'][$current_month]: 0;
 				$allocated_limit     = isset( $ess_data['allocated_limit'] ) ? $ess_data['allocated_limit']                    : 0;
 				$interval            = isset( $ess_data['interval'] ) ? $ess_data['interval']                                  : '';
 				$current_mailer_name = ES()->mailer->get_current_mailer_name();

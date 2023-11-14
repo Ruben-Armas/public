@@ -318,6 +318,10 @@ if ( ! class_exists( 'ES_Install' ) ) {
 				'ig_es_migrate_post_campaigns_settings',
 				'ig_es_update_570_db_version',
 			),
+			'5.7.1' => array(
+				'ig_es_migrate_ess_daily_limit_to_monthly_limits',
+				'ig_es_update_571_db_version',
+			),
 		);
 
 		/**

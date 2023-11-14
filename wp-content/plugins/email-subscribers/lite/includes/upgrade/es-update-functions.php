@@ -2176,3 +2176,43 @@ function ig_es_update_570_db_version() {
 }
 
 /* --------------------- ES 5.6.3(End)--------------------------- */
+
+/* --------------------- ES 5.6.4(Start)--------------------------- */
+
+/**
+ * Migrate customer timezone settings to send time optimzer setting
+ *
+ * @since 5.7.1
+ */
+function ig_es_migrate_ess_daily_limit_to_monthly_limits() {
+	$ess_daily_limit_migrated = get_option( 'ig_es_ess_daily_limit_migrated', 'no' );
+	if ( 'no' === $ess_daily_limit_migrated ) {
+		$ess_data = get_option( 'ig_es_ess_data', array() );
+		if ( ! empty( $ess_data['used_limit'] ) ) {
+			$current_month = ig_es_get_current_month();
+			$current_month_used_limit = 0;
+			foreach ( $ess_data['used_limit'] as $date => $used_limit ) {
+				if ( gmdate( 'Y-m', strtotime( $date ) ) === $current_month ) {
+					$current_month_used_limit += $used_limit;
+				}
+			}
+			$ess_data['used_limit'][$current_month] = $current_month_used_limit;
+			$ess_data['interval']                   = 'month';
+			$ess_data['allocated_limit']            = $ess_data['allocated_limit'] * 30;
+			update_option( 'ig_es_ess_data', $ess_data );
+			update_option( 'ig_es_ess_daily_limit_migrated', 'yes', false );
+		}
+	}
+
+}
+
+/**
+ * Update DB version
+ *
+ * @since 5.7.1
+ */
+function ig_es_update_571_db_version() {
+	ES_Install::update_db_version( '5.7.1' );
+}
+
+/* --------------------- ES 5.6.3(End)--------------------------- */
