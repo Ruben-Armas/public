@@ -48,8 +48,14 @@ jQuery(document).ready(function($) {
 
     // btn Submit - Agregar la clase ulpgcds-btn y ulpgcds-btn--primary al input submit
     var submitInput = $(this).find('input[type="submit"]');
-    if (submitInput.length > 0)
+    if (submitInput.length > 0){
       submitInput.addClass('ulpgcds-btn ulpgcds-btn--primary');
+
+      // Elimina la clase ulpgcds-form__item del padre inmediato (gjs-cell)
+      var parentCell = submitInput.parent('.gjs-cell');
+      if (parentCell.length > 0)
+        parentCell.removeClass('ulpgcds-form__item');
+    }
 
 
     // Lista Select
