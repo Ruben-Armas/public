@@ -9,7 +9,8 @@
   <?php
     get_submenu_subscriptionPanel_socialMedia_sidebar(
       get_post_meta(get_the_ID(), 'slug_menu', true),
-      get_post_meta(get_the_ID(), 'title_menu', true)
+      get_post_meta(get_the_ID(), 'title_menu', true),
+      get_post_meta(get_the_ID(), 'subscription_menu_id', true)
     );
   ?>
 

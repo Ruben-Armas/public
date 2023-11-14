@@ -29,13 +29,16 @@ function subMenu($menu_slug, $menu_title) {
   return $subMenu;
 }
 // Sidebar Social
-function subscriptionPanel($menu_slug, $menu_title) {
+function subscriptionPanel($menu_slug, $menu_title, $menu_id) {
+  if (empty($menu_id) || !$menu_id)
+    $menu_id = 1;
+
   $subscription = "
     <li class='not-first'>
       <span class='nolink'> Suscripción </span>
       <ul class='menu'>
 
-      ". do_shortcode('[email-subscribers-form id="1"]') ."
+      ". do_shortcode('[email-subscribers-form id="'.$menu_id.'"]') ."
       
       </ul>
     </li>
@@ -111,7 +114,7 @@ function get_ulpgc_submenu_sidebar($menu_slug, $menu_title) {
  *
  * @return void
  */
-function get_submenu_subscriptionPanel_sidebar($menu_slug, $menu_title) {
+function get_submenu_subscriptionPanel_sidebar($menu_slug, $menu_title, $subscription_menu_id) {
   ?>
   <!--<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>-->
 
@@ -119,7 +122,7 @@ function get_submenu_subscriptionPanel_sidebar($menu_slug, $menu_title) {
     <div class="sidebar-left__block">
       <ul class="menu">
         <?php echo subMenu($menu_slug, $menu_title) ?>
-        <?php echo subscriptionPanel($menu_slug, $menu_title) ?>  
+        <?php echo subscriptionPanel($menu_slug, $menu_title, $subscription_menu_id) ?>  
       </ul>
     </div>
   </div>
@@ -133,7 +136,7 @@ function get_submenu_subscriptionPanel_sidebar($menu_slug, $menu_title) {
  *
  * @return void
  */
-function get_submenu_subscriptionPanel_socialMedia_sidebar($menu_slug, $menu_title) {
+function get_submenu_subscriptionPanel_socialMedia_sidebar($menu_slug, $menu_title, $subscription_menu_id) {
   ?>
   <!--<div class="submenu-mobile" id="titulo_menu_izq"><span id="title-submenu-movil"></span> <span class="ulpgcds-icon ulpgcds-icon-caret-down"></span></div>-->
 
@@ -141,7 +144,7 @@ function get_submenu_subscriptionPanel_socialMedia_sidebar($menu_slug, $menu_tit
     <div class="sidebar-left__block">
       <ul class="menu">
         <?php echo subMenu($menu_slug, $menu_title) ?>
-        <?php echo subscriptionPanel($menu_slug, $menu_title) ?>  
+        <?php echo subscriptionPanel($menu_slug, $menu_title, $subscription_menu_id) ?>  
         <?php echo social_facebook() ?>
         <?php echo social_X_twitter() ?>  
       </ul>
@@ -168,6 +171,7 @@ function render_sidebar_custom_meta_box( $post ) {
   wp_nonce_field( basename( __FILE__ ), 'custom_meta_box_nonce' );
   $slug_menu = get_post_meta( $post->ID, 'slug_menu', true );
   $title_menu = get_post_meta( $post->ID, 'title_menu', true );
+  $subscription_menu_id = get_post_meta( $post->ID, 'subscription_menu_id', true );
   $menus = wp_get_nav_menus();
   ?>
     <div id="custom_meta_box">
@@ -184,8 +188,8 @@ function render_sidebar_custom_meta_box( $post ) {
         <input type="text" id="title_menu" name="title_menu" value="<?php echo esc_attr( $title_menu ); ?>">
       </p>
       <p>
-        <label for="title_menu">Título del menú / Nombre de la miga de pan faltante:</label><br>
-        <input type="text" id="title_menu" name="title_menu" value="<?php echo esc_attr( $title_menu ); ?>">
+        <label for="subscription_menu_id">Menú de suscripción (id):</label><br>
+        <input type="text" id="subscription_menu_id" name="subscription_menu_id" value="<?php echo esc_attr( $subscription_menu_id ); ?>">
       </p>
       <em>El menú solo funcionará en las plantillas con el menú de navegación lateral</em>
     </div>    
@@ -210,6 +214,9 @@ function save_sidebar_custom_meta_box_data( $post_id ) {
   }
   if ( isset( $_POST['title_menu'] ) ) {
     update_post_meta( $post_id, 'title_menu', sanitize_text_field( $_POST['title_menu'] ) );
+  }
+  if ( isset( $_POST['subscription_menu_id'] ) ) {
+    update_post_meta( $post_id, 'subscription_menu_id', sanitize_text_field( $_POST['subscription_menu_id'] ) );
   }
 }
 add_action( 'save_post', 'save_sidebar_custom_meta_box_data' );
