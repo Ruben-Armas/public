@@ -1,22 +1,13 @@
 // Seleccionar cada contenedor de campo del formulario
 jQuery(document).ready(function($) {
   $('.es-form-field-container').each(function() {
-    // Añadir el formulario y la clase ulpgcds-form
-    $(this).prepend('<form class="ulpgcds-form"></form>');
+    var $form = $(this).closest('form');
 
-    // Recorrer cada campo en el contenedor actual
-    $(this).children().each(function() {
-      var $element = $(this);
-      var $form = $element.closest('.es-form-field-container').find('.ulpgcds-form');
-
-      if ($element.is('.gjs-row')) {
-        var cell = $element.children('.gjs-cell')
-        if (cell.length > 0) cell.addClass('ulpgcds-form__item').appendTo($form);
-      } else if ($element.is('.gjs-cell, p')) {
-        $element.addClass('ulpgcds-form__item').appendTo($form);  // Suficiente para el inputText
-      }
-
-    });
+    // Añadir la clase ulpgcds-form al formulario superior
+    $form.addClass('ulpgcds-form');
+    
+    var cell = $(this).find('.gjs-cell')
+      if (cell.length > 0) cell.addClass('ulpgcds-form__item');
 
 
     // Legal Checkbox - Transformar el campo .es_gdpr si existe
@@ -31,17 +22,16 @@ jQuery(document).ready(function($) {
       if (!labelId || labelId.trim() === '')
         console.error('Error: El Lavel del Legal Checkbox no tiene ID ('+ labelId+')');
 
-      // Añadir el nuevo div y preservar el contenido original
-      var newDiv = $('<div class="es_gdpr ulpgcds-form__item ulpgcds-form__item--checkbox"></div>').append(checkboxInput).append(label);
+      // Añadir el nuevo div y con el contenido original
+      var newDiv = $('<div class="es_gdpr ulpgcds-form__item--checkbox"></div>').append(checkboxInput).append(label);
 
       // Asignar el id obtenido del label original al (id input) y (for label), y elimina el id del label
       newDiv.find('input[type="checkbox"]').attr('id', labelId);
       newDiv.find('label').attr('for', labelId).removeAttr('id');
 
-      // Cambia el CSS
       link.css({'display': 'inline-block', 'background': 'none', 'padding': '0'});
+      checkboxInput.css({'display': 'inline-block', 'position': 'absolute'});
 
-      // Reemplazar el div .es_gdpr original con el nuevo div
       gdprDiv.replaceWith(newDiv);
     }
 
