@@ -3,23 +3,17 @@
   <meta charset="utf-8">
   <title><?php wp_title(); ?></title>
 
-  <!--jquery
-	<script src="https://www2.ulpgc.es/js/jquery-latest.js"></script>-->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!--jquery-->
+	<script src="https://www2.ulpgc.es/js/jquery-latest.js"></script>
 
 	<!--ulpgc style-->
 	<link rel="stylesheet" type="text/css" href="https://cdn.ulpgc.es/ulpgcds/1.0/css/ulpgcds.css" media="all" />
-
   <!--table-->
   <link rel="stylesheet" href="https://designsystem.ulpgc.es/code/tablesaw/tablesaw.css">
-  
 	<!--carrusel-->
 	<link rel="stylesheet" type="text/css" href="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.css"/>
-	<!--ORIGINAL CON ERRORES
-  <script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.min.js"></script>-->
+	<!--ORIGINAL CON ERRORES<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.min.js"></script>-->
 	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.js"></script>
-
-  <style>@import url("https://www.ulpgc.es/sites/all/themes/ulpgc/css/ulpgcdsmerge.css?s45qgo");</style>
     
   <?php wp_head(); ?>
 </head>
@@ -28,9 +22,9 @@
   <!--ulpgc style-->
 	<!--jquery CAMBIADO y MOVIDO AL PRINCIPIO<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
 	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/ulpgcds.js?v=1.0"></script>
-  <!--table
+  <!--table-->
   <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw.jquery.js"></script>
-  <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw-init.js"></script>-->
+  <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw-init.js"></script>
 
   <?php wp_body_open(); ?>
   <header class="ulpgcds-header">
