@@ -19,18 +19,18 @@
   <script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.min.js"></script>-->
 	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/slick/slick.js"></script>
 
-  <style>@import url("https://www.ulpgc.es/sites/all/themes/ulpgc/css/ulpgcdsmerge.css?s45qgo");</style>
+  <!--<style>@import url("https://www.ulpgc.es/sites/all/themes/ulpgc/css/ulpgcdsmerge.css?s45qgo");</style>-->
     
   <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>		
+<body <?php body_class(); ?>>
+	<!--jquery MOVIDO AL PRINCIPIO<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
   <!--ulpgc style-->
-	<!--jquery CAMBIADO y MOVIDO AL PRINCIPIO<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
 	<script type="text/javascript" src="https://cdn.ulpgc.es/ulpgcds/1.0/js/ulpgcds.js?v=1.0"></script>
-  <!--table
+  <!--table-->
   <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw.jquery.js"></script>
-  <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw-init.js"></script>-->
+  <script src="https://designsystem.ulpgc.es/code/tablesaw/tablesaw-init.js"></script>
 
   <?php wp_body_open(); ?>
   <header class="ulpgcds-header">

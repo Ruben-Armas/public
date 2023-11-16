@@ -51,6 +51,8 @@ li.not-first {
     text-align: right;
 }
 
+
+
 /* Header Images 
 .ulpgcds-header .ulpgcds-header__top__logo {
     background: url(images/logo/iuma_rev_hc.svg) no-repeat 0 center #fff;
@@ -84,26 +86,101 @@ li.not-first {
     }
 }
 
-.ulpgcds-footer  .ulpgcds-footer__top  .footer-logo{
-    background: url(images/logo/iuma_rev_hc.svg) no-repeat 0 center #fff;
-    /*background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat 0 center #fff;*/
-    /*background: url(images/logo/iuma_rev_hmr.svg) no-repeat 0 center #fff;*/
-    background-size:480px;
+/* Footer-top logo */
+.ulpgcds-footer .ulpgcds-footer__top .footer-logo{
+    /*background: url(images/logo/iuma_rev_hc.svg) -32px -30px no-repeat;*/
+    /*background: url(images/logo/iuma_rev_hmr_acron.svg) -25px -28px no-repeat;
+    background: url(images/logo/iuma_rev_hacron.svg) -20px -20px no-repeat;*/
+    background: url(images/logo/iuma_rev_hmr.svg) -16px -10px no-repeat;
+    background-size:560px;
+    width:530px;
 }
-@media only screen and (max-width: 960px){
-    .ulpgcds-footer .ulpgcds-footer__top  .footer-logo{
-        background: url(images/logo/iuma_rev_hc.svg) no-repeat 0 center #fff;
-        /*background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat 0 center #fff;*/
-        /*background: url(images/logo/iuma_rev_hmr.svg) no-repeat 0 center #fff;*/
-        background-size:358px;
+@media only screen and (max-width: 1256px){
+    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
+        /*background: url(images/logo/iuma_rev_hc.svg) -32px -30px no-repeat;*/
+        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -25px -28px no-repeat;
+        background: url(images/logo/iuma_rev_hacron.svg) -20px -20px no-repeat;*/
+        background: url(images/logo/iuma_rev_hmr.svg) -16px -10px no-repeat;
+        /*background-size:480px;
+        width:460px;
+        height:46px;*/
+        background-size:520px;
+        width:500px;
     }
 }
-@media only screen and (max-width: 768px){
-    .ulpgcds-footer .ulpgcds-footer__top  .footer-logo{
-        background: url(images/logo/iuma_rev_hc.svg) no-repeat 0 center #fff;
-        /*background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat 0 center #fff;*/
-        /*background: url(images/logo/iuma_rev_hmr.svg) no-repeat 0 center #fff;*/
-        background-size:322px;
+/*@media only screen and (max-width: 960px){*/
+@media only screen and (max-width: 959px){
+    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
+        /*background: url(images/logo/iuma_rev_hc.svg) -24px no-repeat;*/
+        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -20px no-repeat;*/
+        background: url(images/logo/iuma_rev_hmr.svg) -12px no-repeat;
+        /*background-size:358px;*/
+        background-position: -15;
+        background-size: 490px;
+        width: 460px
+    }
+}
+@media only screen and (max-width: 938px){
+    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
+        /*background: url(images/logo/iuma_rev_hc.svg) -24px no-repeat;*/
+        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -20px no-repeat;*/
+        background: url(images/logo/iuma_rev_hmr.svg) -12px no-repeat;
+        /*background-size:358px;*/
+        background-position: -15;
+        background-size: 400px;
+        width: 400px
+    }
+}
+/*@media only screen and (max-width: 768px){*/
+@media only screen and (max-width: 719px){
+    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
+        /*background: url(images/logo/iuma_rev_hc.svg) -22px no-repeat;*/
+        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -22px no-repeat;*/
+        background: url(images/logo/iuma_rev_hmr.svg) -10px no-repeat;
+        /*background-size:322px;*/
+        background-size:400px;
     }
 }
 
+
+
+/* Footer-medium patrocinadores - imgs & contrast */
+.ulpgcds-footer .ulpgcds-footer__medium ul li a {
+    filter: brightness( 100% ) contrast( 100% ) saturate( 0% ) blur( 0px ) hue-rotate( 0deg );
+}
+.ulpgcds-footer .ulpgcds-footer__medium ul li a:hover {
+    filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.europractice a {
+    background-image: url("images/partner/europractice.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.mec_gobierno_canarias a {
+    background-image: url("images/partner/mec.jpg");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.eu_erdf a {
+    background-image: url("images/partner/logoeu.jpg");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.hipeac a {
+    background-image: url("images/partner/Hipeac226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.hipeac a {
+    background-image: url("images/partner/Hipeac226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.nvidia a {
+    background-image: url("images/partner/nvidia_banner_226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.heterogeneity a {
+    background-image: url("images/partner/Heterogeneityalliance226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.red_riscv a {
+    background-image: url("images/partner/redriscv-1024x215.png");
+}
+/* END Footer-medium */

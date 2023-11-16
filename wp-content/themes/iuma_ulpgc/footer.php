@@ -86,7 +86,7 @@
             <span>Miembro de Europractice</span></a></li>
           <li class="mec_gobierno_canarias"><a href="https://portal.mineco.gob.es/es-es/Paginas/default.aspx" target="_blank">
             <span>Ministerio de economía, industria y competitividad. Gobierno de Canarias</span></a></li>
-          <li class="inforegio"><a href="https://ec.europa.eu/regional_policy/en/funding/erdf/" target="_blank">
+          <li class="eu_erdf"><a href="https://ec.europa.eu/regional_policy/en/funding/erdf/" target="_blank">
             <span>European Regional Development Fund</span></a></li>
           <li class="hipeac"><a href="https://www.hipeac.net/" target="_blank">
             <span>HIPEAC</span></a></li>
