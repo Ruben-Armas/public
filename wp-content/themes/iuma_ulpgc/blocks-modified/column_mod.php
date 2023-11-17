@@ -44,9 +44,10 @@ function get_col_amount($rows_html){
             }
             
             // Actualizar el wp-container y reiniciar el contador
-            preg_match('/wp-container-(\d+)/', $item, $matches);
-            $current_container = $matches[1];
-            $current_count = 0;
+            if (preg_match('/wp-container-([^ ]+)-(\d+)/', $item, $matches)){
+                $current_container = $matches[1];
+                $current_count = 0;
+            }
 
         } elseif (strpos($item, 'wp-block-column')) {
             // Si se encuentra un wp-block-column dentro del wp-container actual, incrementar el contador
