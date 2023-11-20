@@ -3,7 +3,7 @@
     <div class="ulpgcds-footer__top wrapper">
       <div class="row">
         <div class="col-6">
-          <div class="footer-logo">  </div>
+          <div class="footer-iumalogo">  </div>
           <div class="row">
             <div class="col-6">
               <h3>Datos de contacto</h3>
@@ -17,38 +17,42 @@
               <p>España</p>
               <p><a href="https://goo.gl/maps/A6gFbe3YqAazi8MX7">Ver en Google Maps</a></p>
             </div>      
-          </div>                 
-          <div class="ulpgcds-footer__social">
-            <h3>Síguenos en</h3>
-            <ul>
-              <li class="twitter">
-                <a href="https://twitter.com/iumanews" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                  <i class="ulpgcds-btn__icon ulpgcds-icon-twitter"></i><span>Twitter</span></a>
-              </li>
-              <li class="facebook">
-                <a href="https://www.facebook.com/IUMA.ulpgc" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                  <i class="ulpgcds-btn__icon ulpgcds-icon-facebook"></i><span>Facebook</span></a>
-              </li>
-              <li class="youtube">
-                <a href="https://www.youtube.com/channel/UC20M2ZeHe2kRCb8ltHeo2ZQ" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                  <i class="ulpgcds-btn__icon ulpgcds-icon-youtube"></i><span>YouTube</span></a>
-              </li>
-              <li class="linkedin">
-                <a href="https://www.linkedin.com/groups/1624607/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                  <i class="ulpgcds-btn__icon ulpgcds-icon-linkedin"></i><span>LinkedIn</span></a>
-              </li>
-              <li class="rdd">
-                <a href="https://www.iuma.ulpgc.es/feed/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                  <i class="ulpgcds-btn__icon ulpgcds-icon-rss"></i><span>RSS</span></a>
-              </li>
-              <li class="git">
-                <a href="https://git.iuma.ulpgc.es:8300/explore/projects" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                  <i class="ulpgcds-btn__icon ulpgcds-icon-git"></i><span>Git</span></a>
-              </li>
-            </ul>
-          </div> 
+          </div>
         </div>
         <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <div class="ulpgcds-footer__social">
+                <h3>Síguenos en</h3>
+                <ul>
+                  <li class="twitter">
+                    <a href="https://twitter.com/iumanews" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
+                      <i class="ulpgcds-btn__icon ulpgcds-icon-twitter"></i><span>Twitter</span></a>
+                  </li>
+                  <li class="facebook">
+                    <a href="https://www.facebook.com/IUMA.ulpgc" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
+                      <i class="ulpgcds-btn__icon ulpgcds-icon-facebook"></i><span>Facebook</span></a>
+                  </li>
+                  <li class="youtube">
+                    <a href="https://www.youtube.com/channel/UC20M2ZeHe2kRCb8ltHeo2ZQ" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
+                      <i class="ulpgcds-btn__icon ulpgcds-icon-youtube"></i><span>YouTube</span></a>
+                  </li>
+                  <li class="linkedin">
+                    <a href="https://www.linkedin.com/groups/1624607/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
+                      <i class="ulpgcds-btn__icon ulpgcds-icon-linkedin"></i><span>LinkedIn</span></a>
+                  </li>
+                  <li class="rdd">
+                    <a href="https://www.iuma.ulpgc.es/feed/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
+                      <i class="ulpgcds-btn__icon ulpgcds-icon-rss"></i><span>RSS</span></a>
+                  </li>
+                  <li class="git">
+                    <a href="https://git.iuma.ulpgc.es:8300/explore/projects" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
+                      <i class="ulpgcds-btn__icon ulpgcds-icon-git"></i><span>Git</span></a>
+                  </li>
+                </ul>
+              </div> 
+            </div>
+          </div>
           <div class="row">
             <div class="col-6">
               <h3>Legal</h3>

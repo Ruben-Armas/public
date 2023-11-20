@@ -34,6 +34,11 @@ li.not-first {
     color: #ffffff !important;
 }
 
+/* Quita el borde de los botones del carrusel */
+.ulpgcds-carrusel button{
+    border: 0;
+}
+
 /* Navigation Post/Entrada */
 .post-navigation {
     display: flex;
@@ -87,58 +92,42 @@ li.not-first {
 }
 
 /* Footer-top logo */
-.ulpgcds-footer .ulpgcds-footer__top .footer-logo{
+.ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
     /*background: url(images/logo/iuma_rev_hc.svg) -32px -30px no-repeat;*/
     /*background: url(images/logo/iuma_rev_hmr_acron.svg) -25px -28px no-repeat;
-    background: url(images/logo/iuma_rev_hacron.svg) -20px -20px no-repeat;*/
-    background: url(images/logo/iuma_rev_hmr.svg) -16px -10px no-repeat;
-    background-size:560px;
-    width:530px;
-}
-@media only screen and (max-width: 1256px){
-    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
-        /*background: url(images/logo/iuma_rev_hc.svg) -32px -30px no-repeat;*/
-        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -25px -28px no-repeat;
-        background: url(images/logo/iuma_rev_hacron.svg) -20px -20px no-repeat;*/
-        background: url(images/logo/iuma_rev_hmr.svg) -16px -10px no-repeat;
-        /*background-size:480px;
-        width:460px;
-        height:46px;*/
-        background-size:520px;
-        width:500px;
-    }
-}
-/*@media only screen and (max-width: 960px){*/
-@media only screen and (max-width: 959px){
-    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
-        /*background: url(images/logo/iuma_rev_hc.svg) -24px no-repeat;*/
-        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -20px no-repeat;*/
-        background: url(images/logo/iuma_rev_hmr.svg) -12px no-repeat;
-        /*background-size:358px;*/
-        background-position: -15;
-        background-size: 490px;
-        width: 460px
-    }
+    background: url(images/logo/iuma_rev_hacron.svg) -20px -20px no-repeat;
+    background: url(images/logo/iuma_rev_vc.svg) -16px -10px no-repeat;*/
+    background: url(images/logo/iuma_rev_hmr.svg) no-repeat;
+
+    background-position: left;
+    background-size: cover;
+    height: 46px;
+    margin-bottom: 40px;
 }
 @media only screen and (max-width: 938px){
-    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
-        /*background: url(images/logo/iuma_rev_hc.svg) -24px no-repeat;*/
-        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -20px no-repeat;*/
-        background: url(images/logo/iuma_rev_hmr.svg) -12px no-repeat;
-        /*background-size:358px;*/
-        background-position: -15;
-        background-size: 400px;
-        width: 400px
+    .ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
+        /*background: url(images/logo/iuma_rev_hc.svg) -24px no-repeat;
+        background: url(images/logo/iuma_rev_hmr.svg) -12px no-repeat;*/
+        background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat;
+        background-position: left;
+        background-size: cover;
+        width: inherit;
+        /*margin-bottom: 32px;*/
     }
 }
 /*@media only screen and (max-width: 768px){*/
 @media only screen and (max-width: 719px){
     .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
-        /*background: url(images/logo/iuma_rev_hc.svg) -22px no-repeat;*/
-        /*background: url(images/logo/iuma_rev_hmr_acron.svg) -22px no-repeat;*/
-        background: url(images/logo/iuma_rev_hmr.svg) -10px no-repeat;
-        /*background-size:322px;*/
-        background-size:400px;
+        /*background: url(images/logo/iuma_rev_hc.svg) -22px no-repeat;
+        background: url(images/logo/iuma_rev_hmr.svg) -10px no-repeat;*/
+        background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat;
+        /*background-size:322px;
+        background-size:400px;*/
+        
+        background-position: left;
+        background-size: cover;
+        height: 46px;
+        margin-bottom: 40px;
     }
 }
 
