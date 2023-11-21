@@ -93,12 +93,7 @@ li.not-first {
 
 /* Footer-top logo */
 .ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
-    /*background: url(images/logo/iuma_rev_hc.svg) -32px -30px no-repeat;*/
-    /*background: url(images/logo/iuma_rev_hmr_acron.svg) -25px -28px no-repeat;
-    background: url(images/logo/iuma_rev_hacron.svg) -20px -20px no-repeat;
-    background: url(images/logo/iuma_rev_vc.svg) -16px -10px no-repeat;*/
     background: url(images/logo/iuma_rev_hmr.svg) no-repeat;
-
     background-position: left;
     background-size: cover;
     height: 46px;
@@ -106,8 +101,6 @@ li.not-first {
 }
 @media only screen and (max-width: 938px){
     .ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
-        /*background: url(images/logo/iuma_rev_hc.svg) -24px no-repeat;
-        background: url(images/logo/iuma_rev_hmr.svg) -12px no-repeat;*/
         background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat;
         background-position: left;
         background-size: cover;
@@ -115,19 +108,14 @@ li.not-first {
         /*margin-bottom: 32px;*/
     }
 }
-/*@media only screen and (max-width: 768px){*/
 @media only screen and (max-width: 719px){
-    .ulpgcds-footer .ulpgcds-footer__top .footer-logo{
-        /*background: url(images/logo/iuma_rev_hc.svg) -22px no-repeat;
-        background: url(images/logo/iuma_rev_hmr.svg) -10px no-repeat;*/
-        background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat;
-        /*background-size:322px;
-        background-size:400px;*/
-        
+    .ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
+        background: url(images/logo/iuma_rev_hmr_acron.svg) no-repeat;        
         background-position: left;
         background-size: cover;
         height: 46px;
-        margin-bottom: 40px;
+        max-width: 500px;
+        margin-bottom: 24px;
     }
 }
 
