@@ -34,9 +34,14 @@ li.not-first {
     color: #ffffff !important;
 }
 
-/* Quita el borde de los botones del carrusel */
+/* Carrusel - quita el borde de los botones */
 .ulpgcds-carrusel button{
     border: 0;
+}
+@media only screen and (max-width: 960px){
+    .ulpgcds-carrusel .slick-list {
+        max-height: 450px;
+    }
 }
 
 /* Navigation Post/Entrada */
