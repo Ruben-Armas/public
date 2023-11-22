@@ -71,11 +71,7 @@ require_once get_template_directory() . '/blocks-modified/column_mod.php';
 
 
 //Pruebas--------------------
-function theme_styles_scss()  { 
-  // Cargar hoja de estilo 
-  wp_enqueue_style( 'style_scss', get_template_directory_uri() . '/style.scss'); 
-}
-add_action('wp_enqueue_scripts', 'theme_styles_scss');
+
 //--------------------Pruebas
 
 
