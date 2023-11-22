@@ -66,11 +66,15 @@ const generateCarruselLarge = (isEditor, data) => {
       'span',
       { className: 'ulpgcds-carrusel--large__img' },
       wp.element.createElement(
-        'img',
-        {
-          src: data.itemUrlImg,
-          alt: data.itemAltImg,
-        }
+        'a',
+        { href: data.itemUrl },
+        wp.element.createElement(
+          'img',
+          {
+            src: data.itemUrlImg,
+            alt: data.itemAltImg,
+          }
+        )
       )
     ),
     wp.element.createElement(

@@ -38,14 +38,15 @@ li.not-first {
 .ulpgcds-carrusel button{
     border: 0;
 }
+.ulpgcds-carrusel .slick-slide{
+    height: auto;
+}
+/* Carrusel Large */
 .ulpgcds-carrusel--large .slick-list li{
     background-color: #FFD07F;
 }
 .ulpgcds-carrusel .ulpgcds-carrusel--large__img img{
     aspect-ratio: 6 / 4;
-}
-.ulpgcds-carrusel .slick-slide{
-    height: auto;
 }
 @media only screen and (max-width: 1439px){
     .ulpgcds-carrusel--large .slick-list li .ulpgcds-carrusel--large__img {
