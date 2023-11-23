@@ -6,6 +6,8 @@ $(document).ready(function(){
         prevArrow: '<button type="button" class="slick-prev"><span>Anterior</span></button>',
         nextArrow: '<button type="button" class="slick-next"><span>Siguiente</span></button>',
         dots: true,
+        autoplay: true,
+        autoplaySpeed: 7000,
         responsive: [
         {
             breakpoint: 600,
@@ -24,7 +26,9 @@ $(document).ready(function(){
             slidesToScroll: 3,                                  
             prevArrow: '<button type="button" class="slick-prev"><span>Anterior</span></button>',
             nextArrow: '<button type="button" class="slick-next"><span>Siguiente</span></button>',
-            dots: true, 
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 7000,
             responsive: [
                 {
                     breakpoint: 1280,
@@ -55,7 +59,9 @@ $(document).ready(function(){
         $('.ulpgcds-carrusel--large').slick({
             prevArrow: '<button type="button" class="slick-prev"><span>Anterior</span></button>',
             nextArrow: '<button type="button" class="slick-next"><span>Siguiente</span></button>',
-            dots: true
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 7000,
         });
         // Ajustes para su uso en portada al redimensionar la pantalla
         $(window).bind("resize",function() {
