@@ -608,6 +608,8 @@ wp.blocks.registerBlockType('carrusel-block/item', {
             onChange: setTitle
           }
         ),
+        
+        wp.element.createElement( 'h3', {className: 'title-xl' }, 'Solo para el tipo Grande' ),
         //Content itemText (paragraph)
         wp.element.createElement(
           wp.components.TextControl,
@@ -627,8 +629,6 @@ wp.blocks.registerBlockType('carrusel-block/item', {
             templateLock: true
           }
         ),*/
-        
-        wp.element.createElement( 'h3', {className: 'title-xl' }, 'Solo para el tipo Grande' ),
         //Button
         wp.element.createElement(
           wp.components.TextControl,
