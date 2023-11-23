@@ -86,6 +86,18 @@ li.not-first {
         background-color: #FFD07F;
     }
 }
+/* Carrusel Medium */
+.ulpgcds-carrusel--medium li a span img{
+    object-fit: cover;
+    width: min-content;
+    aspect-ratio: 3 / 2;
+}
+/* Carrusel Small */
+.ulpgcds-carrusel--small li img{
+    object-fit: cover;
+    aspect-ratio: 7 / 4;
+}
+
 
 /* Navigation Post/Entrada */
 .post-navigation {
