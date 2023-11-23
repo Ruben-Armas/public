@@ -103,6 +103,8 @@ include_once get_template_directory() . '/functions-elements/menu_location.php';
 include_once get_template_directory() . '/functions-elements/js-calls/list_category_phone_view.php';
 // Añade el JavaScript que hace funcionar al Carrusel y su movimiento
 include_once get_template_directory() . '/functions-elements/js-calls/carrusel.php';
+// Añade el JavaScript que muestra/oculta el HeaderMenu al hacer Scroll
+include_once get_template_directory() . '/functions-elements/js-calls/header_menu_scroll.php';
 // Modifica el formulario de Icegram como el de la ULPGC
 include_once get_template_directory() . '/functions-elements/js-calls/icegram_ulpgc.php';
 
