@@ -117,7 +117,13 @@ li.not-first {
 }
 
 
-
+/* Header background */
+.ulpgcds-header {
+    background-color: transparent;
+}
+.header__top-container {
+    background-color: #fff;
+}
 /* Header logo and links position*/
 .ulpgcds-header .ulpgcds-header__top__logo{
     background: url(images/logo/iuma_rev_hc.svg) no-repeat 0 center #fff;
