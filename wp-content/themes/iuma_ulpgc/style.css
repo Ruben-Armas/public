@@ -117,9 +117,10 @@ li.not-first {
 }
 
 
-/* Header background */
+/* Header background & z-index*/
 .ulpgcds-header {
     background-color: transparent;
+    z-index: 100;
 }
 .header__top-container {
     background-color: #fff;
