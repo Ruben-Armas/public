@@ -11,12 +11,20 @@ $(document).ready(function() {
     if (currentScrollPos > prevScrollPos) {
       // Scroll abajo pasando el umbral
       if (currentScrollPos > scrollThreshold) {
-        // Aplicar transición solo si se ha bajado más allá del umbral
-        $('#main-menu').css({'top': '-36px', 'transition': 'top 1s ease-in-out'});
+        // Aplicar transición y deshabilitar pointer-events
+        menu.css({
+          'top': '-36px',
+          'transition': 'top 1s ease-in-out',
+          'pointer-events': 'none'
+        });
       }
     } else {
       // Scroll arriba
-      $('#main-menu').css({'top': '0px', 'transition': 'top 0.5s ease-in-out'});
+      menu.css({
+        'top': '0px',
+        'transition': 'top 0.5s ease-in-out',
+        'pointer-events': 'auto'
+      });
     }
 
     prevScrollPos = currentScrollPos;
