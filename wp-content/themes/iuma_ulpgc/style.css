@@ -206,7 +206,27 @@ li.not-first {
     }
 }
 
-
+/* Footer Social Logo */
+.ulpgcds-footer .ulpgcds-footer__social ul li a img {
+    width: 24px;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a img.social {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a img.social-hidden {
+    position: absolute;
+    top: 12;
+    left: 12;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a:hover img.social {
+    opacity: 0;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a:hover img.social-hidden {
+    opacity: 1;
+}
 
 /* Footer-medium patrocinadores - imgs & contrast */
 .ulpgcds-footer .ulpgcds-footer__medium ul li a {

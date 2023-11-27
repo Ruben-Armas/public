@@ -41,13 +41,19 @@
                     <a href="https://www.linkedin.com/groups/1624607/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
                       <i class="ulpgcds-btn__icon ulpgcds-icon-linkedin"></i><span>LinkedIn</span></a>
                   </li>
-                  <li class="rdd">
+                  <li class="rss">
                     <a href="https://www.iuma.ulpgc.es/feed/" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                      <i class="ulpgcds-btn__icon ulpgcds-icon-rss"></i><span>RSS</span></a>
+                      <img src="<?php echo get_template_directory_uri(); ?>/images/rrss/rss.png" class="social">
+                      <img src="<?php echo get_template_directory_uri(); ?>/images/rrss/rss-hover.png" class="social-hidden">
+                      <span>RSS</span>
+                    </a>
                   </li>
                   <li class="git">
                     <a href="https://git.iuma.ulpgc.es:8300/explore/projects" class="ulpgcds-btn ulpgcds-btn--ghost ulpgcds-btn--icon" target="_blank">
-                      <i class="ulpgcds-btn__icon ulpgcds-icon-git"></i><span>Git</span></a>
+                      <img src="<?php echo get_template_directory_uri(); ?>/images/rrss/git.png" class="social">
+                      <img src="<?php echo get_template_directory_uri(); ?>/images/rrss/git-hover.png" class="social-hidden">
+                      <span>Git</span>
+                    </a>
                   </li>
                 </ul>
               </div> 
