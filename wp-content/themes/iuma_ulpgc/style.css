@@ -216,7 +216,6 @@ li.not-first {
 }
 .ulpgcds-footer .ulpgcds-footer__social ul li a img.social-hidden {
     position: absolute;
-    top: 12;
     left: 12;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
