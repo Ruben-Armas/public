@@ -28,29 +28,15 @@
         $passwd = $options['db_passwd'];
 
         $hash_id = hash("sha1", $host.$db_name.$sql_query);
-        echo "<p id='hash_id' hidden> $hash_id </p>";
-        echo("host -> ");
-        echo($host);
-        echo(" / name -> ");
-        echo($db_name);
-        echo(" / sql_query -> ");
-        echo($sql_query);
-        echo(" / user -> ");
-        echo($user);
-        echo(" / passwd -> ");
-        echo($passwd);
-        echo(" / hash_id -> ");
-        echo($hash_id);
 
         $db = new wpdb($user, $passwd, $db_name, $host);
         $query_result = $db->get_results($db->prepare($sql_query));
         $db->close();
-        //echo($user+", "+ $passwd+", "+ $db_name+", "+ $host);
 
         if (empty($query_result) || count($query_result) == 0){
-            echo "<h3>No se ha podido conectar a la Base de Datos</h3>";
+            echo "<h3>-No se ha podido conectar a la Base de Datos ".$db_name."-</h3>";
             return;
-        } else echo "<h3>conectado a la Base de Datos</h3>";
+        } else echo "<h3>-Conectado correctamente a ".$db_name."-</h3>";
 
         $columns_name = array_keys(get_object_vars($query_result[0]));
     ?>

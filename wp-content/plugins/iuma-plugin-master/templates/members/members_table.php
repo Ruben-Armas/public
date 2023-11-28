@@ -19,8 +19,7 @@
         $show_email = (isset($options['show_email']) ? ($options['show_email'] ? true : false) : false );
         $show_job_position = (isset($options['show_job_position']) ? ($options['show_job_position'] ? true : false) : false );
         $show_phone = (isset($options['show_phone']) ? ($options['show_phone'] ? true : false) : false );
-        $show_contact = (isset($options['show_contact']) ? ($options['show_contact'] ? true : false) : false );      
-
+        $show_contact = (isset($options['show_contact']) ? ($options['show_contact'] ? true : false) : false );
 
         // Database connection and SQL query
         $mydb = new wpdb($user, $passwd, $db_name, $host);
@@ -29,31 +28,31 @@
            // $query = $mydb->prepare("SELECT * FROM miembros_iuma WHERE division=%s", $division);
 	        $query = $mydb->prepare("SELECT CONCAT((IF(esDr=1 AND sexo='M','Dra. ',(IF (esDr=1 and sexo='H', 'Dr. ','')))), nombre) AS nombre, apellido1, apellido2, cargo, email,
             (SELECT categorias.descripcion FROM categorias WHERE categorias.codigo=miembros_iuma.categoria) AS TipoMiembro,
-            (SELECT categorias_ULPGC.descripcion FROM categorias_ULPGC WHERE categorias_ULPGC.codigo=catULP) AS Categoria,
+            (SELECT categorias_ulpgc.descripcion FROM categorias_ulpgc WHERE categorias_ulpgc.codigo=catULP) AS Categoria,
             CONCAT(division,' - ',(SELECT division.descripcion FROM division WHERE division.codigo=division)) AS division, telefono_despacho, despacho
             FROM miembros_iuma
             left join categorias ON  categorias.codigo=miembros_iuma.categoria
-            left join categorias_ULPGC ON categorias_ULPGC.codigo=miembros_iuma.catULP
-            WHERE activo=1 AND division=%s ORDER BY  categorias.orden, categorias_ULPGC.orden, apellido1, apellido2", $division);
+            left join categorias_ulpgc ON categorias_ulpgc.codigo=miembros_iuma.catULP
+            WHERE activo=1 AND division=%s ORDER BY  categorias.orden, categorias_ulpgc.orden, apellido1, apellido2", $division);
 		else 
           //  $query = $mydb->prepare("SELECT * FROM miembros_iuma");
             $query = $mydb->prepare("SELECT CONCAT((IF(esDr=1 AND sexo='M','Dra. ',(IF (esDr=1 and sexo='H', 'Dr. ','')))), nombre) AS nombre, apellido1, apellido2, cargo, email,
             (SELECT categorias.descripcion FROM categorias WHERE categorias.codigo=miembros_iuma.categoria) AS TipoMiembro,
-            (SELECT categorias_ULPGC.descripcion FROM categorias_ULPGC WHERE categorias_ULPGC.codigo=catULP) AS Categoria,
+            (SELECT categorias_ulpgc.descripcion FROM categorias_ulpgc WHERE categorias_ulpgc.codigo=catULP) AS Categoria,
             CONCAT(division,' - ',(SELECT division.descripcion FROM division WHERE division.codigo=division)) AS division, telefono_despacho, despacho
             FROM miembros_iuma
             left join categorias ON  categorias.codigo=miembros_iuma.categoria
-            left join categorias_ULPGC ON categorias_ULPGC.codigo=miembros_iuma.catULP
-            WHERE activo=1 ORDER BY  categorias.orden, categorias_ULPGC.orden, apellido1, apellido2");
+            left join categorias_ulpgc ON categorias_ulpgc.codigo=miembros_iuma.catULP
+            WHERE activo=1 ORDER BY  categorias.orden, categorias_ulpgc.orden, apellido1, apellido2");
 
 		
         $query_result = $mydb->get_results($query);
         $mydb->close();
 
         if (empty($query_result) || count($query_result) == 0){
-            echo "<h3>No se ha podido conectar a la Base de Datos</h3>";
+            //echo "<h3>No se ha podido conectar a la Base de Datos</h3>";
             return;
-        } else echo "<h3>conectado a la Base de Datos</h3>";
+        }
 	
         // Preparing data for table visualization
         $members = array();
