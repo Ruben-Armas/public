@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function(e){
             },
 		},
 			"columnDefs": [
-				{ "orderable": false, "targets": [0,1,2,3] },
+				{ "orderable": true, "targets": [0,1,2,3] },
 			],
 			"order": []
         

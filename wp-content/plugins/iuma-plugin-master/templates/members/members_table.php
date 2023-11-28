@@ -76,7 +76,9 @@
     ?>
 	
     <div class="container">
-    <table id="iuma-members-table" class="display">
+    <!--<table id="iuma-members-table" class="display">
+    <table id="iuma-members-table" class="tablesaw-columntoggle" data-tablesaw-mode="columntoggle">-->
+    <table id="iuma-members-table" class="" class="tablesaw" data-tablesaw-mode="stack">
         <thead>
             <tr>
                 <?php
