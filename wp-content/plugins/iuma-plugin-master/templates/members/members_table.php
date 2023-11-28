@@ -49,6 +49,11 @@
 		
         $query_result = $mydb->get_results($query);
         $mydb->close();
+
+        if (empty($query_result) || count($query_result) == 0){
+            echo "<h3>No se ha podido conectar a la Base de Datos</h3>";
+            return;
+        } else echo "<h3>conectado a la Base de Datos</h3>";
 	
         // Preparing data for table visualization
         $members = array();
