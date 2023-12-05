@@ -105,32 +105,24 @@
       </tbody>
     </table>
     <nav aria-label="Paginación" class="ulpgcds-pager">
-      <ul id="paginacion"></ul>
+      <ul id="paginationCustom"></ul>
     </nav>
 
   </div>
   
   <script>
     $(document).ready(function() {
-      // Inicializa la tabla Tablesaw
-      var miTabla = $('#miTabla');
-
-      // Configura el número de filas por página
-      var filasPorPagina = 5;
-
-      var paginaActual = 1; // Variable para mantener el estado actual de la página
-
-      // Calcula el número total de páginas
-      var totalPaginas = Math.ceil(miTabla.find('tbody tr').length / filasPorPagina);
-
-      // Inicializa la paginación
-      var pagination = $('#paginacion');
+      var miTabla = $('#miTabla');  // Inicializa la tabla Tablesaw      
+      var filasPorPagina = 5; // Número de filas por página
+      var paginaActual = 1;   // Estado actual de la página      
+      var totalPaginas = Math.ceil(miTabla.find('tbody tr').length / filasPorPagina); // Total de páginas
+      var pagination = $('#paginationCustom');  // Inicializa la paginación
       
 
       // Agrega enlace "Anterior"
       pagination.append(
         '<li class="ulpgcds-pager__item ulpgcds-pager__item--prev">' +
-          '<a class="pagination__link pagina" href="#" data-pagina="'+(paginaActual -1)+'" title="Ir a la página anterior" aria-disabled="true">' +
+          '<a class="pagination__link page_a" href="#" data-page_a="'+(paginaActual -1)+'" title="Ir a la página anterior" aria-disabled="true">' +
             '<span class="visually-hidden">Anterior</span>' +
           '</a>' +
         '</li>'
@@ -139,14 +131,14 @@
       for (var i = 1; i <= totalPaginas; i++) {
         pagination.append(
           '<li class="ulpgcds-pager__item ' + (i === paginaActual ? 'ulpgcds-pager__item--is-active' : '') + '">' +
-            '<a class="pagination__link pagina" href="#" data-pagina="'+i+'" title="Ir a la página '+i+'">' +i+ '</a>' +
+            '<a class="pagination__link page_a" href="#" data-page_a="'+i+'" title="Ir a la página '+i+'">' +i+ '</a>' +
           '</li>'
         );
       }
       // Agrega enlace "Siguiente"
       pagination.append(
         '<li class="ulpgcds-pager__item ulpgcds-pager__item--next">' +
-          '<a class="pagination__link pagina" href="#" data-pagina="'+(paginaActual +1)+'" title="Ir a la página siguiente" aria-disabled="false">' +
+          '<a class="pagination__link page_a" href="#" data-page_a="'+(paginaActual +1)+'" title="Ir a la página siguiente" aria-disabled="false">' +
             '<span class="visually-hidden">Siguiente</span>' +
           '</a>' +
         '</li>'
@@ -156,11 +148,10 @@
       mostrarPagina(paginaActual);
 
       // Manejador de eventos para cambiar de página
-      pagination.on('click', '.pagina', function(e) {
+      pagination.on('click', '.page_a', function(e) {
         console.log(paginaActual);
         e.preventDefault();
-        paginaActual = $(this).data('pagina');
-
+        paginaActual = $(this).data('page_a');
 
         // Actualiza la propiedad aria-disabled en los controles previo/siguiente
         var isDisabledPrev = paginaActual === 1;
@@ -168,17 +159,17 @@
         pagination.find('.ulpgcds-pager__item--prev a').attr('aria-disabled', isDisabledPrev.toString());
         pagination.find('.ulpgcds-pager__item--next a').attr('aria-disabled', isDisabledNext.toString());
 
-        // Actualiza los valores de data-pagina en los controles previo/siguiente
-        pagination.find('.ulpgcds-pager__item--prev a').data('pagina', paginaActual - 1);
-        pagination.find('.ulpgcds-pager__item--next a').data('pagina', paginaActual + 1);
+        // Actualiza los valores de data-page_a en los controles previo/siguiente
+        pagination.find('.ulpgcds-pager__item--prev a').data('page_a', paginaActual - 1);
+        pagination.find('.ulpgcds-pager__item--next a').data('page_a', paginaActual + 1);
 
 
         // Elimina la clase 'ulpgcds-pager__item--is-active' de todos los elementos
         pagination.find('.ulpgcds-pager__item').removeClass('ulpgcds-pager__item--is-active');
 
-        // Busca el elemento con data-pagina igual a paginaActual, pero que no sea "Anterior" ni "Siguiente"
-        var paginaElement = pagination.find('.pagina').filter(function() {
-          return !$(this).parent().hasClass('ulpgcds-pager__item--prev') && !$(this).parent().hasClass('ulpgcds-pager__item--next') && $(this).data('pagina') == paginaActual;
+        // Busca el elemento con data-page_a igual a paginaActual, pero que no sea "Anterior" ni "Siguiente"
+        var paginaElement = pagination.find('.page_a').filter(function() {
+          return !$(this).parent().hasClass('ulpgcds-pager__item--prev') && !$(this).parent().hasClass('ulpgcds-pager__item--next') && $(this).data('page_a') == paginaActual;
         });
         // Agrega la clase 'ulpgcds-pager__item--is-active' al elemento encontrado
         paginaElement.parent().addClass('ulpgcds-pager__item--is-active');
@@ -195,11 +186,11 @@
       });
 
       // Función para mostrar una página específica
-      function mostrarPagina(pagina) {
+      function mostrarPagina(page_a) {
         // Oculta todas las filas
         miTabla.find('tbody tr').hide();
         // Muestra solo las filas de la página actual
-        var inicio = (pagina - 1) * filasPorPagina;
+        var inicio = (page_a - 1) * filasPorPagina;
         var fin = inicio + filasPorPagina;
         miTabla.find('tbody tr').slice(inicio, fin).show();
       }
