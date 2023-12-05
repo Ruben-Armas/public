@@ -146,7 +146,7 @@
       // Agrega enlace "Siguiente"
       pagination.append(
         '<li class="ulpgcds-pager__item ulpgcds-pager__item--next">' +
-          '<a class="pagination__link pagina" href="#" data-pagina="'+(paginaActual +1)+'" title="Ir a la página siguiente" aria-disabled="true">' +
+          '<a class="pagination__link pagina" href="#" data-pagina="'+(paginaActual +1)+'" title="Ir a la página siguiente" aria-disabled="false">' +
             '<span class="visually-hidden">Siguiente</span>' +
           '</a>' +
         '</li>'
@@ -176,8 +176,13 @@
         // Elimina la clase 'ulpgcds-pager__item--is-active' de todos los elementos
         pagination.find('.ulpgcds-pager__item').removeClass('ulpgcds-pager__item--is-active');
 
-        // Agrega la clase 'ulpgcds-pager__item--is-active' al elemento correspondiente a la nueva página
-        pagination.find('.pagina[data-pagina="' + paginaActual + '"]').parent().addClass('ulpgcds-pager__item--is-active');
+        // Busca el elemento con data-pagina igual a paginaActual, pero que no sea "Anterior" ni "Siguiente"
+        var paginaElement = pagination.find('.pagina').filter(function() {
+          return !$(this).parent().hasClass('ulpgcds-pager__item--prev') && !$(this).parent().hasClass('ulpgcds-pager__item--next') && $(this).data('pagina') == paginaActual;
+        });
+        // Agrega la clase 'ulpgcds-pager__item--is-active' al elemento encontrado
+        paginaElement.parent().addClass('ulpgcds-pager__item--is-active');
+
 
         // Muestra la nueva página
         mostrarPagina(paginaActual);
