@@ -109,6 +109,9 @@ include_once get_template_directory() . '/functions-elements/js-calls/header_men
 // Modifica el formulario de Icegram como el de la ULPGC
 include_once get_template_directory() . '/functions-elements/js-calls/icegram_ulpgc.php';
 
+// Modifica el aspecto de las tablas generadas por el plugin del IUMA
+include_once get_template_directory() . '/functions-elements/js-calls/iuma_plugin.php';
+
 
 // Functional Elements
 // Muestra la barra de navegación de menus del Header
