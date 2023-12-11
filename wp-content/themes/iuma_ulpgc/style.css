@@ -24,7 +24,7 @@ li.not-first {
 }
 
 /* FIX - Soluciona el error en los colores del pagination */
-.pagination__link {
+.pagination__link[aria-disabled="false"], .pagination__link:not([aria-disabled]) {
     color: #565a5c !important;
 }
 .pagination__link:hover {
