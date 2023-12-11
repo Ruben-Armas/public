@@ -1,4 +1,3 @@
-//$(document).ready(function() {
 jQuery(document).ready(function() {
   // Busca e inicializa todas las tablesaw con la clase 'custom-member-table'
   $('.custom-member-table').each(function() {
@@ -15,7 +14,7 @@ function initializeTable(myTable) {
   var pagination = $(myTable).siblings('.ulpgcds-pager').find('.paginationCustom');  // Inicializa la paginación      
   
   // Genera los enlaces numéricos
-  generateNumericLinks(pagination, totalPages, actualPage);
+  generateNumericLinks(myTable, pagination, totalPages, actualPage);
   
   // Muestra la primera página y oculta las demás filas
   showPage(myTable, actualPage);
@@ -28,7 +27,7 @@ function initializeTable(myTable) {
     console.log("actualPage "+actualPage);
 
     // Genera los enlaces numéricos
-    generateNumericLinks(pagination, totalPages, actualPage);
+    generateNumericLinks(myTable, pagination, totalPages, actualPage);
 
     // Muestra la nueva página
     showPage(myTable, actualPage);
@@ -46,9 +45,13 @@ function showPage(myTable, page) {
 }
 
 // Función para generar los enlaces numéricos
-function generateNumericLinks(pagination, totalPages, actualPage) {
+function generateNumericLinks(myTable, pagination, totalPages, actualPage) {
   // Limpia la paginación actual
   pagination.empty();
+
+  pagination.append(
+    '<div class="ulpgcds-pager__results">'+showPaginationInfo(myTable, actualPage)+'</div>'
+  );
 
   // Agrega enlace "Anterior"
   var disabledPrev = actualPage > 1 ? 'false' : 'true';
@@ -101,4 +104,10 @@ function generateNumericLinks(pagination, totalPages, actualPage) {
       '</a>' +
     '</li>'
   );
+}
+function showPaginationInfo(myTable, actualPage){
+  var totalRecords = myTable.find('tbody tr').length;
+  var startRecord = Math.min((actualPage - 1) * rowsPerPage + 1, totalRecords);
+  var endRecord = Math.min(actualPage * rowsPerPage, totalRecords);
+  return 'Mostrando del '+startRecord+' al '+endRecord+' de un total de '+totalRecords+' registros';
 }
