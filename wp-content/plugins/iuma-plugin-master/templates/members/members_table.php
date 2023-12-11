@@ -76,6 +76,8 @@
 	
   <div class="container">
     <!--<table id="iuma-members-table" class="display">-->
+    <!--<table class="tablesaw-columntoggle custom-member-table" data-tablesaw-mode="columntoggle">
+    <table class="tablesaw-sortable custom-member-table" data-tablesaw-mode="sortable">-->
     <table class="tablesaw custom-member-table" data-tablesaw-mode="stack">
       <thead>
         <tr>
