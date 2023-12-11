@@ -110,7 +110,7 @@ include_once get_template_directory() . '/functions-elements/js-calls/header_men
 include_once get_template_directory() . '/functions-elements/js-calls/icegram_ulpgc.php';
 
 // Modifica el aspecto de las tablas generadas por el plugin del IUMA
-include_once get_template_directory() . '/functions-elements/js-calls/iuma_plugin.php';
+include_once get_template_directory() . '/functions-elements/js-calls/iuma_members_plugin.php';
 
 
 // Functional Elements
