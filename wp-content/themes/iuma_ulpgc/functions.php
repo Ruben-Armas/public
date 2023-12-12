@@ -56,7 +56,7 @@ require_once get_template_directory() . '/blocks/web_view-custom/web_view.php';
 require_once get_template_directory() . '/blocks/seemore/seemore.php';
 require_once get_template_directory() . '/blocks/divider/divider.php';
 require_once get_template_directory() . '/blocks/spacing/spacing.php';
-require_once get_template_directory() . '/blocks/table-custom/table.php';
+require_once get_template_directory() . '/blocks/table-members/table.php';
 
 require_once get_template_directory() . '/blocks/test-innerblock/test.php';
 require_once get_template_directory() . '/blocks/test-blockprops/test.php';

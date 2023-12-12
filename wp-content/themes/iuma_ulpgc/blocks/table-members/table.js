@@ -1,7 +1,7 @@
 // Registro del bloque
-wp.blocks.registerBlockType('table-block/my-block', {
-  title: 'Tabla',
-  description: 'Tabla con el estilo de la ULPGC',
+wp.blocks.registerBlockType('table-members-block/my-block', {
+  title: 'Tabla de miembros',
+  description: 'Tabla de miembros del IUMA con el estilo de la ULPGC',
   icon: 'editor-table',
   category: 'ulpgc',
   example: {},
