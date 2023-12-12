@@ -132,7 +132,7 @@ class MembersOptions
             ),
             array(
                 'id' => 'show_job_position',
-                'title' => 'Job positiion',
+                'title' => 'Job position',
                 'callback' => array( OptionFields::class, 'checkboxField' ),
                 'page' => $page,
                 'section' => $section,
