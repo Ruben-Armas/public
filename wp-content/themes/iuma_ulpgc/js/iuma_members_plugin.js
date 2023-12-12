@@ -2,22 +2,39 @@ jQuery(document).ready(function() {
   // Busca e inicializa todas las tablesaw con la clase 'custom-member-table'
   $('.custom-member-table').each(function() {
     var myTable = $(this);
-    initializeTable(myTable);
+
+    // Verifica si tiene algún ancestro con la cantidad de filas por pagina
+    var maxRows = getMaxRowsValue(myTable);
+
+    initializeTable(myTable, maxRows);
   });
 });
 
-var rowsPerPage = 5; // Número de filas por página
+// Busca la cantidad de filas por pagina definida en el bloque, sino lo pone por defecto
+function getMaxRowsValue(table) {
+  // Busca el elemento más cercano con la clase y el atributo especificados
+  var parentBlock = table.closest('.wp-block-table-members-block-my-block[data-members-maxrows]');
 
-function initializeTable(myTable) {
+  // Si se encuentra el elemento, obtén el valor del atributo, de lo contrario, usa un valor predeterminado de 5
+  if (parentBlock.length > 0)
+    maxRows = parseInt(parentBlock.attr('data-members-maxrows'), 10);
+  else
+    maxRows = 5;  // Por defecto
+
+  return maxRows;
+}
+
+
+function initializeTable(myTable, rowsPerPage) {
   var actualPage = 1;   // Estado actual de la página
   var totalPages = Math.ceil(myTable.find('tbody tr').length / rowsPerPage); // Total de páginas
   var pagination = $(myTable).siblings('.ulpgcds-pager').find('.paginationCustom');  // Inicializa la paginación      
   
   // Genera los enlaces numéricos
-  generateNumericLinks(myTable, pagination, totalPages, actualPage);
+  generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsPerPage);
   
   // Muestra la primera página y oculta las demás filas
-  showPage(myTable, actualPage);
+  showPage(myTable, actualPage, rowsPerPage);
 
   // Manejador de eventos para cambiar de página
   pagination.on('click', '.page_a', function(e) {
@@ -27,15 +44,15 @@ function initializeTable(myTable) {
     console.log("actualPage "+actualPage);
 
     // Genera los enlaces numéricos
-    generateNumericLinks(myTable, pagination, totalPages, actualPage);
+    generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsPerPage);
 
     // Muestra la nueva página
-    showPage(myTable, actualPage);
+    showPage(myTable, actualPage, rowsPerPage);
   });
 }
 
 // Función para mostrar una página específica
-function showPage(myTable, page) {
+function showPage(myTable, page, rowsPerPage) {
   // Oculta todas las filas
   myTable.find('tbody tr').hide();
   // Muestra solo las filas de la página actual
@@ -45,12 +62,12 @@ function showPage(myTable, page) {
 }
 
 // Función para generar los enlaces numéricos
-function generateNumericLinks(myTable, pagination, totalPages, actualPage) {
+function generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsPerPage) {
   // Limpia la paginación actual
   pagination.empty();
 
   pagination.append(
-    '<div class="ulpgcds-pager__results">'+showPaginationInfo(myTable, actualPage)+'</div>'
+    '<div class="ulpgcds-pager__results">'+showPaginationInfo(myTable, actualPage, rowsPerPage)+'</div>'
   );
 
   // Agrega enlace "Anterior"
@@ -105,7 +122,7 @@ function generateNumericLinks(myTable, pagination, totalPages, actualPage) {
     '</li>'
   );
 }
-function showPaginationInfo(myTable, actualPage){
+function showPaginationInfo(myTable, actualPage, rowsPerPage){
   var totalRecords = myTable.find('tbody tr').length;
   var startRecord = Math.min((actualPage - 1) * rowsPerPage + 1, totalRecords);
   var endRecord = Math.min(actualPage * rowsPerPage, totalRecords);
