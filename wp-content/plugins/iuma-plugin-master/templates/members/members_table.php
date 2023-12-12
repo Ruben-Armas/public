@@ -96,10 +96,14 @@
             echo "<tr>";
             foreach ($member as $key => $value)
             {
-              echo "<td> $value </td>";
+              if (is_numeric($value) || preg_match('/\d{4,}/', $value))
+                $align = 'class="table-members-align-right"';
+              else
+                $align = '';
+
+              echo "<td $align> $value </td>";
             }
             echo "</tr>";
-    
           }
         ?>
       </tbody>

@@ -10,3 +10,7 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
     background:rgb(145, 145, 145) !important;
     border: 1px solid transparent !important;
 }
+
+.table-members-align-right{
+    /*text-align: right !important;*/
+}
