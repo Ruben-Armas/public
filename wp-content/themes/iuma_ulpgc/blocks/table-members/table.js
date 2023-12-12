@@ -1,3 +1,15 @@
+const rowsPerPageVal = 10;
+
+function showPreviewFinalTableMembers(props){
+  const { selectedType, maxRows } = props.attributes;
+
+  return wp.element.createElement(
+    'div', 
+    { 'data-members-maxrows': maxRows },
+    selectedType !== 'ALL' ? `[iuma-members division='${selectedType}']` : "[iuma-members division]"
+  );
+}
+
 // Registro del bloque
 wp.blocks.registerBlockType('table-members-block/my-block', {
   title: 'Tabla de miembros',
@@ -6,162 +18,113 @@ wp.blocks.registerBlockType('table-members-block/my-block', {
   category: 'ulpgc',
   example: {},
   attributes: {
-    dateCheck: {
-      type: 'boolean',
-      default: false
+    selectedType: {
+      type: 'int',
+      default: 'ALL',
     },
-    date: {
-      type: 'string',
-      default: ''
+    maxRows: {
+      type: 'number',
+      default: rowsPerPageVal
     },
-    phoneView: {
-      type: 'boolean',
-      default: false
-    },
-    url: {
-      type: 'string',
-      default: ''
-    },
-    image: {
-      type: 'string',
-      default: ''
-    },
-    altImage: {
-      type: 'string',
-      default: ''
-    },
-    title: {
-      type: 'string',
-      default: ''
-    },
-    content: {
-      type: 'string',
-      default: ''
-    }
   },
 
   edit: function(props) {
-    const { title, content } = props.attributes;
-    const [isEditing, setIsEditing] = wp.element.useState(false);
-    var setTitle = function(newTitle) {
-      props.setAttributes({ title: newTitle });
-    };
-    var setContent = function(newContent) {
-      props.setAttributes({ content: newContent });
-    };
+    const { attributes, setAttributes } = props;
+    const { selectedType, maxRows } = attributes;
     
-    const handleEdit = () => {
-      setIsEditing(true);
-    };  
-    const handlePreview = () => {
-      setIsEditing(false);
+    var setSelectedType = function(newSelectedType) {
+      setAttributes({ selectedType: newSelectedType });
+    };
+    var setMaxRows = function(newMaxRows) {
+      setAttributes({ maxRows: newMaxRows });
     };
 
-    const defaultImage = '/wp-content/themes/iuma_ulpgc/images/default.png';
+    let options = [
+      { label: 'Todas', value: 'ALL' },
+      { label: 'COM', value: 'COM' },
+      { label: 'DSI', value: 'DSI' },
+      { label: 'MAGIC', value: 'MAGIC' },
+      { label: 'MEMS', value: 'MEMS' },
+      { label: 'SICAD', value: 'SICAD' },
+      { label: 'TI', value: 'TI' },
+      { label: 'TME', value: 'TME' },
+    ];
 
-    // Preview
-    const previewContent = wp.element.createElement(
-      'div',
+    const divisionSelector = wp.element.createElement(
+      wp.components.SelectControl,
       {
-        className: 'ulpgcds-article'
+        label: 'Seleccione la división',
+        value: selectedType,
+        options: options,
+        onChange: setSelectedType
+      }
+    );
+    const rangeMaxRows = wp.element.createElement(
+      wp.components.RangeControl,
+      {
+        label: 'Nº de filas por página',
+        type: 'number',
+        value: maxRows,
+        initialPosition: rowsPerPageVal,
+        onChange: setMaxRows,
+        min: '1',
+        max: '25',
+        allowReset: true,
+        railColor: 'red'
       },
-      wp.element.createElement(
-      'h3', null,
-        title ? title : 'Título del artículo'
-      ),
-      wp.element.createElement(
-        'p', null,
-        content ? content : 'Contenido del artículo'
-      )
     );
 
     // Edit
-    const editContent = wp.element.createElement(
+    return wp.element.createElement(
       'div', null,
       //Block inspector
-      /*wp.element.createElement(
+      wp.element.createElement(
         wp.blockEditor.InspectorControls,
         null,
         wp.element.createElement(
           wp.components.PanelBody,
           null,
-          wp.element.createElement(
-            wp.blockEditor.URLInput,
-            {
-              label: 'Dirección (Url) del artículo',
-              value: url,
-              onChange: setUrl
-            }
-          ),
+          divisionSelector,
+          rangeMaxRows
         )
-      ),*/
-      //Create Article
+      ),
+
+      //Create Member Table
       wp.element.createElement(
         wp.components.PanelBody,
         {
-          title: 'Cards',
+          title: 'Tabla de Miembros del IUMA',
           initialOpen: true,
         },
+
         wp.element.createElement(
-          wp.components.TextControl,
-          {
-            label: 'Título',
-            value: title,
-            onChange: setTitle
-          }
+          wp.components.Flex,
+          { direction: 'row', wrap: 'wrap' },
+          wp.element.createElement(
+            wp.components.FlexItem,
+            { style: { flexGrow: 1 } },
+            
+            divisionSelector
+          ),
+          wp.element.createElement(
+            wp.components.FlexItem,
+            { style: { flexGrow: 1 } },
+            
+            rangeMaxRows
+          )       
         ),
+
+        //Preview
         wp.element.createElement(
-          wp.components.TextareaControl,
-          {
-            label: 'Contenido (Opcional)',
-            rows: 4,
-            multiline: true,
-            value: content,
-            onChange: setContent
-          }
-        ),
-        // Botón para salir de la edición
-        wp.element.createElement(
-          wp.components.Button,
-          { isPrimary: true, onClick: handlePreview },
-          'Vista previa'
+          'div', null,
+          'Shortcode',
+          showPreviewFinalTableMembers(props)
         )
       ),
     );
-  
-    return wp.element.createElement(
-      'div',
-      null,
-      // Muestra la vista previa o el editor
-      isEditing ? editContent : previewContent,
-      // Botón editar
-      !isEditing && wp.element.createElement(
-        wp.components.Button,
-        {
-          isPrimary: true,
-          onClick: handleEdit
-        },
-        'Editar'
-      )
-    );    
   },
   // Save view
-  save: function(props) {
-    const { title, content } = props.attributes;
-    
-    return wp.element.createElement(
-      'div',
-      {
-        className: 'ulpgcds-article'
-      },
-      wp.element.createElement(
-        'h3', null,
-        title
-      ),
-      wp.element.createElement(
-        'p', null,
-        content
-      )
-    )
+  save: function(props) {    
+    return showPreviewFinalTableMembers(props);
   }
 });
