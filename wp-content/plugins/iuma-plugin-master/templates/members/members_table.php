@@ -62,11 +62,11 @@
         $to_insert['Nombre y Apellidos'] = "$member->nombre $member->apellido1 $member->apellido2" ;
         $to_insert['Categoría'] = $member->TipoMiembro;
           if ($show_email)
-            $to_insert['Email'] = do_shortcode("[eeb_protect_emails] $member->email [/eeb_protect_emails]");
+            $to_insert['Email'] = do_shortcode("[eeb_protect_emails] <a href='mailto:$member->email'>$member->email</a> [/eeb_protect_emails]");
           if ($show_job_position)
             $to_insert['Cargo'] = $member->cargo;
           if ($show_phone)
-            $to_insert['Teléfono'] = do_shortcode("[eeb_protect_content] $member->telefono_despacho [/eeb_protect_content]");
+            $to_insert['Teléfono'] = do_shortcode("[eeb_protect_content] <a href='tel:$member->telefono_despacho'>$member->telefono_despacho [/eeb_protect_content]");
           if ($show_contact)
             $to_insert['Contacto'] = do_shortcode("[eeb_protect_emails] <a href='mailto:$member->email'><img style='display: block;margin: auto;' border='0' alt='Contacto' src='https://www.iuma.ulpgc.es/wp-content/uploads/2021/01/envelope.svg'></a>[/eeb_protect_emails]");
     
