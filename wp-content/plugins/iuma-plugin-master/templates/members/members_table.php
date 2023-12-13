@@ -107,8 +107,6 @@
         ?>
       </tbody>
     </table>
-    <nav aria-label="Paginación" class="ulpgcds-pager">
-      <ul class="paginationCustom"></ul>
-    </nav>
+    <nav aria-label="Paginación" class="ulpgcds-pager paginationCustom"></nav>
   </div>
 </div>
