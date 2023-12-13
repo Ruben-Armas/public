@@ -43,10 +43,11 @@ function getMaxRowsValueLimited(table, maxParents) {
 function initializeTable(myTable, rowsPerPage) {
   var actualPage = 1;   // Estado actual de la página
   var totalPages = Math.ceil(myTable.find('tbody tr').length / rowsPerPage); // Total de páginas
+  var totalRecords = myTable.find('tbody tr').length; // Total de registros
   var pagination = $(myTable).siblings('.ulpgcds-pager.paginationCustom');  // Inicializa la paginación      
   
   // Genera los enlaces numéricos
-  generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsPerPage);
+  generateNumericLinks(myTable, pagination, totalRecords, totalPages, actualPage, rowsPerPage);
   
   // Muestra la primera página y oculta las demás filas
   showPage(myTable, actualPage, rowsPerPage);
@@ -57,7 +58,7 @@ function initializeTable(myTable, rowsPerPage) {
     actualPage = $(this).data('page_a');
 
     // Genera los enlaces numéricos
-    generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsPerPage);
+    generateNumericLinks(myTable, pagination, totalRecords, totalPages, actualPage, rowsPerPage);
 
     // Muestra la nueva página
     showPage(myTable, actualPage, rowsPerPage);
@@ -75,13 +76,17 @@ function showPage(myTable, page, rowsPerPage) {
 }
 
 // Función para generar los enlaces numéricos
-function generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsPerPage) {
+function generateNumericLinks(myTable, pagination, totalRecords, totalPages, actualPage, rowsPerPage) {
+  // Si no hay más paǵinas, no muestra la paginación
+  if (totalRecords <= rowsPerPage) return;
+
   // Limpia la paginación actual
   pagination.empty();
   var paginationContent = "";
 
+  console.log("t "+totalRecords+" - a "+rowsPerPage);
   // Pagination Info
-  paginationContent +='<div class="ulpgcds-pager__results">'+showPaginationInfo(myTable, actualPage, rowsPerPage)+'</div>';  
+  paginationContent +='<div class="ulpgcds-pager__results">'+showPaginationInfo(myTable, actualPage, totalRecords, rowsPerPage)+'</div>';  
 
   // Agrega enlace "Anterior"
   var disabledPrev = actualPage > 1 ? 'false' : 'true';
@@ -137,7 +142,7 @@ function generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsP
   // Agrega el contenido al contenedor
   pagination.append(paginationContent);
 }
-function showPaginationInfo(myTable, actualPage, rowsPerPage){
+function showPaginationInfo(myTable, actualPage, totalRecords, rowsPerPage){
   var totalRecords = myTable.find('tbody tr').length;
   var startRecord = Math.min((actualPage - 1) * rowsPerPage + 1, totalRecords);
   var endRecord = Math.min(actualPage * rowsPerPage, totalRecords);
