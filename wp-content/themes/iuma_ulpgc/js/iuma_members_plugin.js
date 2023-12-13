@@ -5,7 +5,7 @@ jQuery(document).ready(function() {
 
     // Verifica si tiene algún ancestro con la cantidad de filas por pagina
     var maxRows = getMaxRowsValue(myTable); // Más cercano sin límite
-    //var maxRows = getMaxRowsValue(myTable, 3);  // Busca hasta un límite
+    //var maxRows = getMaxRowsValueLimited(myTable, 3);  // Busca hasta un límite
 
     initializeTable(myTable, maxRows);
   });
@@ -24,7 +24,7 @@ function getMaxRowsValue(table) {
   return maxRows;
 }
 // Busca la cantidad de filas del bloque, hasta un nº de jerarquía máximo, o por defecto
-function getMaxRowsValue(table, maxParents) {
+function getMaxRowsValueLimited(table, maxParents) {
   var currentElement = table;
 
   // Busca el elemento hasta un limite
