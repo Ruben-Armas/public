@@ -4,24 +4,39 @@ jQuery(document).ready(function() {
     var myTable = $(this);
 
     // Verifica si tiene algún ancestro con la cantidad de filas por pagina
-    var maxRows = getMaxRowsValue(myTable);
+    var maxRows = getMaxRowsValue(myTable); // Más cercano sin límite
+    //var maxRows = getMaxRowsValue(myTable, 3);  // Busca hasta un límite
 
     initializeTable(myTable, maxRows);
   });
 });
 
-// Busca la cantidad de filas por pagina definida en el bloque, sino lo pone por defecto
+// Busca la cantidad de filas por pagina definida en el bloque, o por defecto
 function getMaxRowsValue(table) {
   // Busca el elemento más cercano con la clase y el atributo especificados
   var parentBlock = table.closest('.wp-block-table-members-block-my-block[data-members-maxrows]');
 
-  // Si se encuentra el elemento, obtén el valor del atributo, de lo contrario, usa un valor predeterminado de 5
   if (parentBlock.length > 0)
     maxRows = parseInt(parentBlock.attr('data-members-maxrows'), 10);
   else
     maxRows = 5;  // Por defecto
 
   return maxRows;
+}
+// Busca la cantidad de filas del bloque, hasta un nº de jerarquía máximo, o por defecto
+function getMaxRowsValue(table, maxParents) {
+  var currentElement = table;
+
+  // Busca el elemento hasta un limite
+  for (var i = 0; i < maxParents; i++) {
+    currentElement = currentElement.parent();
+
+    if (currentElement.hasClass('wp-block-table-members-block-my-block') && currentElement.attr('data-members-maxrows')) {
+      return parseInt(currentElement.attr('data-members-maxrows'), 10);
+    }
+  }
+
+  return 5; // Por defecto
 }
 
 
@@ -38,10 +53,8 @@ function initializeTable(myTable, rowsPerPage) {
 
   // Manejador de eventos para cambiar de página
   pagination.on('click', '.page_a', function(e) {
-    console.log(actualPage);
     e.preventDefault();
     actualPage = $(this).data('page_a');
-    console.log("actualPage "+actualPage);
 
     // Genera los enlaces numéricos
     generateNumericLinks(myTable, pagination, totalPages, actualPage, rowsPerPage);
