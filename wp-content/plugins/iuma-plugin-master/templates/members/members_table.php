@@ -96,10 +96,9 @@
             echo "<tr>";
             foreach ($member as $key => $value)
             {
-              if (is_numeric($value) || preg_match('/\d{4,}/', $value))
-                $align = 'class="table-members-align-right"';
-              else
-                $align = '';
+              // Add align digit class
+              $align = ($key === 'Teléfono' || is_numeric($value)) ?
+                'class="table-members-align-right"' : '';
 
               echo "<td $align> $value </td>";
             }
