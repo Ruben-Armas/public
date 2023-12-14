@@ -201,7 +201,7 @@ class ES_Service_Email_Sending extends ES_Services {
 			return $response;
 		}
 
-		$email = get_option( 'admin_email' );
+		$email = ES_Common::get_admin_email();
 		$limit = 3000;
 
 		$from_name = ES()->mailer->get_from_name();
@@ -762,7 +762,7 @@ class ES_Service_Email_Sending extends ES_Services {
 	}
 
 	public static function fetch_and_update_ess_limit() {
-		$admin_email = get_option( 'admin_email' );
+		$admin_email = ES_Common::get_admin_email();
 		$data = array(
 			'admin_email'   => $admin_email,
 		);

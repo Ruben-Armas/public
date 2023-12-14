@@ -184,8 +184,6 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 			$meta['scheduling_option']         = ! empty( $campaign_data['scheduling_option'] ) ? $campaign_data['scheduling_option'] : 'schedule_now';
 			$meta['es_schedule_date']          = ! empty( $campaign_data['es_schedule_date'] ) ? $campaign_data['es_schedule_date'] : '';
 			$meta['es_schedule_time']          = ! empty( $campaign_data['es_schedule_time'] ) ? $campaign_data['es_schedule_time'] : '';
-			$meta['pre_header']                = ! empty( $campaign_data['pre_header'] ) ? $campaign_data['pre_header'] : '';
-			$meta['preheader']                 = ! empty( $campaign_data['preheader'] ) ? $campaign_data['preheader'] : '';
 
 			if ( ! empty( $meta['list_conditions'] ) ) {
 				$meta['list_conditions'] = IG_ES_Campaign_Rules::remove_empty_conditions( $meta['list_conditions'] );

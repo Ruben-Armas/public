@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Author URI: https://www.icegram.com/
 Tags: email marketing, subscription, autoresponder, post notification, welcome email
 Requires at least: 3.9
-Tested up to: 6.3
+Tested up to: 6.4.1
 Requires PHP: 5.6
-Stable tag: 5.7.2
+Stable tag: 5.7.3
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -440,13 +440,21 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.2 =
+= 5.7.3 =
 
-* Fix: Fatal error when creating a new campaign using existing templates in PHP 8.0
-* Fix: Custom field keywords not working in emails
-* Fix: Emails were not in alphabetical order while sending
+* Update: Tested up to WordPress 6.4.1
+* Fix: Campaign content not saving in some cases when using Classic editor
+* Fix: Create New Template link not working on the Dashboard page
+* Fix: Inline text color issue in Drag-n-Drop editor
 
 == Changelog ==
+
+**5.7.3 (29.11.2023)**
+
+* Update: Tested up to WordPress 6.4.1
+* Fix: Campaign content not saving in some cases when using Classic editor
+* Fix: Create New Template link not working on the Dashboard page
+* Fix: Inline text color issue in Drag-n-Drop editor
 
 **5.7.2 (14.11.2023)**
 

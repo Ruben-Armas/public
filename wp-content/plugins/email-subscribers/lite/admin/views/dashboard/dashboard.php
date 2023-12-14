@@ -14,7 +14,7 @@ $new_post_notification_url = admin_url( 'admin.php?page=es_campaigns#!/gallery?c
 $new_sequence_url          = admin_url( 'admin.php?page=es_sequence&action=new' );
 $new_form_url              = admin_url( 'admin.php?page=es_forms&action=new' );
 $new_list_url              = admin_url( 'admin.php?page=es_lists&action=new' );
-$new_template_url          = admin_url( 'admin.php?page=es_gallery&manage-templates=yes' );
+$new_template_url          = admin_url( 'admin.php?page=es_campaigns#!/gallery?manageTemplates=yes' );
 $icegram_pricing_url       = 'https://www.icegram.com/email-subscribers-pricing/';
 $reports_url               = admin_url( 'admin.php?page=es_reports' );
 $templates_url             = admin_url( 'edit.php?post_type=es_template' );
