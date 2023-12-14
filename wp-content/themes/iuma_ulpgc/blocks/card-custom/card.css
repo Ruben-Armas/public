@@ -1,23 +1,12 @@
-/*@import "../../css/scss/utils/_variables.scss";*/
-
 .card_custom {
-    //margin: $layout-xxs $layout-xs $layout-s $layout-m $layout-l $layout-xl $layout-xxl $layout-xxxl $layout-xxxxl;
-    //padding-top: $spacing-xxs $spacing-xs $spacing-s $spacing-m $spacing-l $spacing-xl $spacing-xxl $spacing-xxxl;
-    //padding-bottom: $spacing-xxs $spacing-xs $spacing-s $spacing-m $spacing-l $spacing-xl $spacing-xxl $spacing-xxxl;
-    
-    margin: $layout-xs;
-    padding: $spacing-m 0 $spacing-m 0;
-
-    //margin: 0 0 16px 0;
-    //padding: 16px 0 16px 0;
-    //background: linear-gradient(to right, #eee, white);
+    /*margin: 0 0 16px 0;
+    padding: 16px 0 16px 0;
+    background: linear-gradient(to right, #eee, white);*/
 }
 .card_first {
-    //margin-top: $layout-m;
     margin-top: 32px;
 }
 .card_last {
-    //margin-top: $layout-s;
     margin-bottom: 32px;
 }
 
@@ -45,7 +34,6 @@
 .card_img {
     width: auto;
     height: 200px;
-    //max-width: 80%;
     object-fit: cover;
 }
 .card_info {

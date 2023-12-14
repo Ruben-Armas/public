@@ -68,9 +68,9 @@ function list_category_dynamic() {
   // Registra los estilos backend y frontend del bloque
   wp_register_style(
     'listcategory-style',
-    get_template_directory_uri() . $blockPath . '.scss',
+    get_template_directory_uri() . $blockPath . '.css',
     array(),
-    filemtime( get_template_directory() . $blockPath . '.scss' )
+    filemtime( get_template_directory() . $blockPath . '.css' )
   );
   wp_enqueue_style( 'listcategory-style' );
 
