@@ -80,9 +80,9 @@ require_once get_template_directory() . '/blocks-modified/column_mod.php';
 // Añade las librerias en el editor (para ver las vistas previas estilizadas)
 include_once get_template_directory() . '/functions-elements/style/ulpgc_style_editor.php';
 // IUMA Cards/tarjetas style Legacy
-include_once get_template_directory() . '/functions-elements/style/css/card_legacy_iuma.php';
+include_once get_template_directory() . '/functions-elements/style/css-calls/card_legacy_iuma.php';
 //Single Post/Entrada
-include_once get_template_directory() . '/functions-elements/style/scss/single_news.php';
+include_once get_template_directory() . '/functions-elements/style/css-calls/single_news.php';
 
 
 // Category
