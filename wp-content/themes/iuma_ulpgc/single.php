@@ -55,7 +55,7 @@
           </div>
 
           <!--Navegación Siguiente/Entrada Anterior-->
-          <hr>
+          <hr class="post-navigation-hr">
           <div class="post-navigation">
             <div class="nav-previous normal-text">
               <?php previous_post_link('%link', '<span class="ulpgcds-icon-arrow-left"></span>Entrada anterior'); ?>

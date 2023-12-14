@@ -100,10 +100,12 @@ li.not-first {
 
 
 /* Navigation Post/Entrada */
+.post-navigation-hr {
+    margin: 32px 0 0 0;
+}
 .post-navigation {
     display: flex;
     justify-content: space-between;
-    margin: 20px 0;
 }
 .post-navigation a {
     text-decoration: none;
