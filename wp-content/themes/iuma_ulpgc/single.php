@@ -57,10 +57,10 @@
           <!--Navegación Siguiente/Entrada Anterior-->
           <hr>
           <div class="post-navigation">
-            <div class="nav-previous">
+            <div class="nav-previous normal-text">
               <?php previous_post_link('%link', '<span class="ulpgcds-icon-arrow-left"></span>Entrada anterior'); ?>
             </div>
-            <div class="nav-next">
+            <div class="nav-next normal-text">
               <?php next_post_link('%link', 'Entrada siguiente &nbsp;<span class="ulpgcds-icon-arrow-right"></span>'); ?>
             </div>
           </div>
