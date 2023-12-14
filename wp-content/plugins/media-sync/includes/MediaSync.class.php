@@ -1200,7 +1200,6 @@ if ( !class_exists( 'MediaSync' ) ) :
                     // TODO: Figure out how to count children when using generators (yield)
                     $item['count_children'] = null;
                 } else {
-                    // Encode just file name
                     $item['url'] = get_site_url() . $relative_path;
                     $item['file_id'] = $file_id;
                     $item['file_status'] = $file_status;
@@ -1241,42 +1240,63 @@ if ( !class_exists( 'MediaSync' ) ) :
                 'posts_per_page' => -1
             ));
 
-            $upload_dir = wp_upload_dir();
-            $baseurl_no_protocol = preg_replace("(^https?://)", "", $upload_dir['baseurl']);
-            $upload_dir_path = self::media_sync_get_uploads_basedir();
+            $upload_dir_path = self::media_sync_get_uploads_basedir(false);
             $upload_dir_relative_path = self::media_sync_get_relative_path($upload_dir_path);
 
             $files = array();
             foreach ($media_query->posts as $post) {
 
-                $file_url = '';
-                if(function_exists('wp_get_original_image_url')) {
-                    // First try to find original image URL, to get proper URL without "-scaled" part for bigger images
-                    // https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/
-                    $file_url = wp_get_original_image_url($post->ID);
+                $file_path = get_post_meta($post->ID, '_wp_attached_file', true);
+                if (empty($file_path)) {
+                    continue;
                 }
-
-                // If not image, get attachment URL
-                if(!$file_url || empty($file_url)) {
-                    $file_url = wp_get_attachment_url($post->ID);
-                }
-
-                $file_url_no_protocol = preg_replace("(^https?://)", "", $file_url);
 
                 // e.g. /2012/03/img space.jpg
-                $short_relative_path = str_replace($baseurl_no_protocol, '', $file_url_no_protocol);
+                $short_relative_path = '/' . $file_path;
 
                 // e.g. /wp-content/uploads/2012/03/img%20space.jpg
                 $relative_path = self::media_sync_url_encode($upload_dir_relative_path . $short_relative_path);
 
-                $files[$relative_path] = array(
+                $file = array(
                     'id' => $post->ID,
                     'name' => $post->post_title,
                     'status' => $post->post_status
                 );
+
+                $files[$relative_path] = $file;
+
+                // Path to current file without file name
+                $base_path = self::get_base_path($file_path);
+
+                // For large images - WordPress creates resized versions ("-scaled" at the end of file)
+                // https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/
+                // So we also need to find and treat original file as "file in db"
+                $meta = wp_get_attachment_metadata($post->ID);
+                if (!empty($meta['original_image'])) {
+                    $original_image_path = self::media_sync_url_encode($upload_dir_relative_path . $base_path . $meta['original_image']);
+                    $files[$original_image_path] = $file;
+                }
             }
 
             return $files;
+        }
+
+
+        /**
+         * Take base path from provided file path.
+         *
+         * @param string $file_path
+         * @return string
+         * @since 1.3.3
+         */
+        static private function get_base_path($file_path)
+        {
+            $base_path = pathinfo($file_path, PATHINFO_DIRNAME);
+            if ($base_path === '.') {
+                return '/';
+            } else {
+                return '/' . rtrim($base_path, '/') . '/';
+            }
         }
 
 

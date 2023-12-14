@@ -75,6 +75,9 @@ Please first try to turn on debugging in Settings -> Media Sync and check [Netwo
 
 == Changelog ==
 
+= 1.3.3 =
+* Fix detecting files that already in database when "Scan directory" option is used. Issue started in previous version (1.3.2).
+
 = 1.3.2 =
 * Fix handling file names with even rarer special characters that might have resulted in duplicate imports.
 
