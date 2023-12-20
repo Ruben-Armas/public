@@ -274,10 +274,13 @@ function listcategory_render($attributes, $content) {
       $prev_page = $page > 1 ? $page - 1 : 1;
       $next_page = $page < $total_pages ? $page + 1 : $total_pages;
 
+      $startRecord = min(($page - 1) * $maxElementsPerPage + 1, $total_posts);
+      $endRecord = min($page * $maxElementsPerPage, $total_posts);
+
       // Indicador de información
       $indicator = $pagIndicator ? "
         <div class='ulpgcds-pager__results'>
-          Mostrando $counter de $total_posts, en un total de ".ceil($total_posts / $maxElementsPerPage)." páginas.
+          Mostrando del $startRecord al $endRecord de un total de $total_posts registros
         </div>"
         : ''
       ;
