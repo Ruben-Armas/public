@@ -280,7 +280,7 @@ function listcategory_render($attributes, $content) {
       // Indicador de información
       $indicator = $pagIndicator ? "
         <div class='ulpgcds-pager__results'>
-          Mostrando del $startRecord al $endRecord de un total de $total_posts registros
+          Mostrando del <span>$startRecord</span> al <span>$endRecord</span>, de un total de <span>$total_posts</span> registros
         </div>"
         : ''
       ;
