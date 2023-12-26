@@ -1,0 +1,10 @@
+/* FIX - Soluciona el error en los colores del pagination */
+.pagination__link[aria-disabled="false"], .pagination__link:not([aria-disabled]) {
+    color: #565a5c !important;
+}
+.pagination__link:hover {
+    color: #565a5c !important;
+}
+.ulpgcds-pager__item.ulpgcds-pager__item--is-active .pagination__link {
+    color: #ffffff !important;
+}

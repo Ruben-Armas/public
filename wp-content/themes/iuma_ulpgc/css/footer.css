@@ -1,0 +1,89 @@
+/* Footer-top logo */
+.ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
+    background: url(../images/logo/iuma_rev_hmr.svg) no-repeat;
+    background-position: left;
+    background-size: cover;
+    height: 46px;
+    margin-bottom: 40px;
+}
+@media only screen and (max-width: 938px){
+    .ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
+        background: url(../images/logo/iuma_rev_hmr_acron.svg) no-repeat;
+        background-position: left;
+        background-size: cover;
+        width: inherit;
+        /*margin-bottom: 32px;*/
+    }
+}
+@media only screen and (max-width: 719px){
+    .ulpgcds-footer .ulpgcds-footer__top .footer-iumalogo{
+        background: url(../images/logo/iuma_rev_hmr_acron.svg) no-repeat;        
+        background-position: left;
+        background-size: cover;
+        height: 46px;
+        max-width: 500px;
+        margin-bottom: 24px;
+    }
+}
+
+/* Footer Social Logo */
+.ulpgcds-footer .ulpgcds-footer__social ul li a img {
+    width: 24px;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a img.social {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a img.social-hidden {
+    position: absolute;
+    left: 12;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a:hover img.social {
+    opacity: 0;
+}
+.ulpgcds-footer .ulpgcds-footer__social ul li a:hover img.social-hidden {
+    opacity: 1;
+}
+
+/* Footer-medium patrocinadores - imgs & contrast */
+.ulpgcds-footer .ulpgcds-footer__medium ul li a {
+    filter: brightness( 100% ) contrast( 100% ) saturate( 0% ) blur( 0px ) hue-rotate( 0deg );
+}
+.ulpgcds-footer .ulpgcds-footer__medium ul li a:hover {
+    filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.europractice a {
+    background-image: url("../images/partner/europractice.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.mec_gobierno_canarias a {
+    background-image: url("../images/partner/mec.jpg");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.eu_erdf a {
+    background-image: url("../images/partner/logoeu.jpg");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.hipeac a {
+    background-image: url("../images/partner/Hipeac226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.hipeac a {
+    background-image: url("../images/partner/Hipeac226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.nvidia a {
+    background-image: url("../images/partner/nvidia_banner_226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.heterogeneity a {
+    background-image: url("../images/partner/Heterogeneityalliance226x61.png");
+}
+
+.ulpgcds-footer .ulpgcds-footer__medium ul li.red_riscv a {
+    background-image: url("../images/partner/redriscv-1024x215.png");
+}
+/* END Footer-medium */

@@ -81,9 +81,18 @@ require_once get_template_directory() . '/blocks-modified/column_mod.php';
 include_once get_template_directory() . '/functions-elements/style/ulpgc_style_editor.php';
 // IUMA Cards/tarjetas style Legacy
 include_once get_template_directory() . '/functions-elements/style/css-calls/card_legacy_iuma.php';
-//Single Post/Entrada
+// Single Post/Entrada
 include_once get_template_directory() . '/functions-elements/style/css-calls/single_news.php';
-
+// Divisiones
+include_once get_template_directory() . '/functions-elements/style/css-calls/divisions.php';
+// Pagination - Fix colors
+include_once get_template_directory() . '/functions-elements/style/css-calls/pagination.php';
+// Carrusel
+include_once get_template_directory() . '/functions-elements/style/css-calls/carrusel.php';
+// Header
+include_once get_template_directory() . '/functions-elements/style/css-calls/header_style.php';
+// Footer
+include_once get_template_directory() . '/functions-elements/style/css-calls/footer_style.php';
 
 // Category
 // Categoría ULPGC
