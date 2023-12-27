@@ -5,7 +5,6 @@
     
     <div class="entry-new">
       <?php
-      // Start the Loop.
       while ( have_posts() ) :
         the_post();
         ?>
@@ -54,7 +53,7 @@
             </div>
           </div>
 
-          <!--Navegación Siguiente/Entrada Anterior-->
+          <!--Navegación Entrada Siguiente/Anterior-->
           <hr class="post-navigation-hr">
           <div class="post-navigation">
             <div class="nav-previous normal-text">
