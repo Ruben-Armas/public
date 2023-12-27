@@ -402,25 +402,24 @@ class Email_Subscribers_Admin {
 
 			// Add Lists Submenu
 			$hook = add_submenu_page( 'es_dashboard', __( 'Lists', 'email-subscribers' ), '<span id="ig-es-lists">' . __( 'Lists', 'email-subscribers' ) . '</span>', 'edit_posts', 'es_lists', array( $this, 'render_lists' ) );
-			// add_action( "load-$hook", array( 'ES_Lists_Table', 'screen_options' ) );
+			//add_action( "load-$hook", array( 'ES_Lists_Table', 'screen_options' ) );
 		}
 
 		if ( in_array( 'forms', $accessible_sub_menus ) ) {
 			// Add Forms Submenu
 			$hook = add_submenu_page( 'es_dashboard', __( 'Forms', 'email-subscribers' ), __( 'Forms', 'email-subscribers' ), 'edit_posts', 'es_forms', array( $this, 'render_forms' ) );
-			// add_action( "load-$hook", array( 'ES_Forms_Table', 'screen_options' ) );
+			//add_action( "load-$hook", array( 'ES_Forms_Table', 'screen_options' ) );
 		}
 
 		if ( in_array( 'campaigns', $accessible_sub_menus ) ) {
 			// Add Campaigns Submenu
 			$hook = add_submenu_page( 'es_dashboard', __( 'Campaigns', 'email-subscribers' ), __( 'Campaigns', 'email-subscribers' ), 'edit_posts', 'es_campaigns', array( $this, 'render_campaigns' ) );
-			// add_action( "load-$hook", array( 'ES_Campaigns_Table', 'screen_options' ) );
+			add_action( "load-$hook", array( 'ES_Campaigns_Table', 'screen_options' ) );
 
 			// Start-IG-Code.
 			add_submenu_page( 'es_dashboard', __( 'Post Notifications', 'email-subscribers' ), '<span id="ig-es-post-notifications">' . __( 'Post Notifications', 'email-subscribers' ) . '</span>', 'edit_posts', 'es_notifications', array( $this, 'load_campaign_admin_page' ) );
 			// End-IG-Code.
 			add_submenu_page( 'es_dashboard', __( 'Broadcast', 'email-subscribers' ), '<span id="ig-es-broadcast">' . __( 'Broadcast', 'email-subscribers' ) . '</span>', 'edit_posts', 'es_newsletters', array( $this, 'load_campaign_admin_page' ) );
-			add_submenu_page( null, __( 'Template Preview', 'email-subscribers' ), __( 'Template Preview', 'email-subscribers' ), 'edit_posts', 'es_template_preview', array( $this, 'load_preview' ) );
 
 			add_submenu_page( null, __( 'Template', 'email-subscribers' ), '<span id="ig-es-gallery-submenu">' . __( 'Templates', 'email-subscribers' ) . '</span>', 'edit_posts', 'es_template', array( $this, 'load_template' ) );
 		}
@@ -445,14 +444,8 @@ class Email_Subscribers_Admin {
 		}
 
 		if ( in_array( 'settings', $accessible_sub_menus ) ) {
-			add_submenu_page( 'es_dashboard', __( 'Settings', 'email-subscribers' ), __( 'Settings', 'email-subscribers' ), 'manage_options', 'es_settings', array( $this, 'load_settings' ) );
+			 add_submenu_page( 'es_dashboard', __( 'Settings', 'email-subscribers' ), __( 'Settings', 'email-subscribers' ), 'manage_options', 'es_settings', array( $this, 'load_settings' ) );
 		}
-
-		// Start-IG-Code.
-		if ( in_array( 'ig_redirect', $accessible_sub_menus ) ) {
-			add_submenu_page( null, __( 'Go To Icegram', 'email-subscribers' ), '<span id="ig-es-onsite-campaign">' . __( 'Go To Icegram', 'email-subscribers' ) . '</span>', 'edit_posts', 'go_to_icegram', array( $this, 'go_to_icegram' ) );
-		}
-		// End-IG-Code.
 
 		/**
 		 * Add Other Submenu Pages

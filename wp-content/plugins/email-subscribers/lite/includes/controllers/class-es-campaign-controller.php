@@ -58,29 +58,154 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 					wp_send_json( $response );
 				}
 			}
+			
 			$campaign_data     = self::prepare_campaign_data( $campaign_data );
 			$saved_campaign_id = self::save_campaign( $campaign_data );
 			if ( $saved_campaign_id ) {
 				$response['campaign_id'] = $saved_campaign_id;
+				
+				$campaign_type = $campaign_data['type'];
+				if ( self::is_post_campaign( $campaign_type ) && IG_ES_CAMPAIGN_STATUS_ACTIVE == $campaign_data['status']) {
+						
+					$meta = maybe_unserialize($campaign_data['meta']);
+					if ( 'yes' === $meta['send_posts_now']) {
+					
+					  $mailing_queue_id = self::generateReport($saved_campaign_id);
+						if (!empty($mailing_queue_id)) {
+
+						  $mailing_queue = ES_DB_Mailing_Queue::get_mailing_queue_by_id($mailing_queue_id);
+							if (!empty($mailing_queue)) {
+								$mailing_queue_hash = $mailing_queue['hash'];
+								$request_args = array(
+								'action'        => 'ig_es_trigger_mailing_queue_sending',
+								'campaign_hash' => $mailing_queue_hash,
+								);
+								// Send an asynchronous request to trigger sending of campaign emails.
+								IG_ES_Background_Process_Helper::send_async_ajax_request( $request_args, true );
+							}
+						}
+					}
+				}
 			}
 
 			return $response;
 		}
 
-		public static function activate( $campaign_data ) {
-			$response = array();
-			$meta     = ! empty( $campaign_data['meta'] ) ? $campaign_data['meta'] : array();
-			if ( ! empty( $meta['list_conditions'] ) ) {
-				$meta['list_conditions'] = IG_ES_Campaign_Rules::remove_empty_conditions( $meta['list_conditions'] );
+		public static function generateReport( $campaign_id = 0 ) {
+			$post_ids = array();
+			$meta_data = array();
+			$mailing_queue_id=0;
+			$has_matching_post = false;
+			if ( $campaign_id ) {
+				$campaign  = ES()->campaigns_db->get_campaign_by_id( $campaign_id );
+				$meta=maybe_unserialize($campaign['meta']);
+				//$campaigns = array( $campaign );
 			}
-			if ( empty( $meta['list_conditions'] ) ) {
-				$response['success'] = false;
-				$response['message'] = __( 'Please add recipients before activating.', 'email-subscribers' );
-				return $response;
+			
+				$campaign_body          = $campaign['body'];
+				$ignore_stored_post_ids = true; // Set it to true so that we don't get same post ids which were set in the last run.
+			if ( ES_Common::contains_posts_block( $campaign_body ) ) {
+				$post_ids = self::get_post_block_matching_post_ids( $campaign_id, $ignore_stored_post_ids );
+				if ( ! empty( $post_ids ) ) {
+					foreach ( $post_ids as $block_index => $block_post_ids ) {
+						if ( ! empty( $block_post_ids ) ) {
+							// Set flag to true if we found matching posts for atleast one block.
+							$has_matching_post = true;
+							break;
+						}
+					}
+				}
+			} else {
+				$post_ids = self::get_matching_post_ids( $campaign_id, $ignore_stored_post_ids );
+				if ( ! empty( $post_ids ) ) {
+					$has_matching_post = true;
+				}
 			}
 
-			$response = self::save( $campaign_data );
-			return $response;
+
+					// Proceed only if we have posts for digest.
+			if ( ! empty( $has_matching_post ) ) {
+				$list_id = $meta['list_conditions'][0][0]['value'];
+						
+				// Do we have active subscribers?
+				$contacts       = ES()->contacts_db->get_active_contacts_by_list_id( $list_id );
+				$total_contacts = count( $contacts );
+				// Create a new mailing queue using this campaign
+				$result = self::add_campaign_to_queue( $campaign, $post_ids );
+
+				if ( ! empty( $result['id'] ) ) {
+
+					$mailing_queue_id = $result['id'];
+
+					if ( ! empty( $mailing_queue_id ) ) {
+						$mailing_queue_hash = $result['hash'];
+						$emails_queued      = ES_DB_Sending_Queue::queue_emails( $mailing_queue_id, $mailing_queue_hash, $campaign_id, $list_id );
+						if ( $emails_queued ) {
+							$meta_data['post_ids'] = $post_ids;
+							$meta_data['last_run'] = strtotime( ig_get_current_date_time() );
+						}
+					}
+				}
+			}
+
+					//$time_frame = ! empty( $rules['time_frame'] ) ? $rules['time_frame'] : '';
+
+					ES()->campaigns_db->update_campaign_meta( $campaign_id, $meta_data );
+
+			return $mailing_queue_id;
+
+
+		}
+
+
+			/**
+		 * Add campaign to queue
+		 *
+		 * @param $campaign
+		 *
+		 * @return int | array
+		 *
+		 * @since 4.2.0
+		 */
+		public static function add_campaign_to_queue( $campaign, $post_ids ) {
+
+			$campaign_id = $campaign['id'];
+			$template_id = $campaign['base_template_id'];
+			$template    = get_post( $template_id );
+			$subject     = $campaign['subject'];
+			$content     = $campaign['body'];
+			$content     = ES_Common::es_process_template_body( $content, $template_id );
+
+			$guid       = ES_Common::generate_guid( 6 );
+			$meta_array = array( 'type' => $campaign['type'] ) ;
+
+			if ( IG_CAMPAIGN_TYPE_POST_NOTIFICATION === $campaign['type']) {
+			   $meta_array['post_id'] = !empty($post_ids[0][0]) ? $post_ids[0][0] : 0;
+			}
+
+			$data = array(
+				'hash'        => $guid,
+				'campaign_id' => $campaign_id,
+				'subject'     => $subject,
+				'body'        => $content,
+				'count'       => 0,
+				'status'      => '',
+				'start_at'    => ! empty( $campaign['start_at'] ) ? $campaign['start_at'] : '',
+				'finish_at'   => '',
+				'created_at'  => ig_get_current_date_time(),
+				'updated_at'  => ig_get_current_date_time(),
+				'meta'        => maybe_serialize( $meta_array ),
+			);
+
+
+
+
+			$queue_id = ES_DB_Mailing_Queue::add_notification( $data );
+
+			return array(
+				'hash' => $guid,
+				'id'   => $queue_id,
+			);
 		}
 
 		public static function save_and_schedule( $campaign_data ) {
@@ -626,7 +751,6 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 		 * @since 4.4.7
 		 */
 		public static function save_and_preview( $campaign_data ) {
-
 			$response = array();
 
 			$result = self::save( $campaign_data );
@@ -673,7 +797,7 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 						$last_name = $contact_details[1];
 					}
 				}
-
+				
 				$campaign_body = $campaign_data['body'];
 				$campaign_body = ES_Common::es_process_template_body( $campaign_body, $template_id, $campaign_id );
 				$campaign_body = ES_Common::replace_keywords_with_fallback( $campaign_body, array(
@@ -682,7 +806,6 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 					'LASTNAME'  => $last_name,
 					'EMAIL'     => $useremail
 				) );
-
 
 				$subscriber_tags = array(
 					'subscriber.first_name' => $first_name,
@@ -744,19 +867,80 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 		}
 
 		public static function replace_post_notification_merge_tags_with_sample_post( $campaign_data ) {
-
 			if ( ! empty( $campaign_data['id'] ) ) {
 
-				$args         = array(
-					'numberposts' => '1',
-					'order'       => 'DESC',
-					'post_status' => 'publish',
-				);
-				$recent_posts = wp_get_recent_posts( $args, OBJECT );
+			$categories_str = $campaign_data['categories'];
+			$categories       = ES_Common::convert_categories_string_to_array( $categories_str, true );
+			
+			$meta=$campaign_data['meta'];
+			$no_of_posts      = ( !empty( $meta['rules']) && !empty( $meta['rules']['no_of_posts'] ) ) ? $meta['rules']['no_of_posts'] : array();
+			$sorting_orders      = ( !empty( $meta['rules']) && !empty( $meta['rules']['sorting_orders'] ) ) ? $meta['rules']['sorting_orders'] : array();
+
+				$categories_data = $categories;
+				$campaign_post_ids = array();
+				foreach ($categories_data as $index => $category ) {
+					$include_all_post = false;
+					$include_no_post  = false;
+					$cpt_categories = explode( '|', $category );
+					foreach ( $cpt_categories as $cpt_category ) {
+						if ( false !== strpos( $cpt_category, ':' ) ) {
+							list( $post_type, $post_type_categories ) = explode( ':', $cpt_category );
+							if ( 'post' === $post_type ) {
+								if ( 'all' === $post_type_categories ) {
+									$include_all_post = true;
+								} elseif ( 'none' === $post_type_categories ) {
+									$include_no_post = true;
+								} else {
+									$categories = array_map( 'absint', explode( ',', $post_type_categories ) );
+								}
+							} else {
+								$custom_post_type[] = $post_type;
+							}
+						}
+					}
+					//$post_ids = array();
+					$recent_posts = array();
+					$post_count = ! empty( $no_of_posts[$index] ) ? $no_of_posts[$index] : 5;
+					$meta_key = 'ig_es_post_notified_' . $campaign_data['id'];
+					if ( ( ! empty( $categories ) || $include_all_post ) && ! $include_no_post ) {
+						$post_args =  array(
+							'post_type'      => 'post',
+							'posts_per_page' => $post_count,
+							'orderby'        => 'date',
+							'order'          => 'DESC',
+							'cat'            => ( ! $include_all_post ) ? implode( ',', $categories ) : '',
+							'meta_query'     => array(
+								array(
+								 'key'     => $meta_key,
+								 'compare' => 'NOT EXISTS', 
+								),
+							),
+						);
+						$recent_posts = get_posts( $post_args );
+					}
+				
+					if ( ! empty( $custom_post_type ) ) {
+						$custom_post_args = array(
+							'post_type'      => $custom_post_type,
+							'posts_per_page' => $post_count,
+							'orderby'        => 'date',
+							'order'          => 'DESC',
+							'meta_query'     => array(
+								array(
+								 'key'     => $meta_key,
+								 'compare' => 'NOT EXISTS' 
+								),
+							),
+						);
+						
+						$recent_posts = get_posts( $custom_post_args );
+					}
+					
+				}
+
 
 				if ( count( $recent_posts ) > 0 ) {
 					$post = array_shift( $recent_posts );
-
 					$post_id          = $post->ID;
 					$template_id      = $campaign_data['id'];
 					$campaign_body    = ! empty( $campaign_data['body'] ) ? $campaign_data['body'] : '';
@@ -800,6 +984,239 @@ if ( ! class_exists( 'ES_Campaign_Controller' ) ) {
 		public static function is_post_campaign( $campaign_type ) {
 			return in_array( $campaign_type, array( IG_CAMPAIGN_TYPE_POST_NOTIFICATION, IG_CAMPAIGN_TYPE_POST_DIGEST ), true );
 		}
+
+
+		public static function get_post_block_matching_post_ids( $campaign_id, $ignore_stored_post_ids = false, $ignore_last_run = false ) {
+			
+			//get recent no of posts
+			$meta = ES()->campaigns_db->get_campaign_meta_by_id( $campaign_id );
+			// Check if we have post ids stored in the campaign.
+			if ( ! $ignore_stored_post_ids && ! empty( $meta['post_ids'] ) && is_array( $meta['post_ids'] ) ) {
+				// If post ids are set in the campaign, then we don't need to fetch them again as they are already set in the last run of the report.
+				return $meta['post_ids'];
+			}
+
+			$no_of_posts      = ( !empty( $meta['rules']) && !empty( $meta['rules']['no_of_posts'] ) ) ? $meta['rules']['no_of_posts'] : array();
+			$sorting_orders      = ( !empty( $meta['rules']) && !empty( $meta['rules']['sorting_orders'] ) ) ? $meta['rules']['sorting_orders'] : array();
+			$categories_str   = ES()->campaigns_db->get_campaign_categories_str_by_id( $campaign_id );
+			$categories       = ES_Common::convert_categories_string_to_array( $categories_str, true );
+			$custom_post_type = array();
+			//decide period to fetch post ids
+			$last_run = !empty($meta['last_run']) ? $meta['last_run'] : '';
+
+			$categories_data = $categories;
+			$campaign_post_ids = array();
+			foreach ($categories_data as $index => $category ) {
+				$include_all_post = false;
+				$include_no_post  = false;
+				$cpt_categories = explode( '|', $category );
+				foreach ( $cpt_categories as $cpt_category ) {
+					if ( false !== strpos( $cpt_category, ':' ) ) {
+						list( $post_type, $post_type_categories ) = explode( ':', $cpt_category );
+						if ( 'post' === $post_type ) {
+							if ( 'all' === $post_type_categories ) {
+								$include_all_post = true;
+							} elseif ( 'none' === $post_type_categories ) {
+								$include_no_post = true;
+							} else {
+								$categories = array_map( 'absint', explode( ',', $post_type_categories ) );
+							}
+						} else {
+							$custom_post_type[] = $post_type;
+						}
+					}
+				}
+				$post_ids = array();
+				$post_count = ! empty( $no_of_posts[$index] ) ? $no_of_posts[$index] : 5;
+				$meta_key = 'ig_es_post_notified_' . $campaign_id;
+				if ( ( ! empty( $categories ) || $include_all_post ) && ! $include_no_post ) {
+					$post_args =  array(
+						'post_type'      => 'post',
+						'posts_per_page' => $post_count,
+						'orderby'        => 'date',
+						'order'          => 'DESC',
+						'cat'            => ( ! $include_all_post ) ? implode( ',', $categories ) : '',
+						'meta_query'     => array(
+							array(
+							 'key'     => $meta_key,
+							 'compare' => 'NOT EXISTS', // Fetch the post which weren't included in previous notifications
+							),
+						),
+					);
+					
+					if ( ! empty( $last_run ) && ! $ignore_last_run ) {
+						$post_args['date_query'] = array(
+							'column'  => 'post_date',
+							'after'   => gmdate( 'Y-m-d H:i:s', $last_run )
+						);
+					}
+					$post_ids = get_posts( $post_args );
+				}
+				$custom_post_ids = array();
+				if ( ! empty( $custom_post_type ) ) {
+					$custom_post_args = array(
+						'post_type'      => $custom_post_type,
+						'posts_per_page' => $post_count,
+						'orderby'        => 'date',
+						'order'          => 'DESC',
+						'meta_query'     => array(
+							array(
+							 'key'     => $meta_key,
+							 'compare' => 'NOT EXISTS' // Fetch the post which weren't included in previous notifications
+							),
+						),
+					);
+					if ( ! empty( $last_run ) && ! $ignore_last_run ) {
+						$custom_post_args['date_query'] = array(
+							'column'  => 'post_date',
+							'after'   => gmdate( 'Y-m-d H:i:s', $last_run )
+						);
+					}
+					$custom_post_ids = get_posts( $custom_post_args );
+				}
+				$posts = array_merge( $post_ids, $custom_post_ids );
+				$sorting_order = ! empty( $sorting_orders[$index] ) ? $sorting_orders[$index] : 'descending';
+				if ( 'descending' === $sorting_order ) {
+					usort( $posts, array( 'ES_Campaign_Controller', 'sort_by_date_descending' ) );
+				} else {
+					usort( $posts, array( 'ES_Campaign_Controller', 'sort_by_date_ascending' ) );
+				}
+				$posts    =  array_slice( $posts, 0, $post_count, true );
+				$post_ids = array_map( array( 'ES_Campaign_Controller', 'get_post_ids' ), $posts );  
+				$campaign_post_ids[] = $post_ids;
+			}
+
+			
+					
+			// Allow third party developers to modify posts to be sent for this post digest campaign.
+			$campaign_post_ids = apply_filters( 'ig_es_campaign_post_ids_for_post_digest', $campaign_post_ids, $campaign_id );
+			return $campaign_post_ids; 
+		}
+
+		public static function get_matching_post_ids( $campaign_id, $ignore_stored_post_ids = false, $ignore_last_run = false ) {
+			$include_all_post = false;
+			$include_no_post  = false;
+			//get recent no of posts
+			$meta = ES()->campaigns_db->get_campaign_meta_by_id( $campaign_id );
+			// Check if we have post ids stored in the campaign.
+			if ( ! $ignore_stored_post_ids && ! empty( $meta['post_ids'] ) && is_array( $meta['post_ids'] ) ) {
+				// If post ids are set in the campaign, then we don't need to fetch them again as they are already set in the last run of the report.
+				return $meta['post_ids'];
+			}
+
+			$no_of_posts      = ( !empty( $meta['rules']) && !empty( $meta['rules']['no_of_posts'] ) ) ? $meta['rules']['no_of_posts'] : 5;
+			$categories_str   = ES()->campaigns_db->get_campaign_categories_str_by_id( $campaign_id );
+			$categories       = ES_Common::convert_categories_string_to_array( $categories_str, true );
+			$custom_post_type = array();
+			//decide period to fetch post ids
+			$last_run = !empty($meta['last_run']) ? $meta['last_run'] : '';
+
+			if ( self::is_using_new_category_format( $campaign_id ) ) {
+				$categories_data = $categories;
+				foreach ($categories_data as $key => $category ) {
+					$cpt_categories = explode( '|', $category );
+					foreach ( $cpt_categories as $cpt_category ) {
+						if ( false !== strpos( $cpt_category, ':' ) ) {
+							list( $post_type, $post_type_categories ) = explode( ':', $cpt_category );
+							if ( 'post' === $post_type ) {
+								if ( 'all' === $post_type_categories ) {
+									$include_all_post = true;
+								} elseif ( 'none' === $post_type_categories ) {
+									$include_no_post = true;
+								} else {
+									$categories = array_map( 'absint', explode( ',', $post_type_categories ) );
+								}
+							} else {
+								$custom_post_type[] = $post_type;
+							}
+						}
+					}
+				}
+			} else {
+				foreach ($categories as $key => $category) {
+					if ( false !== strpos( $category, '{T}' ) ) {
+						$custom_post_type[] = str_replace('{T}', '', $category);
+						if ( isset( $categories ) && isset( $categories[ $key ] ) ) {
+							unset( $categories[ $key ] );
+						}
+					}
+					if ( 0 === $key ) {
+						if ( 'All' == $category) {
+							$include_all_post = true;
+							unset( $categories );
+						} elseif ( 'None' === $category ) {
+							$include_no_post = true;
+							unset( $categories );
+						}
+					}
+				}
+			}
+
+			$post_ids = array();
+			$meta_key = 'ig_es_post_notified_' . $campaign_id;
+			if ( ( ! empty( $categories ) || $include_all_post ) && ! $include_no_post ) {
+				$post_args =  array(
+					'post_type'      => 'post',
+					'posts_per_page' => $no_of_posts,
+					'orderby'        => 'date',
+					'order'          => 'DESC',
+					'cat'            => ( ! $include_all_post ) ? implode( ',', $categories ) : '',
+					'meta_query'     => array(
+						array(
+						 'key'     => $meta_key,
+						 'compare' => 'NOT EXISTS', // Fetch the post which weren't included in previous notifications
+						),
+					),
+				);
+				
+				if ( ! empty( $last_run ) && ! $ignore_last_run ) {
+					$post_args['date_query'] = array(
+						'column'  => 'post_date',
+						'after'   => gmdate( 'Y-m-d H:i:s', $last_run )
+					);
+				}
+				$post_ids = get_posts( $post_args );
+			}
+			$custom_post_ids = array();
+			if ( ! empty( $custom_post_type ) ) {
+				$custom_post_args = array(
+					'post_type'      => $custom_post_type,
+					'posts_per_page' => $no_of_posts,
+					'orderby'        => 'date',
+					'order'          => 'DESC',
+					'meta_query'     => array(
+						array(
+						 'key'     => $meta_key,
+						 'compare' => 'NOT EXISTS' // Fetch the post which weren't included in previous notifications
+						),
+					),
+				);
+				$custom_post_ids  = get_posts( $custom_post_args );
+			}
+			$posts = array_merge( $post_ids, $custom_post_ids );
+			usort( $posts, array( 'ES_Campaign_Controller', 'sort_by_date_descending' ) );
+			$posts    =  array_slice( $posts, 0, $no_of_posts, true );
+			$post_ids = array_map( array( 'ES_Campaign_Controller', 'get_post_ids' ), $posts );  
+			
+					
+			// Allow third party developers to modify posts to be sent for this post digest campaign.
+			$post_ids = apply_filters( 'ig_es_post_ids_for_post_digest', $post_ids, $campaign_id );
+			return $post_ids; 
+		}
+
+		public static function sort_by_date_descending( $a, $b) {
+			return strtotime($b->post_date) - strtotime($a->post_date);
+		}
+
+		public static function sort_by_date_ascending( $a, $b) {
+			return strtotime($a->post_date) - strtotime($b->post_date);
+		}
+
+		public static function get_post_ids( $post ) {
+			return $post->ID;
+		}
+
+
 	}
 
 }

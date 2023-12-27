@@ -69,7 +69,6 @@ class Export_Subscribers {
 		}	
 		add_filter( 'query_vars', array( $this, 'query_vars' ) );
 		add_action( 'parse_request', array( $this, 'parse_request' ) );
-		add_action( 'admin_menu', array( $this, 'plugin_menu' ) );
 	}
 
 	private function show_error_message( $message) {
@@ -92,11 +91,6 @@ class Export_Subscribers {
 	
 		echo wp_kses_post($csv_content);
 		exit();
-	}
-
-	
-	public function plugin_menu() {
-		add_submenu_page( null, 'Export Contacts', __( 'Export Contacts', 'email-subscribers' ), 'edit_posts', 'es_export_subscribers', array( $this, 'export_subscribers_page' ) );
 	}
 
 	public function prepare_header_footer_row() {

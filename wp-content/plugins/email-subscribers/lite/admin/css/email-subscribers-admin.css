@@ -2977,3 +2977,7 @@ top: 50%;}
     width: auto;
     display: inline-block;
 }
+
+body.icegram-express_page_es_campaigns #wpcontent {
+    padding-left: 0;
+}

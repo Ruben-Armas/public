@@ -1063,6 +1063,18 @@ class ES_Common {
 		return $categories_str;
 	}
 
+	public static function onboarding_convert_category_value_to_string( $category_value = array() ) {
+		$category_str = '';
+	
+		if (!empty($category_value) && is_array($category_value)) {
+			$category_str = '##post:' . $category_value[0] . '##';
+			$category_str = wp_specialchars_decode( $category_str, ENT_QUOTES );
+		}
+	
+		return $category_str;
+	}
+
+
 	/**
 	 * Convert categories string to array
 	 *
@@ -3014,19 +3026,20 @@ class ES_Common {
 		}
 		return $content;
 	}
-
+	
 	public static function replace_single_posts_block( $content, $single_block_post_ids ) {
 		$posts_block_inner_content = self::get_in_between_content( $content, '{{campaign.posts}}', '{{/campaign.posts}}' );
 		$find                      = '{{campaign.posts}}' . $posts_block_inner_content . '{{/campaign.posts}}';
-		$replace                   = '';
+		$replace                   = '';	
 		if ( ! empty( $single_block_post_ids ) ) {
 			foreach ( $single_block_post_ids as $post_id ) {
 				$replace .= ES_Handle_Post_Notification::prepare_body( $posts_block_inner_content, $post_id, 0 );
 			}
 		}
-		$content = str_replace( $find, $replace, $content );
+		// Replace only the first occurrence
+		$content = preg_replace( '/' . preg_quote( $find, '/' ) . '/', $replace, $content, 1 );
 		return $content;
-	}
+	}	
 
 	public static function contains_posts_block( $content ) {
 		return strpos( $content, '{{campaign.posts}}' ) !== false;

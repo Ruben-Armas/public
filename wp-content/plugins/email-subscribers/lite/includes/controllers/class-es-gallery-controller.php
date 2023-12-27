@@ -109,8 +109,10 @@ if ( ! class_exists( 'ES_Gallery_Controller' ) ) {
 			$remote_gallery_items_updated = get_transient( 'ig_es_remote_gallery_items_updated' );
 			if ( ! $remote_gallery_items_updated ) {
 				$remote_gallery_items_url = 'https://icegram.com/gallery/wp-json/wp/v2/es_gallery_item?filter[posts_per_page]=200';
-
-				$response = wp_remote_get( $remote_gallery_items_url );
+				$request_args = array(
+					'timeout' => 15
+				);
+				$response = wp_remote_get( $remote_gallery_items_url, $request_args );
 				if ( ! is_wp_error( $response ) ) {
 					$json_response = wp_remote_retrieve_body( $response );
 					if ( ! empty( $json_response ) && ES_Common::is_valid_json( $json_response ) ) {
@@ -137,8 +139,11 @@ if ( ! class_exists( 'ES_Gallery_Controller' ) ) {
 				return $gallery_item;
 			}
 
+			$request_args = array(
+				'timeout' => 15
+			);
 			$remote_gallery_item_url = 'https://icegram.com/gallery/wp-json/wp/v2/es_gallery_item/' . $item_id;
-			$response                = wp_remote_get( $remote_gallery_item_url );
+			$response                = wp_remote_get( $remote_gallery_item_url, $request_args );
 			
 			if ( ! is_wp_error( $response ) ) {
 				if ( 200 === wp_remote_retrieve_response_code( $response ) ) {

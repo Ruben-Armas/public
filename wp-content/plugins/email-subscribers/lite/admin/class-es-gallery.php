@@ -103,11 +103,23 @@ if ( ! class_exists( 'ES_Gallery' ) ) {
 					
 					$main_js_data['recipient_rules'] = $recipient_rules;
 					$campaigns_default_data = array();
+					
 					foreach ( $campaign_types as $campaign_type => $campaign_name ) {
+
 						$campaign_default_data = ES_Common::get_campaign_default_data( $campaign_type );
 						$campaigns_default_data[ $campaign_type ] = $campaign_default_data;
+
 					}
+
 					$main_js_data['campaigns_default_data'] = $campaigns_default_data;
+
+					$from_email = ES_Common::get_ig_option( 'from_email' );
+					$from_name = ES_Common::get_ig_option( 'from_name' );
+
+					$main_js_data['sender_details']['from_email'] = $from_email;
+					$main_js_data['sender_details']['reply_to_email'] = $from_email;
+					$main_js_data['sender_details']['from_name'] = $from_name;
+					$main_js_data['sender_details']['reply_to_name'] = $from_name;
 				}
 
 				if ( ! wp_script_is( 'wp-i18n' ) ) {

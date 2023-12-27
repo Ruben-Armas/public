@@ -83,6 +83,14 @@ if ( ! class_exists( 'IG_Plugin_Usage_Tracker_V_1_0_0' ) ) {
 		 */
 		public $allowed_by_default;
 
+		
+		/**
+		 * Text domain.
+		 *
+		 * @var string
+		 */
+		public $text_domain;
+
 		/**
 		 * Primary class constructor.
 		 *

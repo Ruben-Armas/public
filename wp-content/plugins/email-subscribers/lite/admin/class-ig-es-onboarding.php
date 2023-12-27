@@ -1098,9 +1098,7 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 					),
 				),
 			);
-
-			$categories_str = ES_Common::convert_categories_array_to_string( $categories );
-
+			$categories_str = ES_Common::onboarding_convert_category_value_to_string( $categories );
 			$data['slug']             = sanitize_title( $title );
 			$data['name']             = $title;
 			$data['subject']          = $title;
@@ -1114,9 +1112,10 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 			$data['list_ids']         = $list_id;
 			$data['status']           = 0;
 			$data['meta']             = maybe_serialize( $meta );
-
 			$post_notification_id = ES()->campaigns_db->save_campaign( $data );
+		
 			if ( $post_notification_id ) {
+				ES_Campaign_Controller::add_to_new_category_format_campaign_ids($post_notification_id);
 				$response['status']     = 'success';
 				$response['tasks_data'] = array(
 					'post_notification_id' => $post_notification_id,
