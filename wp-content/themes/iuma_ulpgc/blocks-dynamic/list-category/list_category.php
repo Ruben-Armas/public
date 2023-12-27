@@ -124,7 +124,7 @@ function getFormattedDate_List($date) {
     $day = date_i18n('d', strtotime($date));  // 'j' representa el día sin ceros iniciales
     $moth = ucfirst(date_i18n('F', strtotime($date))); // 'F' representa el nombre completo del mes
     $year = date_i18n('Y', strtotime($date)); // 'Y' representa el año con 4 dígitos
-    $tmpFormattedDate = $day . ' de ' . $moth . ' de ' . $year;
+    $tmpFormattedDate = $day . ' <span>de ' . $moth . ' de</span> ' . $year;
 
     //$tmpFormattedDate = date_i18n('j \d\e F \d\e Y', $date);  // De una vez (Mes en minúscula)
     return $tmpFormattedDate;
