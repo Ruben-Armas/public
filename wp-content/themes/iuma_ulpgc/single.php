@@ -22,7 +22,7 @@
 
                     <div class="cabecera">
                       <!-- Muestra la fecha en el formato deseado -->
-                      <div class="fecha"><?php echo get_the_date('j ') . strtoupper(get_the_date('M ') . get_the_date('Y')); ?></div>
+                      <div class="fecha"><?php echo get_the_date('j ') .'<span>'. strtoupper(get_the_date('M ') .'</span>'. get_the_date('Y')); ?></div>
                       <!-- Muestra las categorías de la entrada (solo si hay) -->
                       <?php
                       if (!empty(get_the_category())) {
