@@ -60,7 +60,12 @@ add_action( 'init', 'carrusel_category_dynamic' );
 
 function getFormattedDate($date) {
   if ($date) {
-    $tmpFormattedDate = date_i18n('d M Y', strtotime($date));
+    //$tmpFormattedDate = date_i18n('d M Y', strtotime($date));
+    $day = date_i18n('d', strtotime($date));  // 'j' representa el día sin ceros iniciales
+    $moth = date_i18n('M ', strtotime($date)); // 'F' representa el nombre completo del mes
+    $year = date_i18n('Y', strtotime($date)); // 'Y' representa el año con 4 dígitos
+    $tmpFormattedDate = $day . ' <span>' . $moth . ' </span> ' . $year;
+    
     return $tmpFormattedDate;
   } else {
     return '';
