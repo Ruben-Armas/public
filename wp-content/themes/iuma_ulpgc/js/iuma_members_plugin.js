@@ -84,7 +84,7 @@ function generateNumericLinks(myTable, pagination, totalRecords, totalPages, act
   pagination.empty();
   var paginationContent = "";
 
-  console.log("t "+totalRecords+" - a "+rowsPerPage);
+  //console.log("t "+totalRecords+" - a "+rowsPerPage);
   // Pagination Info
   paginationContent +='<div class="ulpgcds-pager__results">'+showPaginationInfo(myTable, actualPage, totalRecords, rowsPerPage)+'</div>';  
 
