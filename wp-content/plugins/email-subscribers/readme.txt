@@ -6,7 +6,7 @@ Tags: email marketing, subscription, autoresponder, post notification, welcome e
 Requires at least: 3.9
 Tested up to: 6.4.2
 Requires PHP: 5.6
-Stable tag: 5.7.4
+Stable tag: 5.7.5
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -440,15 +440,19 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.4 =
+= 5.7.5 =
 
-* New: Added "Send Now" option for Post notification/Post digest campaigns [MAX]
-* Update: Tested up to WordPress 6.4.2
-* Update: Enhancements in campaign UI
-* Fix: Extra image tags getting added in the Campaign Classic editor
-* Fix: Incorrect post shown in post notification campaign preview
+* New: Added "Save as Template" option in campaigns
+* Fix: Email content not preserved when switching from Drag-n-Drop editor to Classic editor
+* Improvements: Disallow change in recipients after campaign has started sending
 
 == Changelog ==
+
+**5.7.5 (28.12.2023)**
+
+* New: Added "Save as Template" option in campaigns
+* Fix: Email content not preserved when switching from Drag-n-Drop editor to Classic editor
+* Improvements: Disallow change in recipients after campaign has started sending
 
 **5.7.4 (19.12.2023)**
 
