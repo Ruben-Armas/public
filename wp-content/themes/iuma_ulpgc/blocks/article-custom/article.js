@@ -1,11 +1,22 @@
 // Funciones comunes al edit y save
 function getFormattedDate(date){
   if (date) {
-    const tmpFormattedDate = new Date(date).toLocaleDateString('es-ES', {
+    /*const tmpFormattedDate = new Date(date).toLocaleDateString('es-ES', {
       day: '2-digit',
       month: 'short',
       year: 'numeric'
-    });
+    });*/
+    const tmpDate = new Date(date);
+    const day = tmpDate.toLocaleDateString('es-ES', { day: '2-digit' });
+    const month = tmpDate.toLocaleDateString('es-ES', { month: 'short' });
+    const year = tmpDate.toLocaleDateString('es-ES', { year: 'numeric' });
+    
+    const tmpFormattedDate = [
+      day+' ',
+      wp.element.createElement('span', null, month),
+      ' '+year
+    ];
+    
     return tmpFormattedDate;
   } else {
     return '';
