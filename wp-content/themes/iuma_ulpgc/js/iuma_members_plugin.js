@@ -146,5 +146,5 @@ function showPaginationInfo(myTable, actualPage, totalRecords, rowsPerPage){
   var totalRecords = myTable.find('tbody tr').length;
   var startRecord = Math.min((actualPage - 1) * rowsPerPage + 1, totalRecords);
   var endRecord = Math.min(actualPage * rowsPerPage, totalRecords);
-  return 'Mostrando del '+startRecord+' al '+endRecord+' de un total de '+totalRecords+' registros';
+  return 'Mostrando del <span>'+startRecord+'</span> al <span>'+endRecord+'</span>, de un total de <span>'+totalRecords+'</span> registros';
 }
