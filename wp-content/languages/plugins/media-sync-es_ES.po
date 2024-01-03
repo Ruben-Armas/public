@@ -2,24 +2,48 @@
 # This file is distributed under the same license as the Plugins - Media Sync - Development (trunk) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-03 14:20:05+0000\n"
+"PO-Revision-Date: 2023-10-11 11:58:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.4\n"
+"X-Generator: GlotPress/4.0.0-alpha.11\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - Media Sync - Development (trunk)\n"
 
-#: includes/MediaSync.class.php:883
+#: includes/MediaSync.class.php:193
+msgid "To reduce additional actions related to file uploads (e.g. generating additional thumbnails)."
+msgstr "Para reducir acciones adicionales relacionadas con la subida de archivos (por ejemplo, generar miniaturas adicionales)."
+
+#: includes/MediaSync.class.php:192
+msgid "If you still get errors, please try disabling other plugins related to files/images."
+msgstr "Si sigues obteniendo errores, prueba a desactivar otros plugins relacionados con archivos/imágenes."
+
+#: includes/MediaSync.class.php:190
+msgid "A lower value might avoid some limits of your server (e.g. max_execution_time). "
+msgstr "Un valor más bajo podría evitar algunos límites de tu servidor (por ejemplo, max_execution_time). "
+
+#: includes/MediaSync.class.php:189
+msgid "The number of files to process per network request."
+msgstr "El número de archivos a procesar por solicitud de red."
+
+#: includes/MediaSync.class.php:185
+msgid "Batch Size:"
+msgstr "Tamaño del lote:"
+
+#: includes/MediaSync.class.php:245
+msgid "Raw import results"
+msgstr "Resultados de importación brutos"
+
+#: includes/MediaSync.class.php:889
 msgid "Error processing filter media_sync_filter_before_update_metadata for file: %s."
 msgstr "Error al procesar el filtro media_sync_filter_before_update_metadata para el archivo: %s."
 
-#: includes/MediaSync.class.php:900
+#: includes/MediaSync.class.php:906
 msgid "Error updating attachment metadata (`wp_postmeta` table) for file: %s."
 msgstr "Error al actualizar los metadatos del adjunto (tabla `wp_postmeta`) para el archivo: %s."
 
-#: includes/MediaSync.class.php:816
+#: includes/MediaSync.class.php:822
 msgid "Error inserting attachment (`wp_posts` table) for file: %s."
 msgstr "Error al insertar el adjunto (tabla `wp_posts`) para el archivo: %s."
 
@@ -35,15 +59,15 @@ msgstr "Error al obtener el tipo mime para el archivo: %s."
 msgid "Invalid mime type for file: %s."
 msgstr "Tipo mime no válido para el archivo: %s."
 
-#: includes/MediaSync.class.php:851
+#: includes/MediaSync.class.php:857
 msgid "Attachment metadata could not be generated from %s."
 msgstr "Los metadatos de los adjuntos no se han podido generar desde %s"
 
-#: includes/MediaSync.class.php:844
+#: includes/MediaSync.class.php:850
 msgid "Error generating attachment metadata (`wp_postmeta` table) for file: %s."
 msgstr "Error al generar los metadatos de los adjuntos (tabla `wp_postmeta`) para el archivo: %s."
 
-#: includes/MediaSync.class.php:826
+#: includes/MediaSync.class.php:832
 msgid "Attach ID not received for inserted attachment (`wp_posts` table) for file: %s."
 msgstr "No se ha recibido el ID de adjunto para el adjunto insertado (tabla `wp_posts`) para el archivo: %s."
 
@@ -111,15 +135,15 @@ msgstr "Ajustes de Media Sync"
 msgid "Date/time to set for newly imported files"
 msgstr "Fecha/hora a establecer en los archivos recién importados"
 
-#: media-sync.php:153
+#: media-sync.php:158
 msgid "Without file"
 msgstr "Sin archivo"
 
-#: media-sync.php:151
+#: media-sync.php:156
 msgid "With file"
 msgstr "Con archivo"
 
-#: media-sync.php:146 media-sync.php:149
+#: media-sync.php:151 media-sync.php:154
 msgid "Filter by missing file"
 msgstr "Filtrar por archivo faltante"
 
