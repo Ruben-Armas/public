@@ -40,13 +40,19 @@
             <span>IUMA - Instituto Universitario de Microelectrónica Aplicada</span>
           </a>
         </div>    
-        <div class="ulpgcds-header__top__links">              
+        <div class="ulpgcds-header__top__links">
           <ul>
-            <!--<li class="hidden-mobile">
-              <a href="https://webmail.iuma.ulpgc.es/" class="ulpgcds-btn ulpgcds-btn--text">
-                <span class="ulpgcds-btn__icon ulpgcds-icon-envelope" aria-hidden="true"></span>Correo IUMA
-              </a>
-            </li>-->
+            <li>
+              <?php
+                if (has_nav_menu('header_top_language')) {
+                  wp_nav_menu(array(
+                    'theme_location' => 'header_top_language',
+                    'container' => '',
+                    'items_wrap' => '<ul class="language_selector">%3$s</ul>',
+                  ));
+                }
+              ?>
+            </li>
             <li class="hidden-mobile">
               <a href="https://www.ulpgc.es/" class="ulpgcds-btn ulpgcds-btn--text">
                 <span class="ulpgcds-btn__icon ulpgcds-icon-ulpgc" aria-hidden="true"></span>ULPGC
@@ -57,7 +63,7 @@
                 <span class="ulpgcds-btn__icon ulpgcds-icon-book" aria-hidden="true"></span>Legal
               </a>
             </li>                    
-            <li>
+            <li class="hidden-mobile">
               <a href="https://webmail.iuma.ulpgc.es/" class="ulpgcds-btn ulpgcds-btn--small ulpgcds-btn--primary">
                 <span class="ulpgcds-btn__icon ulpgcds-icon-envelope" aria-hidden="true"></span>Correo IUMA
               </a>
@@ -67,7 +73,7 @@
                 <span class="ulpgcds-btn__icon ulpgcds-icon-menu" aria-hidden="true"></span>Menú
               </a>
             </li>
-          </ul>	                                                
+          </ul>
         </div>
       </div>
     </div>

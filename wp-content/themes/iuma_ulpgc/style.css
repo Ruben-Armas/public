@@ -6,10 +6,12 @@ Description: Tema que aplica los estilos de la ULPGC
 Version: 1.0
 */
 
-/*ul.menu.container-menu li:not(.first){
-    margin-top: 40px;
-}*/
-
+/* NavBar LeftMenu spacing */
 li.not-first {
     margin-top: 40px !important;
+}
+
+/* Language Selector Top Links HeaderMenu */
+.ulpgcds-header .ulpgcds-header__top__links .language_selector li a {
+    width: inherit;
 }
