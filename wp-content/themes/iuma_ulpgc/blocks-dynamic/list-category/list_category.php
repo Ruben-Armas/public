@@ -148,18 +148,21 @@ function listcategory_render($attributes, $content) {
 
   // Calcula el offset
   $offset = ($page - 1) * $maxElementsPerPage;
+  //var_dump($attributes['selectedCategory']);
 
   // Realiza la consulta para obtener los elementos
   $args = array(
     //'numberposts' => $attributes['maxPosts'],
-    'category'    => $attributes['selectedCategory'],
+    'cat'    => $attributes['selectedCategory'],
     'post_status' => 'publish',
     'post_type' => 'post',  // Cambia 'post' por el tipo de contenido que desees mostrar
     'posts_per_page' => $maxElementsPerPage,
     'offset' => $offset,
   );
+  //var_dump('-----');
 
   $the_query = new WP_Query($args);
+  //$the_query = new WP_Query();
 
   if (!$the_query->have_posts()) {
     return "<div style='background-color:#f0f07f'>Categoría vacía, seleccione otra o haga alguna entrada</div>";
@@ -190,7 +193,7 @@ function listcategory_render($attributes, $content) {
     $recent_post_content = get_the_content();   //Todo el contenido
     $recent_post_permalink = get_post_permalink();
 
-    // Obtén la imagen destacada
+    // Obtiene la imagen destacada
     //$thumbnail = get_the_post_thumbnail();  // Img original lista para mostrar
     $thumbnail_id = get_post_thumbnail_id();  // id
     $recent_post_image_url = wp_get_attachment_image_url($thumbnail_id, 'large');  // url
@@ -210,7 +213,7 @@ function listcategory_render($attributes, $content) {
       break;
     }
 
-    // Aquí muestra cada elemento
+    // Muestra cada elemento
     $output .= "
       <div class='col-12 list_category_item container_row'>
         <article class='ulpgcds-article ulpgcds-article--short row resize_article_row'>
