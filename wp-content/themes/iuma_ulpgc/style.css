@@ -15,3 +15,8 @@ li.not-first {
 .ulpgcds-header .ulpgcds-header__top__links .language_selector li a {
     width: inherit;
 }
+/* List_category - Vertical img center */
+.col-img {
+    display: flex;
+    align-items: center;
+}

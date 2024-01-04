@@ -191,12 +191,10 @@ function listcategory_render($attributes, $content) {
     $recent_post_permalink = get_post_permalink();
 
     // Obtén la imagen destacada
-    $thumbnail_id = get_post_thumbnail_id();
-    // Obtener la URL de la imagen destacada
-    $recent_post_image_url = get_the_post_thumbnail_url( $thumbnail_id/*, 'medium'*/);
-    // Obtener la descripción de la imagen destacada (texto alternativo)
-    $recent_post_image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-    //$recent_post_image_alt = get_post_meta( get_post_thumbnail_id( $thumbnail_id ), '_wp_attachment_recent_post_image_alt', true );
+    //$thumbnail = get_the_post_thumbnail();  // Img original lista para mostrar
+    $thumbnail_id = get_post_thumbnail_id();  // id
+    $recent_post_image_url = wp_get_attachment_image_url($thumbnail_id, 'large');  // url
+    $recent_post_image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);  // alt (texto alternativo)
     
     if ($recent_post_image_url && $recent_post_image_alt == '') $recent_post_image_alt = 'Imagen destacada de ('. $recent_post_title .')';
 
