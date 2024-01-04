@@ -7,7 +7,13 @@ jQuery(document).ready(function($) {
     $form.addClass('ulpgcds-form');
     
     var cell = $(this).find('.gjs-cell')
-      if (cell.length > 0) cell.addClass('ulpgcds-form__item');
+      if (cell.length > 0){
+        cell.addClass('ulpgcds-form__item');
+
+        // Añado la clase modSize a los input
+        var input = cell.find('input');
+        input.css({'min-width': '100px', 'width': '-moz-available'});
+      }
 
 
     // Legal Checkbox - Transformar el campo .es_gdpr si existe
