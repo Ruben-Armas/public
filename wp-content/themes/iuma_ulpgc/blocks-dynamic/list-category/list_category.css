@@ -18,3 +18,10 @@
 /*.list_img {
     margin: 0 auto !important;
 }*/
+
+/* Vertical img center */
+.col-img {
+    display: flex;
+    align-items: center;
+    max-height: 200px;
+}
