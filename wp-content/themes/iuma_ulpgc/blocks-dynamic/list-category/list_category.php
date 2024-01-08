@@ -121,13 +121,18 @@ add_action( 'init', 'list_category_dynamic' );
 
 function getFormattedDate_List($date) {
   if ($date) {
-    $day = date_i18n('d', strtotime($date));  // 'j' representa el día sin ceros iniciales
-    $moth = ucfirst(date_i18n('F', strtotime($date))); // 'F' representa el nombre completo del mes
-    $year = date_i18n('Y', strtotime($date)); // 'Y' representa el año con 4 dígitos
-    $tmpFormattedDate = $day . ' <span>de ' . $moth . ' de</span> ' . $year;
-
-    //$tmpFormattedDate = date_i18n('j \d\e F \d\e Y', $date);  // De una vez (Mes en minúscula)
-    return $tmpFormattedDate;
+    $dateTime = DateTime::createFromFormat('d/m/Y', $date);
+    
+    if ($dateTime) {
+      $day = $dateTime->format('d');  // 'd' día CON / 'j' día SIN ceros iniciales
+      $month = date_i18n('F', $dateTime->getTimestamp()); // 'F' representa el nombre completo del mes
+      $year = $dateTime->format('Y'); // 'Y' representa el año con 4 dígitos
+      $tmpFormattedDate = $day . ' <span>de ' . $month . ' de</span> ' . $year;
+      return $tmpFormattedDate;
+    } else {
+      // Manejo de errores si la conversión falla
+      return '';
+    }
   } else {
     return '';
   }
